@@ -51,16 +51,32 @@ function chrome({ title, description, canonical, body, isPost }) {
   <link rel="stylesheet" href="/styles.css?v=${ASSETS.css}" />
 </head>
 <body class="insights-body">
-  <header class="site-header is-solid">
+  <div class="progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+  <header class="site-header is-solid" id="siteHeader">
     <a href="/" class="brand" aria-label="Lab Delight home">
       <img src="/assets/logo.png" alt="" />
       <span>LAB DELIGHT</span>
     </a>
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
     <nav class="site-nav" aria-label="Main navigation">
+      <a href="/#perspective">Perspective</a>
       <a href="/#how-we-help">How we help</a>
-      <a href="/insights">Insights</a>
+      <a href="/#strategy">Transformation</a>
+      <a href="/insights" aria-current="page">Insights</a>
       <a href="/#contact" class="nav-cta">Start a conversation</a>
     </nav>
+
+    <div class="lang-switch">
+      <button type="button" class="lang-toggle" id="langToggle" aria-haspopup="listbox" aria-expanded="false" aria-label="Choose language / \u9009\u62e9\u8bed\u8a00">
+        <span class="lang-current">English</span>
+        <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <ul class="lang-menu" id="langMenu" role="listbox">
+        <li role="option"><a href="/" hreflang="en" lang="en">English</a></li>
+        <li role="option"><a href="/zh-HK/" hreflang="zh-Hant-HK" lang="zh-Hant-HK">\u7e41\u9ad4\u4e2d\u6587</a></li>
+        <li role="option"><a href="/zh-CN/" hreflang="zh-Hans" lang="zh-Hans">\u7b80\u4f53\u4e2d\u6587</a></li>
+      </ul>
+    </div>
   </header>
   <main class="insights-main">
 ${body}
@@ -69,7 +85,7 @@ ${body}
     <div class="footer-brand"><img src="/assets/logo.png" alt="" /><div><strong>LAB DELIGHT</strong><span>Leverage digital and AI for meaningful progress.</span></div></div>
     <p>© <span id="year"></span> Lab Delight · <a href="/privacy">Privacy</a></p>
   </footer>
-  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+  <script src="/script.js?v=${ASSETS.js}"></script>
 </body>
 </html>`;
 }
@@ -80,7 +96,7 @@ const posts = readdirSync(DIR).filter(f => f.endsWith('.md')).map(f => {
     if (!meta[k]) throw new Error(`${f}: front matter is missing "${k}"`);
   }
   return { ...meta, html: renderMarkdown(body), file: f };
-}).sort((a, b) => b.date.localeCompare(a.date));
+}).sort((a, b) => b.date.localeCompare(a.date) || (b.kicker || '').localeCompare(a.kicker || ''));
 
 // Individual posts
 for (const p of posts) {
@@ -132,9 +148,7 @@ writeFileSync('insights/index.html', chrome({
   description: 'Notes on digital and AI transformation — what actually changes, what usually goes wrong, and what to check before you build.',
   canonical: `${SITE}/insights`,
   body: `    <div class="insights-head">
-      <p class="eyebrow">Insights</p>
-      <h1>What actually changes, and what usually goes wrong.</h1>
-      <p class="insights-intro">Short pieces on digital and AI transformation — drawn from the work rather than the press cycle.</p>
+      <h1 class="insights-label">Insights</h1>
     </div>
     <ul class="insight-list">
 ${list}

@@ -123,12 +123,12 @@ html[lang^="zh"] .hero-title{line-break:strict;overflow-wrap:break-word}
 
 /* ---- Insights ----------------------------------------------------------- */
 .insights-body{background:var(--paper)}
-.site-header.is-solid{position:static;background:var(--white);border-bottom:1px solid var(--line)}
+.site-header.is-solid{position:sticky;background:var(--white);border-bottom:1px solid var(--line)}
+.site-header.is-solid.scrolled{background:var(--white);backdrop-filter:none;border-bottom:1px solid var(--line)}
 .insights-main{max-width:760px;margin:0 auto;padding:clamp(48px,7vw,86px) clamp(22px,5vw,32px) clamp(60px,8vw,100px)}
 
-.insights-head{margin-bottom:54px}
-.insights-head h1{font-size:clamp(34px,5vw,52px);line-height:1.08;letter-spacing:-.02em;margin:0 0 16px}
-.insights-intro{font-size:17px;color:var(--muted);line-height:1.65;margin:0;max-width:56ch}
+.insights-head{margin-bottom:34px}
+.insights-label{font-size:10px;line-height:1.2;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);margin:0}
 
 .insight-list{list-style:none;margin:0;padding:0;display:grid;gap:16px}
 .insight-card a{display:block;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:28px;text-decoration:none;transition:border-color .2s,box-shadow .2s,transform .2s}

@@ -5,9 +5,9 @@ const nav = document.querySelector('.site-nav');
 
 function onScroll(){
   const y = window.scrollY;
-  header.classList.toggle('scrolled', y > 20);
+  header?.classList.toggle('scrolled', y > 20);
   const max = document.documentElement.scrollHeight - window.innerHeight;
-  progress.style.width = `${max > 0 ? (y / max) * 100 : 0}%`;
+  if(progress) progress.style.width = `${max > 0 ? (y / max) * 100 : 0}%`;
 
   const context = document.querySelector('.context-section');
   if(context && window.innerWidth > 780){
@@ -23,11 +23,11 @@ window.addEventListener('scroll', onScroll, {passive:true});
 onScroll();
 
 menu?.addEventListener('click', ()=>{
-  const open = nav.classList.toggle('open');
+  const open = nav?.classList.toggle('open');
   menu.setAttribute('aria-expanded', String(open));
 });
 document.querySelectorAll('.site-nav a').forEach(a=>a.addEventListener('click',()=>{
-  nav.classList.remove('open');
+  nav?.classList.remove('open');
   menu?.setAttribute('aria-expanded','false');
 }));
 
@@ -293,7 +293,7 @@ document.getElementById('interestForm')?.addEventListener('submit',async e=>{
   }
 });
 
-document.getElementById('year').textContent=new Date().getFullYear();
+const yearEl=document.getElementById('year'); if(yearEl) yearEl.textContent=new Date().getFullYear();
 
 // Language switcher. Marks the active locale, remembers the choice, and keeps
 // the current section when moving between languages.

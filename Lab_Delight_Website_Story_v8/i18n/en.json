@@ -1,0 +1,379 @@
+{
+  "top.perspective": "Perspective",
+  "top.how-we-help": "How we help",
+  "top.transformation": "Transformation",
+  "top.start-a-conversation": "Start a conversation",
+  "top.ai-transformation-design-strategy": "DIGITAL & AI TRANSFORMATION • DESIGN STRATEGY",
+  "top.ai-creates-new-possibilities-for": "Digital and AI create new possibilities for every organisation. The harder part is knowing where they can make a meaningful difference and what must change around them for that difference to last.",
+  "top.lab-delight-helps-teams-identify": "Lab Delight helps teams identify worthwhile opportunities, bring the right people into the conversation, and build the evidence needed to move forward with confidence.",
+  "top.explore-where-ai-could-make": "Explore where digital and AI could help",
+  "top.possibility": "Possibility",
+  "top.clarity": "Clarity",
+  "top.progress": "Progress",
+  "perspective.where-are-you-right-now": "WHERE ARE YOU RIGHT NOW?",
+  "perspective.more-tools": "More tools.",
+  "perspective.capabilities-are-becoming-easier-to": "Capabilities are becoming easier to access.",
+  "perspective.more-experiments": "More experiments.",
+  "perspective.it-has-never-been-easier": "It has never been easier to make something that looks promising.",
+  "perspective.more-pressure": "More pressure.",
+  "perspective.leaders-are-expected-to-show": "Leaders are expected to show progress and remain relevant.",
+  "perspective.but-more-ai-does-not": "But more AI does not automatically mean more progress.",
+  "perspective.the-advantage-is-knowing-where": "The advantage is knowing where it can genuinely help.",
+  "understanding.a-useful-place-to-start": "A USEFUL PLACE TO START",
+  "understanding.transformation-starts-with-understanding-not": "Transformation starts with understanding,<br>not technology.",
+  "understanding.before-deciding-what-technology-should": "Before deciding what technology should do, we first understand what needs to improve, who is affected, how the work happens today, and what the technology can realistically contribute.",
+  "understanding.meaningful": "Meaningful",
+  "understanding.change": "change",
+  "understanding.where-the-perspectives-connect": "where the perspectives connect",
+  "understanding.business": "BUSINESS",
+  "understanding.what-are-we-actually-trying": "What are we actually trying to make better?",
+  "understanding.start-with-the-outcome-friction": "Start with the outcome, friction or opportunity that matters to the organisation. AI is useful when it improves something worth improving.",
+  "understanding.select-each-perspective-to-explore": "Select each perspective to explore the opportunity.",
+  "before-build.before-the-build": "BEFORE THE BUILD",
+  "before-build.can-we-build-it": "“Can we build it?”",
+  "before-build.that-is-only-one-question": "That is only one question. The more useful ones often come before it.",
+  "before-build.can-we-build-it-2": "Can we build it?",
+  "before-build.should-we": "Should we?",
+  "before-build.what-problem-matters": "What problem matters?",
+  "before-build.who-is-it-for": "Who is it for?",
+  "before-build.how-should-the-work-change": "How should the work change?",
+  "before-build.what-remains-human": "What remains human?",
+  "before-build.will-people-use-it": "Will people use it?",
+  "before-build.what-would-success-look-like": "What would success look like?",
+  "before-build.technology": "TECHNOLOGY",
+  "before-build.technical-feasibility-matters-but-it": "Technical feasibility matters, but it is not the whole decision.",
+  "before-build.a-solution-can-be-technically": "A solution can be technically possible and still be the wrong investment, the wrong workflow, or the wrong experience for the organisation.",
+  "before-build.technology-is-one-part-of": "Technology is one part of the decision.",
+  "before-build.lab-delight-helps-bring-business": "Lab Delight helps bring business, people, workflow, evidence and technology into the same conversation.",
+  "how-we-help.how-lab-delight-helps": "HOW LAB DELIGHT HELPS",
+  "how-we-help.what-do-you-need-to": "What do you need to move forward?",
+  "how-we-help.you-do-not-need-to": "You do not need to know which service you need. Start with the situation you are working through.",
+  "how-we-help.5-business-days": "5 business days",
+  "how-we-help.ai-clarity-review": "CLARITY REVIEW",
+  "how-we-help.understand-what-is-worth-exploring": "Understand what is worth exploring before investing further.",
+  "how-we-help.we-look-at-the-business": "We look at the business situation, current work, stakeholder perspectives and important assumptions to create a clearer starting point.",
+  "how-we-help.you-leave-with": "YOU LEAVE WITH",
+  "how-we-help.a-clearer-problem-definition": "A clearer problem definition",
+  "how-we-help.important-assumptions-and-risks": "Important assumptions and risks",
+  "how-we-help.initial-opportunity-areas": "Initial opportunity areas",
+  "how-we-help.a-recommendation-on-what-deserves": "A recommendation on what deserves further investigation",
+  "prototype.from-testing-to-implementation": "FROM TESTING TO IMPLEMENTATION",
+  "prototype.a-prototype-helps-you-test": "A prototype helps you test an idea in real situations.",
+  "prototype.what-you-learn-from-the": "What you learn from the prototype helps shape the implementation plan: how the solution fits the workflow, what needs to change, who needs to be involved, and what the organisation must support.",
+  "prototype.idea": "Idea",
+  "prototype.what-might-help": "What might help?",
+  "prototype.prototype": "Prototype",
+  "prototype.make-it-tangible": "Make it tangible.",
+  "prototype.real-world-test": "Real-world test",
+  "prototype.use-it-in-context": "Use it in context.",
+  "prototype.learning": "Learning",
+  "prototype.what-did-we-discover": "What did we discover?",
+  "prototype.implementation-plan": "Implementation plan",
+  "prototype.what-needs-to-happen-next": "What needs to happen next?",
+  "prototype.the-purpose-of-prototyping-is": "The purpose of prototyping is learning.",
+  "prototype.it-gives-the-organisation-better": "It gives the organisation better information before implementation becomes harder to change.",
+  "strategy.transformation-strategy": "TRANSFORMATION STRATEGY",
+  "strategy.connect-the-decision-to-the": "Connect the decision to the way the organisation actually changes.",
+  "strategy.lab-delight-focuses-on-the": "Lab Delight focuses on the strategy of transformation, helping teams understand what should change, why it matters, and how the organisation can move forward with a clearer foundation.",
+  "strategy.direction": "Direction",
+  "strategy.opportunity-outcome-and-priorities": "Opportunity, outcome and priorities",
+  "strategy.workflow": "Workflow",
+  "strategy.how-the-work-needs-to": "How the work needs to change",
+  "strategy.experience": "Experience",
+  "strategy.how-people-and-ai-work": "How people and AI work together",
+  "strategy.implementation": "Implementation",
+  "strategy.plan-requirements-and-handoff": "Plan, requirements and handoff",
+  "strategy.adoption": "Adoption",
+  "strategy.learn-measure-and-improve": "Learn, measure and improve",
+  "strategy.lab-delight-transformation-layer": "LAB DELIGHT TRANSFORMATION LAYER",
+  "strategy.understand-align-design-validate-learn": "Understand → Align → Design → Validate → Learn",
+  "strategy.we-work-alongside-your-internal": "We work alongside your internal technology teams and implementation partners, giving everyone a clearer view of the transformation they are working toward.",
+  "adoption.adoption-in-practice": "ADOPTION IN PRACTICE",
+  "adoption.adoption-requires-more-than-training": "Adoption requires more than training.",
+  "adoption.training-helps-people-understand-a": "Training helps people understand a tool. Lasting adoption also depends on whether the new way of working makes sense in the job, the workflow, the leadership environment, and the everyday decisions people need to make.",
+  "adoption.more-than": "MORE THAN",
+  "adoption.training": "Training",
+  "adoption.understanding": "UNDERSTANDING",
+  "adoption.people-need-to-understand-why": "People need to understand why the new way of working matters.",
+  "adoption.adoption-becomes-easier-when-the": "Adoption becomes easier when the reason for the change is clear and connected to the work people already care about.",
+  "decision-base.a-shared-decision-base": "A SHARED DECISION BASE",
+  "decision-base.good-decisions-need-somewhere-to": "Good decisions need somewhere to live.",
+  "decision-base.important-project-knowledge-quickly-becomes": "Important project knowledge quickly becomes scattered across research, interviews, workshops, prototypes, emails and technical discussions. We bring the important pieces together so the organisation can see what it knows, what it has decided, and what still needs resolving.",
+  "decision-base.decision-base": "DECISION BASE",
+  "decision-base.one-place-for-what-matters": "One place for what matters.",
+  "decision-base.shared-source-of-truth": "SHARED SOURCE OF TRUTH",
+  "decision-base.current-focus": "CURRENT FOCUS",
+  "decision-base.what-did-we-actually-observe": "What did we actually observe?",
+  "contact.start-with-the-problem": "START WITH THE PROBLEM",
+  "contact.where-could-ai-make-a": "Where could digital or AI make a meaningful difference in your organisation?",
+  "contact.you-do-not-need-a": "You do not need a perfectly defined use case. Tell us what you are trying to improve. We can start there.",
+  "contact.what-are-you-trying-to": "What are you trying to improve?",
+  "challenge.continue": "Continue",
+  "challenge.name": "Name<input type=\"text\" name=\"name\" placeholder=\"Your name\" />",
+  "challenge.work-email": "Work email<input type=\"email\" name=\"email\" placeholder=\"you@company.com\" />",
+  "challenge.organisation": "Organisation<input type=\"text\" name=\"organisation\" placeholder=\"Company / organisation\" />",
+  "challenge.start-a-conversation": "Start a conversation",
+  "challenge.your-message-goes-straight-to": "Your message goes straight to our inbox. We read every one.",
+  "challenge.lab-delight": "LAB DELIGHT",
+  "challenge.leverage-ai-for-meaningful-progress": "Leverage digital and AI for meaningful progress.",
+  "__js": {
+    "heroOutcomePhrases": [
+      "real business impact.",
+      "meaningful progress.",
+      "better ways of working.",
+      "decisions backed by evidence."
+    ],
+    "questionData": {
+      "build": {
+        "kicker": "TECHNOLOGY",
+        "main": "“Can we build it?”",
+        "title": "Technical feasibility matters, but it is not the whole decision.",
+        "body": "A solution can be technically possible and still be the wrong investment, the wrong workflow, or the wrong experience for the organisation."
+      },
+      "should": {
+        "kicker": "INVESTMENT",
+        "main": "“Should we?”",
+        "title": "Does this opportunity deserve more investment?",
+        "body": "Before moving further, understand the importance of the problem, the likely value of changing it, the evidence already available, and what would have to be true for the next investment to make sense."
+      },
+      "problem": {
+        "kicker": "BUSINESS",
+        "main": "“What problem matters?”",
+        "title": "Start with something important enough to improve.",
+        "body": "AI becomes meaningful when it addresses a real source of friction, missed opportunity, delay, cost, risk, or experience that the organisation genuinely cares about."
+      },
+      "people": {
+        "kicker": "PEOPLE",
+        "main": "“Who is it for?”",
+        "title": "Understand the people who will use, trust, manage, or experience the change.",
+        "body": "Different roles see different parts of the problem. Bringing those perspectives together early helps reveal needs and constraints that technology alone cannot show."
+      },
+      "workflow": {
+        "kicker": "WORKFLOW",
+        "main": "“How should the work change?”",
+        "title": "AI rarely creates value simply by being added to an existing process.",
+        "body": "The surrounding workflow, handoffs, decisions, responsibilities, and exceptions may also need to change for the technology to become genuinely useful."
+      },
+      "human": {
+        "kicker": "HUMAN ROLE",
+        "main": "“What remains human?”",
+        "title": "Not every part of the work should be handed to AI.",
+        "body": "Judgement, accountability, empathy, creativity, context, and exception handling may remain human responsibilities. The important question is how people and AI should work together."
+      },
+      "adoption": {
+        "kicker": "ADOPTION",
+        "main": "“Will people use it?”",
+        "title": "A technically good solution still needs to fit real work.",
+        "body": "People need to understand when to use it, why it helps, what they are accountable for, and how it fits the way work actually happens."
+      },
+      "success": {
+        "kicker": "EVIDENCE",
+        "main": "“What would success look like?”",
+        "title": "Define the signals that would tell you the change is genuinely helping.",
+        "body": "Success might mean less friction, faster decisions, improved quality, stronger adoption, better experiences, or another meaningful business signal. Evidence gives the organisation a basis for what to do next."
+      }
+    },
+    "lensData": {
+      "business": {
+        "kicker": "BUSINESS",
+        "title": "What are we actually trying to make better?",
+        "body": "Start with the outcome, friction or opportunity that matters to the organisation. AI is useful when it improves something worth improving."
+      },
+      "people": {
+        "kicker": "PEOPLE",
+        "title": "Who will use, trust or be affected by the change?",
+        "body": "A technically possible idea still has to make sense to the people doing the work, making the decisions, serving customers or carrying accountability."
+      },
+      "workflow": {
+        "kicker": "WORKFLOW",
+        "title": "How does the work happen today, and what should change?",
+        "body": "AI often creates more value when the surrounding work, handoffs and decisions are redesigned rather than simply adding another tool to the existing process."
+      },
+      "technology": {
+        "kicker": "TECHNOLOGY",
+        "title": "What can AI realistically contribute?",
+        "body": "We look at capability, data, constraints and failure modes in context. The goal is not to use the most advanced technology. It is to use the right capability for the work."
+      }
+    },
+    "offers": {
+      "clarity": {
+        "number": "01",
+        "duration": "5 business days",
+        "label": "CLARITY REVIEW",
+        "title": "Understand what is worth exploring before investing further.",
+        "body": "We look at the business situation, current work, stakeholder perspectives and important assumptions to create a clearer starting point.",
+        "outputs": [
+          "A clearer problem definition",
+          "Important assumptions and risks",
+          "Initial opportunity areas",
+          "A recommendation on what deserves further investigation"
+        ]
+      },
+      "opportunity": {
+        "number": "02",
+        "duration": "2 weeks",
+        "label": "AI OPPORTUNITY SPRINT",
+        "title": "Turn a field of possibilities into a clearer set of priorities.",
+        "body": "We bring business, users and technology together to understand the current workflow, identify where AI may genuinely help, and prioritise the opportunities worth deeper exploration.",
+        "outputs": [
+          "Prioritised opportunity areas",
+          "Workflow and user insights",
+          "AI use-case concepts",
+          "Value hypotheses and success measures"
+        ]
+      },
+      "blueprint": {
+        "number": "03",
+        "duration": "3 to 4 weeks",
+        "label": "SOLUTION BLUEPRINT",
+        "title": "Make the future way of working tangible enough to understand and test.",
+        "body": "We shape the workflow, human and AI responsibilities, experience and key assumptions before full development makes changing direction more difficult.",
+        "outputs": [
+          "Future workflow",
+          "Human and AI role definition",
+          "Prototype or experience concept",
+          "Validation findings and success criteria"
+        ]
+      },
+      "adoption": {
+        "number": "04",
+        "duration": "4 to 8 weeks initially",
+        "label": "ADOPTION & VALUE LOOP",
+        "title": "Learn what happens when the technology meets the real organisation.",
+        "body": "We help teams understand whether people are adopting the new way of working, where friction remains, what value signals are emerging, and what should change next.",
+        "outputs": [
+          "Adoption insights",
+          "Workflow improvements",
+          "Value and feedback signals",
+          "A prioritised improvement backlog"
+        ]
+      }
+    },
+    "adoptionData": {
+      "understanding": {
+        "kicker": "UNDERSTANDING",
+        "title": "People need to understand why the new way of working matters.",
+        "body": "Adoption becomes easier when the reason for the change is clear and connected to the work people already care about."
+      },
+      "workflow": {
+        "kicker": "USEFUL WORKFLOW",
+        "title": "The new capability has to fit the way work actually happens.",
+        "body": "If using AI creates more steps, unclear handoffs or extra friction, training alone will not make the behaviour stick."
+      },
+      "confidence": {
+        "kicker": "CONFIDENCE",
+        "title": "People need enough confidence to use judgement around the technology.",
+        "body": "Confidence comes from practice, clear boundaries, feedback, and knowing when to trust, verify or escalate."
+      },
+      "leadership": {
+        "kicker": "LEADERSHIP SUPPORT",
+        "title": "Leaders reinforce which behaviours matter.",
+        "body": "People watch what leaders prioritise, reward and ask about. Adoption grows when the change is supported in everyday management."
+      },
+      "feedback": {
+        "kicker": "FEEDBACK",
+        "title": "The organisation needs a way to learn from real use.",
+        "body": "Feedback shows where the workflow, experience, guidance or technology needs to change after deployment."
+      },
+      "capability": {
+        "kicker": "CAPABILITY",
+        "title": "The organisation needs the capability to sustain the change.",
+        "body": "Ownership, governance, skills and operating routines help the new way of working remain useful after the initial launch."
+      }
+    },
+    "baseData": {
+      "evidence": "What did we actually observe?",
+      "insights": "What might the evidence mean?",
+      "decisions": "What have we agreed to do?",
+      "assumptions": "What are we still testing?",
+      "requirements": "What needs to be true?",
+      "questions": "What still needs resolving?"
+    }
+  },
+  "__meta": {
+    "lang": "en",
+    "ogLocale": "en_SG",
+    "langName": "English",
+    "title": "Lab Delight | Digital and AI transformation for meaningful progress",
+    "description": "Lab Delight helps organisations identify where digital and AI can make a meaningful difference, shape the transformation around real work, and build the evidence needed to move forward with confidence.",
+    "ogTitle": "Lab Delight | Digital and AI transformation for meaningful progress",
+    "ogDescription": "Know where digital and AI can make a meaningful difference in your organisation — and what must change around them for that difference to last.",
+    "ogImageAlt": "Lab Delight — Leverage digital and AI for real business impact."
+  },
+  "top.lab-delight": "LAB DELIGHT",
+  "top.english": "English",
+  "top.english-3": "English",
+  "top.leverage-ai-for": "Leverage digital and AI for",
+  "top.real-business-impact": "real business impact.",
+  "perspective.do-you-know-where-it": "Do you know where it really matters?",
+  "understanding.business-2": "Business",
+  "understanding.what-needs-to-improve": "What needs to improve?",
+  "understanding.people": "People",
+  "understanding.who-is-affected": "Who is affected?",
+  "understanding.workflow": "Workflow",
+  "understanding.how-does-the-work-change": "How does the work change?",
+  "understanding.technology": "Technology",
+  "understanding.what-can-ai-contribute": "What can AI contribute?",
+  "how-we-help.we-know-ai-matters-but": "We know this matters, but we do not know where to focus.",
+  "how-we-help.we-can-see-many-possibilities": "We can see many possibilities. Which ones are worth pursuing?",
+  "how-we-help.we-know-the-opportunity-how": "We know the opportunity. How should it actually work?",
+  "how-we-help.it-is-deployed-is-it": "It is deployed. Is it actually helping?",
+  "adoption.understanding-2": "Understanding",
+  "adoption.why-are-we-changing": "Why are we changing?",
+  "adoption.useful-workflow": "Useful workflow",
+  "adoption.does-it-fit-the-work": "Does it fit the work?",
+  "adoption.confidence": "Confidence",
+  "adoption.can-people-use-it-well": "Can people use it well?",
+  "adoption.leadership-support": "Leadership support",
+  "adoption.is-the-change-reinforced": "Is the change reinforced?",
+  "adoption.feedback": "Feedback",
+  "adoption.can-the-system-learn": "Can the system learn?",
+  "adoption.capability": "Capability",
+  "adoption.can-the-organisation-sustain-it": "Can the organisation sustain it?",
+  "decision-base.evidence": "Evidence",
+  "decision-base.what-did-we-actually-observe-2": "What did we actually observe?",
+  "decision-base.insights": "Insights",
+  "decision-base.what-might-the-evidence-mean": "What might the evidence mean?",
+  "decision-base.decisions": "Decisions",
+  "decision-base.what-have-we-agreed-to": "What have we agreed to do?",
+  "decision-base.assumptions": "Assumptions",
+  "decision-base.what-are-we-still-testing": "What are we still testing?",
+  "decision-base.requirements": "Requirements",
+  "decision-base.what-needs-to-be-true": "What needs to be true?",
+  "decision-base.open-questions": "Open questions",
+  "decision-base.what-still-needs-resolving": "What still needs resolving?",
+  "challenge.where-are-you-right-now": "Where are you right now?",
+  "challenge.exploring-where-ai-could-help": "Exploring where digital or AI could help",
+  "challenge.prioritising-use-cases": "Prioritising use cases",
+  "challenge.validating-an-idea": "Validating an idea",
+  "challenge.preparing-for-implementation": "Preparing for implementation",
+  "challenge.improving-adoption-and-value": "Improving adoption and value",
+  "year.privacy": "Privacy",
+  "perspective.everyone-is-moving-fast-on": "Everyone is moving fast on AI.",
+  "how-we-help.talk-about-this-situation": "Talk about this situation",
+  "adoption.adoption-word": "Adoption",
+  "__attrs": {
+    "attr.placeholder.challenge": "A workflow, a customer experience, a decision, a project that needs clearer direction...",
+    "attr.placeholder.name": "Your name",
+    "attr.placeholder.email": "you@company.com",
+    "attr.placeholder.org": "Company / organisation",
+    "attr.aria.home": "Lab Delight home",
+    "attr.aria.opennav": "Open navigation",
+    "attr.aria.mainnav": "Main navigation",
+    "attr.aria.environment": "AI environment",
+    "attr.aria.lenses": "Four perspectives for evaluating an AI opportunity",
+    "attr.aria.questions": "Questions to answer before investing",
+    "attr.aria.situations": "Client situations",
+    "attr.aria.journey": "Idea to implementation planning journey",
+    "attr.aria.strategy": "Transformation strategy stages",
+    "attr.aria.adoption": "Factors that support adoption",
+    "attr.aria.base": "Decision Base contents"
+  },
+  "__msgs": {
+    "msg.thankTitle": "Thank you.",
+    "msg.thankBody": "Your message has reached us. We read every enquiry ourselves and will reply to the email address you gave, usually within a couple of working days.",
+    "msg.sending": "Sending...",
+    "msg.error": "Something went wrong and your message was not sent. Please email us at hello@labdelight.co and we will pick it up from there."
+  },
+  "top.insights": "Insights"
+}

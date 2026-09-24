@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel>
+  <title>Lab Delight Insights</title>
+  <link>https://www.labdelight.co/insights</link>
+  <description>Notes on digital and AI transformation.</description>
+  <language>en</language>
+  <item>
+    <title>When Building Is Free, Discipline Is the Only Cost Left</title>
+    <link>https://www.labdelight.co/insights/when-building-is-free-discipline-is-the-only-cost-left</link>
+    <guid>https://www.labdelight.co/insights/when-building-is-free-discipline-is-the-only-cost-left</guid>
+    <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+    <description>Budget used to force teams to choose. Now that anyone can ship a feature in an afternoon, nothing is stopping you from building the wrong thing — faster.</description>
+  </item>
+  <item>
+    <title>Digital Transformation and AI Transformation Aren't the Same Job</title>
+    <link>https://www.labdelight.co/insights/digital-and-ai-transformation-are-not-the-same-job</link>
+    <guid>https://www.labdelight.co/insights/digital-and-ai-transformation-are-not-the-same-job</guid>
+    <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+    <description>Plan an AI project like a systems rollout and you'll miss the one risk that matters — until the thing is built and quietly wrong.</description>
+  </item>
+</channel></rss>

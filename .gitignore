@@ -1,0 +1,15 @@
+# Local tooling and OS noise
+.DS_Store
+.claude/
+
+# Vercel CLI writes credentials into these
+.vercel
+.env*.local
+
+# Personal and working files that live in this folder but do not belong in the
+# repository: a credit card authorisation form, loose design exports, and a
+# local Langflow checkout.
+form-c-credit-card-authorisation-form.pdf
+/*.png
+Visual AL Flow/
+langflow-local/

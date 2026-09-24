@@ -1,0 +1,379 @@
+{
+  "top.perspective": "觀點",
+  "top.how-we-help": "服務方式",
+  "top.transformation": "轉型",
+  "top.start-a-conversation": "展開對話",
+  "top.ai-transformation-design-strategy": "數碼與 AI 轉型 • 設計策略",
+  "top.ai-creates-new-possibilities-for": "數碼與 AI 為每一間機構帶來新的可能。更困難的部分，是判斷它們在哪裡能帶來真正的改變，以及圍繞它們還需要改變什麼，才能讓這份改變持續下去。",
+  "top.lab-delight-helps-teams-identify": "Lab Delight 協助團隊找出值得投入的機會，把合適的人帶進討論，並建立足夠的實證，讓決策可以更有把握地往前推進。",
+  "top.explore-where-ai-could-make": "看看數碼與 AI 能在哪裡帶來改變",
+  "top.possibility": "可能性",
+  "top.clarity": "清晰",
+  "top.progress": "進展",
+  "perspective.where-are-you-right-now": "你目前走到哪一步？",
+  "perspective.more-tools": "工具更多了。",
+  "perspective.capabilities-are-becoming-easier-to": "各種能力愈來愈容易取得。",
+  "perspective.more-experiments": "實驗更多了。",
+  "perspective.it-has-never-been-easier": "做出一個看起來很有潛力的東西，從未如此容易。",
+  "perspective.more-pressure": "壓力也更大了。",
+  "perspective.leaders-are-expected-to-show": "管理層被期待拿出進展，並保持競爭力。",
+  "perspective.but-more-ai-does-not": "但更多的 AI，並不自動等於更多的進展。",
+  "perspective.the-advantage-is-knowing-where": "真正的優勢，在於知道它在哪裡真的幫得上忙。",
+  "understanding.a-useful-place-to-start": "一個實用的起點",
+  "understanding.transformation-starts-with-understanding-not": "轉型始於理解，<br>而非技術。",
+  "understanding.before-deciding-what-technology-should": "在決定技術該做什麼之前，我們先理解什麼需要改善、誰會受到影響、目前的工作如何進行，以及技術實際上能貢獻什麼。",
+  "understanding.meaningful": "有意義的",
+  "understanding.change": "改變",
+  "understanding.where-the-perspectives-connect": "發生在各種視角交會之處",
+  "understanding.business": "業務",
+  "understanding.what-are-we-actually-trying": "我們究竟想改善什麼？",
+  "understanding.start-with-the-outcome-friction": "從對機構真正重要的成果、阻力或機會開始。當 AI 改善了值得改善的事，它才有用。",
+  "understanding.select-each-perspective-to-explore": "點選各個視角，探索這個機會。",
+  "before-build.before-the-build": "動手開發之前",
+  "before-build.can-we-build-it": "「我們做得出來嗎？」",
+  "before-build.that-is-only-one-question": "這只是其中一個問題。更有用的問題，往往出現在它之前。",
+  "before-build.can-we-build-it-2": "我們做得出來嗎？",
+  "before-build.should-we": "我們該做嗎？",
+  "before-build.what-problem-matters": "哪個問題才重要？",
+  "before-build.who-is-it-for": "這是為誰而做？",
+  "before-build.how-should-the-work-change": "工作方式該如何改變？",
+  "before-build.what-remains-human": "什麼仍然屬於人？",
+  "before-build.will-people-use-it": "人們真的會用嗎？",
+  "before-build.what-would-success-look-like": "成功會是什麼模樣？",
+  "before-build.technology": "技術",
+  "before-build.technical-feasibility-matters-but-it": "技術可行性很重要，但它不是決策的全部。",
+  "before-build.a-solution-can-be-technically": "一個方案可以在技術上完全可行，卻仍然是錯誤的投資、錯誤的流程，或對機構而言錯誤的體驗。",
+  "before-build.technology-is-one-part-of": "技術只是決策的一部分。",
+  "before-build.lab-delight-helps-bring-business": "Lab Delight 協助把業務、人、工作流程、實證與技術，帶進同一場對話。",
+  "how-we-help.how-lab-delight-helps": "Lab Delight 如何協助",
+  "how-we-help.what-do-you-need-to": "你需要什麼，才能往前一步？",
+  "how-we-help.you-do-not-need-to": "你不需要先知道自己該選哪項服務。從你正在面對的處境開始就好。",
+  "how-we-help.5-business-days": "5 個工作天",
+  "how-we-help.ai-clarity-review": "轉型釐清檢視",
+  "how-we-help.understand-what-is-worth-exploring": "在投入更多之前，先弄清楚什麼值得探索。",
+  "how-we-help.we-look-at-the-business": "我們檢視業務處境、目前的工作方式、各方觀點與關鍵假設，建立一個更清晰的起點。",
+  "how-we-help.you-leave-with": "你會帶走",
+  "how-we-help.a-clearer-problem-definition": "更清晰的問題定義",
+  "how-we-help.important-assumptions-and-risks": "關鍵假設與風險",
+  "how-we-help.initial-opportunity-areas": "初步的機會方向",
+  "how-we-help.a-recommendation-on-what-deserves": "關於什麼值得進一步探究的建議",
+  "prototype.from-testing-to-implementation": "從驗證到落地",
+  "prototype.a-prototype-helps-you-test": "原型讓你在真實情境中驗證一個想法。",
+  "prototype.what-you-learn-from-the": "從原型學到的東西，會形塑落地計劃：方案如何融入工作流程、什麼需要改變、需要誰參與，以及機構必須提供什麼支援。",
+  "prototype.idea": "想法",
+  "prototype.what-might-help": "什麼可能有幫助？",
+  "prototype.prototype": "原型",
+  "prototype.make-it-tangible": "把它變得具體。",
+  "prototype.real-world-test": "真實情境驗證",
+  "prototype.use-it-in-context": "在實際情境中使用。",
+  "prototype.learning": "學習",
+  "prototype.what-did-we-discover": "我們發現了什麼？",
+  "prototype.implementation-plan": "落地計劃",
+  "prototype.what-needs-to-happen-next": "接下來該發生什麼？",
+  "prototype.the-purpose-of-prototyping-is": "做原型的目的，是為了學習。",
+  "prototype.it-gives-the-organisation-better": "它讓機構在落地變得難以更改之前，先掌握更好的資訊。",
+  "strategy.transformation-strategy": "轉型策略",
+  "strategy.connect-the-decision-to-the": "把決策與機構真正改變的方式連起來。",
+  "strategy.lab-delight-focuses-on-the": "Lab Delight 專注於轉型的策略，協助團隊理解什麼該改變、為什麼重要，以及機構如何在更清晰的基礎上往前走。",
+  "strategy.direction": "方向",
+  "strategy.opportunity-outcome-and-priorities": "機會、成果與優先次序",
+  "strategy.workflow": "工作流程",
+  "strategy.how-the-work-needs-to": "工作需要如何改變",
+  "strategy.experience": "體驗",
+  "strategy.how-people-and-ai-work": "人與 AI 如何協作",
+  "strategy.implementation": "落地",
+  "strategy.plan-requirements-and-handoff": "計劃、需求與交接",
+  "strategy.adoption": "採用",
+  "strategy.learn-measure-and-improve": "學習、衡量與改善",
+  "strategy.lab-delight-transformation-layer": "LAB DELIGHT 轉型層",
+  "strategy.understand-align-design-validate-learn": "理解 → 對齊 → 設計 → 驗證 → 學習",
+  "strategy.we-work-alongside-your-internal": "我們與你的內部技術團隊及落地夥伴並肩合作，讓所有人對正在推動的轉型有更清晰的共同視野。",
+  "adoption.adoption-in-practice": "實務中的採用",
+  "adoption.adoption-requires-more-than-training": "採用需要的不只是培訓。",
+  "adoption.training-helps-people-understand-a": "培訓幫助人們理解一個工具。持久的採用還取決於：新的工作方式在職務、流程、領導環境，以及人們每天要做的決定裡，說不說得通。",
+  "adoption.more-than": "不只是",
+  "adoption.training": "培訓",
+  "adoption.understanding": "理解",
+  "adoption.people-need-to-understand-why": "人們需要理解，新的工作方式為什麼重要。",
+  "adoption.adoption-becomes-easier-when-the": "當改變的理由清楚，並且連結到人們本來就在意的工作時，採用就會變得容易。",
+  "decision-base.a-shared-decision-base": "共享的決策基礎",
+  "decision-base.good-decisions-need-somewhere-to": "好的決策，需要一個落腳的地方。",
+  "decision-base.important-project-knowledge-quickly-becomes": "重要的項目知識很快就散落在研究、訪談、工作坊、原型、電郵與技術討論之間。我們把關鍵的部分收攏起來，讓機構看得見自己知道什麼、決定了什麼，以及還有什麼懸而未決。",
+  "decision-base.decision-base": "決策基礎",
+  "decision-base.one-place-for-what-matters": "把重要的事放在同一個地方。",
+  "decision-base.shared-source-of-truth": "共享的事實來源",
+  "decision-base.current-focus": "目前焦點",
+  "decision-base.what-did-we-actually-observe": "我們實際觀察到什麼？",
+  "contact.start-with-the-problem": "從問題開始",
+  "contact.where-could-ai-make-a": "數碼或 AI 能在你的機構裡，帶來什麼樣的實質改變？",
+  "contact.you-do-not-need-a": "你不需要有一個定義完整的使用場景。告訴我們你想改善什麼，我們可以從那裡開始。",
+  "contact.what-are-you-trying-to": "你想改善什麼？",
+  "challenge.continue": "繼續",
+  "challenge.name": "姓名<input type=\"text\" name=\"name\" placeholder=\"你的姓名\" />",
+  "challenge.work-email": "公司電郵<input type=\"email\" name=\"email\" placeholder=\"you@company.com\" />",
+  "challenge.organisation": "機構<input type=\"text\" name=\"organisation\" placeholder=\"公司 / 機構\" />",
+  "challenge.start-a-conversation": "展開對話",
+  "challenge.your-message-goes-straight-to": "你的訊息會直接進到我們的收件箱。每一封我們都會看。",
+  "challenge.lab-delight": "LAB DELIGHT",
+  "challenge.leverage-ai-for-meaningful-progress": "運用數碼與 AI，創造有意義的進展。",
+  "top.lab-delight": "LAB DELIGHT",
+  "top.english": "繁體中文",
+  "top.english-3": "English",
+  "top.leverage-ai-for": "運用數碼與 AI，創造",
+  "top.real-business-impact": "實質的業務成效。",
+  "perspective.do-you-know-where-it": "你知道它真正重要的地方在哪裡嗎？",
+  "understanding.business-2": "業務",
+  "understanding.what-needs-to-improve": "什麼需要改善？",
+  "understanding.people": "人",
+  "understanding.who-is-affected": "誰會受到影響？",
+  "understanding.workflow": "工作流程",
+  "understanding.how-does-the-work-change": "工作會如何改變？",
+  "understanding.technology": "技術",
+  "understanding.what-can-ai-contribute": "AI 能貢獻什麼？",
+  "how-we-help.we-know-ai-matters-but": "我們知道這很重要，但不知道該從哪裡着手。",
+  "how-we-help.we-can-see-many-possibilities": "我們看到很多可能性。哪些值得投入？",
+  "how-we-help.we-know-the-opportunity-how": "我們知道機會在哪。它實際上該怎樣運作？",
+  "how-we-help.it-is-deployed-is-it": "已經上線了。它真的有幫助嗎？",
+  "adoption.understanding-2": "理解",
+  "adoption.why-are-we-changing": "我們為什麼要改變？",
+  "adoption.useful-workflow": "好用的流程",
+  "adoption.does-it-fit-the-work": "它貼合實際工作嗎？",
+  "adoption.confidence": "信心",
+  "adoption.can-people-use-it-well": "人們能用得好嗎？",
+  "adoption.leadership-support": "領導支持",
+  "adoption.is-the-change-reinforced": "這項改變有被強化嗎？",
+  "adoption.feedback": "意見回饋",
+  "adoption.can-the-system-learn": "這個系統能學習嗎？",
+  "adoption.capability": "能力",
+  "adoption.can-the-organisation-sustain-it": "機構能讓它持續下去嗎？",
+  "decision-base.evidence": "實證",
+  "decision-base.what-did-we-actually-observe-2": "我們實際觀察到什麼？",
+  "decision-base.insights": "洞察",
+  "decision-base.what-might-the-evidence-mean": "這些實證可能意味着什麼？",
+  "decision-base.decisions": "決策",
+  "decision-base.what-have-we-agreed-to": "我們已經同意要做什麼？",
+  "decision-base.assumptions": "假設",
+  "decision-base.what-are-we-still-testing": "我們還在驗證什麼？",
+  "decision-base.requirements": "需求",
+  "decision-base.what-needs-to-be-true": "什麼必須成立？",
+  "decision-base.open-questions": "待解問題",
+  "decision-base.what-still-needs-resolving": "還有什麼懸而未決？",
+  "challenge.where-are-you-right-now": "你目前走到哪一步？",
+  "challenge.exploring-where-ai-could-help": "正在探索數碼或 AI 能幫上什麼",
+  "challenge.prioritising-use-cases": "正在排定應用場景的優先次序",
+  "challenge.validating-an-idea": "正在驗證一個想法",
+  "challenge.preparing-for-implementation": "正在準備落地",
+  "challenge.improving-adoption-and-value": "正在改善採用與價值",
+  "year.privacy": "私隱政策",
+  "perspective.everyone-is-moving-fast-on": "人人都在 AI 上快速前進。",
+  "how-we-help.talk-about-this-situation": "談談這個處境",
+  "adoption.adoption-word": "採用",
+  "__js": {
+    "heroOutcomePhrases": [
+      "實質的業務成效。",
+      "有意義的進展。",
+      "更好的工作方式。",
+      "有實證支撐的決策。"
+    ],
+    "questionData": {
+      "build": {
+        "kicker": "技術",
+        "main": "「我們做得出來嗎？」",
+        "title": "技術可行性很重要，但它不是決策的全部。",
+        "body": "一個方案可以在技術上完全可行，卻仍然是錯誤的投資、錯誤的流程，或對機構而言錯誤的體驗。"
+      },
+      "should": {
+        "kicker": "投資",
+        "main": "「我們該做嗎？」",
+        "title": "這個機會值得投入更多嗎？",
+        "body": "在往前走之前，先弄清楚問題有多重要、改變它可能帶來多少價值、目前已有哪些實證，以及要讓下一筆投入說得通，什麼必須成立。"
+      },
+      "problem": {
+        "kicker": "業務",
+        "main": "「哪個問題才重要？」",
+        "title": "從一件重要到值得改善的事開始。",
+        "body": "當 AI 處理的是機構真正在意的阻力、錯失的機會、延誤、成本、風險或體驗時，它才開始有意義。"
+      },
+      "people": {
+        "kicker": "人",
+        "main": "「這是為誰而做？」",
+        "title": "理解那些會使用、信任、管理或經歷這項改變的人。",
+        "body": "不同角色看見問題的不同側面。及早把這些視角放在一起，能揭露技術本身看不見的需求與限制。"
+      },
+      "workflow": {
+        "kicker": "工作流程",
+        "main": "「工作方式該如何改變？」",
+        "title": "AI 很少只因為被加進既有流程就產生價值。",
+        "body": "周邊的流程、交接、決策、權責與例外情況，往往也需要一起改變，技術才會真正好用。"
+      },
+      "human": {
+        "kicker": "人的角色",
+        "main": "「什麼仍然屬於人？」",
+        "title": "不是每一部分的工作都該交給 AI。",
+        "body": "判斷、問責、同理、創造力、脈絡理解與例外處理，可能仍然屬於人。真正的問題是：人與 AI 該如何協作。"
+      },
+      "adoption": {
+        "kicker": "採用",
+        "main": "「人們真的會用嗎？」",
+        "title": "技術上好的方案，仍然要能融入真實的工作。",
+        "body": "人們需要知道何時該用、為什麼有幫助、自己要為什麼負責，以及它如何嵌進工作真正發生的方式裡。"
+      },
+      "success": {
+        "kicker": "實證",
+        "main": "「成功會是什麼模樣？」",
+        "title": "定義出能告訴你這項改變真的有幫助的訊號。",
+        "body": "成功可能意味着阻力更少、決策更快、質素提升、採用更穩固、體驗更好，或另一個有意義的業務訊號。實證讓機構有依據決定下一步。"
+      }
+    },
+    "lensData": {
+      "business": {
+        "kicker": "業務",
+        "title": "我們究竟想改善什麼？",
+        "body": "從對機構真正重要的成果、阻力或機會開始。當 AI 改善了值得改善的事，它才有用。"
+      },
+      "people": {
+        "kicker": "人",
+        "title": "誰會使用、信任這項改變，或受它影響？",
+        "body": "一個技術上可行的想法，仍然必須對那些做事、做決定、服務客戶或承擔責任的人說得通。"
+      },
+      "workflow": {
+        "kicker": "工作流程",
+        "title": "今天的工作如何進行，又該改變什麼？",
+        "body": "當周邊的工作、交接與決策一併重新設計，而不只是往既有流程再加一個工具時，AI 往往能創造更多價值。"
+      },
+      "technology": {
+        "kicker": "技術",
+        "title": "AI 實際上能貢獻什麼？",
+        "body": "我們在具體脈絡中檢視能力、數據、限制與失效模式。目標不是用上最先進的技術，而是為這項工作選對能力。"
+      }
+    },
+    "offers": {
+      "clarity": {
+        "number": "01",
+        "duration": "5 個工作天",
+        "label": "轉型釐清檢視",
+        "title": "在投入更多之前，先弄清楚什麼值得探索。",
+        "body": "我們檢視業務處境、目前的工作方式、各方觀點與關鍵假設，建立一個更清晰的起點。",
+        "outputs": [
+          "更清晰的問題定義",
+          "關鍵假設與風險",
+          "初步的機會方向",
+          "關於什麼值得進一步探究的建議"
+        ]
+      },
+      "opportunity": {
+        "number": "02",
+        "duration": "2 星期",
+        "label": "AI 機會衝刺",
+        "title": "把一片可能性，收斂成更清楚的優先次序。",
+        "body": "我們把業務、用戶與技術放在一起，理解目前的工作流程，找出 AI 真正可能幫上忙的地方，並排出值得深入探索的機會。",
+        "outputs": [
+          "排好優先次序的機會方向",
+          "流程與用戶洞察",
+          "AI 應用場景構想",
+          "價值假設與成功指標"
+        ]
+      },
+      "blueprint": {
+        "number": "03",
+        "duration": "3 至 4 星期",
+        "label": "方案藍圖",
+        "title": "把未來的工作方式，做到具體得足以理解與驗證。",
+        "body": "在全面開發讓調整方向變得困難之前，我們先釐清流程、人與 AI 的分工、體驗以及關鍵假設。",
+        "outputs": [
+          "未來工作流程",
+          "人與 AI 的角色定義",
+          "原型或體驗構想",
+          "驗證發現與成功標準"
+        ]
+      },
+      "adoption": {
+        "number": "04",
+        "duration": "初期 4 至 8 星期",
+        "label": "採用與價值循環",
+        "title": "看看技術遇上真實機構時，究竟會發生什麼。",
+        "body": "我們協助團隊理解：人們是否正在採用新的工作方式、哪裡仍有阻力、浮現了哪些價值訊號，以及接下來該改變什麼。",
+        "outputs": [
+          "採用洞察",
+          "流程改善",
+          "價值與意見訊號",
+          "排好優先次序的改善清單"
+        ]
+      }
+    },
+    "adoptionData": {
+      "understanding": {
+        "kicker": "理解",
+        "title": "人們需要理解，新的工作方式為什麼重要。",
+        "body": "當改變的理由清楚，並且連結到人們本來就在意的工作時，採用就會變得容易。"
+      },
+      "workflow": {
+        "kicker": "好用的流程",
+        "title": "新的能力必須貼合工作真正發生的方式。",
+        "body": "如果用了 AI 反而多出步驟、交接不清或增加阻力，單靠培訓不會讓行為留下來。"
+      },
+      "confidence": {
+        "kicker": "信心",
+        "title": "人們需要足夠的信心，才能在技術周圍運用判斷。",
+        "body": "信心來自練習、清楚的界線、意見回饋，以及知道何時該信任、何時該查證、何時該往上呈報。"
+      },
+      "leadership": {
+        "kicker": "領導支持",
+        "title": "領導者會強化哪些行為算數。",
+        "body": "人們看的是領導者優先什麼、獎勵什麼、追問什麼。當改變在日常管理中被支持，採用才會成長。"
+      },
+      "feedback": {
+        "kicker": "意見回饋",
+        "title": "機構需要一條從真實使用中學習的路徑。",
+        "body": "意見回饋會指出：上線之後，流程、體驗、指引或技術還有哪裡需要改變。"
+      },
+      "capability": {
+        "kicker": "能力",
+        "title": "機構需要有能力讓這項改變持續下去。",
+        "body": "歸屬、管治、技能與運作慣例，讓新的工作方式在最初上線之後依然好用。"
+      }
+    },
+    "baseData": {
+      "evidence": "我們實際觀察到什麼？",
+      "insights": "這些實證可能意味着什麼？",
+      "decisions": "我們已經同意要做什麼？",
+      "assumptions": "我們還在驗證什麼？",
+      "requirements": "什麼必須成立？",
+      "questions": "還有什麼懸而未決？"
+    }
+  },
+  "__meta": {
+    "lang": "zh-Hant-HK",
+    "ogLocale": "zh_HK",
+    "langName": "繁體中文",
+    "title": "Lab Delight｜數碼與 AI 轉型，創造有意義的進展",
+    "description": "Lab Delight 協助機構找出數碼與 AI 能真正帶來改變的地方，圍繞真實工作設計轉型，並建立足夠的實證，讓決策更有把握地往前推進。",
+    "ogTitle": "Lab Delight｜數碼與 AI 轉型，創造有意義的進展",
+    "ogDescription": "弄清楚數碼與 AI 能在你的機構裡帶來什麼實質改變，以及圍繞它們還需要改變什麼，才能讓這份改變持續下去。",
+    "ogImageAlt": "Lab Delight — 運用數碼與 AI，創造實質的業務成效。"
+  },
+  "__attrs": {
+    "attr.placeholder.challenge": "一個流程、一段客戶體驗、一個決策，或一個需要更清晰方向的項目……",
+    "attr.placeholder.name": "你的姓名",
+    "attr.placeholder.email": "you@company.com",
+    "attr.placeholder.org": "公司 / 機構",
+    "attr.aria.home": "Lab Delight 首頁",
+    "attr.aria.opennav": "開啟導覽",
+    "attr.aria.mainnav": "主導覽",
+    "attr.aria.environment": "AI 環境",
+    "attr.aria.lenses": "評估 AI 機會的四種視角",
+    "attr.aria.questions": "投入之前該回答的問題",
+    "attr.aria.situations": "客戶處境",
+    "attr.aria.journey": "從想法到落地規劃的歷程",
+    "attr.aria.strategy": "轉型策略階段",
+    "attr.aria.adoption": "支持採用的因素",
+    "attr.aria.base": "決策基礎內容"
+  },
+  "__msgs": {
+    "msg.thankTitle": "多謝你。",
+    "msg.thankBody": "你的訊息已經送達。每一封查詢我們都會親自閱讀，並會回覆你留下的電郵，通常在兩個工作天內。",
+    "msg.sending": "傳送中……",
+    "msg.error": "出了點問題，你的訊息沒有送出。請直接電郵至 hello@labdelight.co，我們會從那裡接手。"
+  },
+  "top.insights": "洞察"
+}

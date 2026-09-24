@@ -9,6 +9,20 @@
 //   node build-i18n.mjs
 
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { createHash } from 'crypto';
+
+// Content hash for styles.css and script.js.
+//
+// Without this, a returning visitor keeps the stylesheet and script they
+// already have: the language switcher renders unstyled and the hero rotator
+// still cycles English phrases on a Chinese page, because the cached script
+// predates the locale bundle. Stamping the URL makes a changed asset a
+// different URL.
+const rev = f => createHash('sha1').update(readFileSync(f)).digest('hex').slice(0, 8);
+const ASSET_REV = { 'styles.css': rev('styles.css'), 'script.js': rev('script.js') };
+const stamp = html => html
+  .replace(/(href|src)="((?:\.\.\/)?)(styles\.css|script\.js)"/g,
+           (m, attr, up, file) => `${attr}="${up}${file}?v=${ASSET_REV[file]}"`);
 
 const SITE = 'https://www.labdelight.co';
 const LOCALES = ['zh-CN', 'zh-HK'];
@@ -53,8 +67,9 @@ function build(locale) {
 
   // The strings script.js renders at runtime, inlined before it loads.
   const payload = JSON.stringify(dict.__js).replace(/</g, '\\u003c');
-  html = html.replace('<script src="../script.js"></script>',
-    `<script>window.__I18N__=${payload};</script>\n  <script src="../script.js"></script>`);
+  html = stamp(html);
+  html = html.replace(`<script src="../script.js?v=${ASSET_REV['script.js']}"></script>`,
+    `<script>window.__I18N__=${payload};</script>\n  <script src="../script.js?v=${ASSET_REV['script.js']}"></script>`);
 
   mkdirSync(locale, { recursive: true });
   writeFileSync(`${locale}/index.html`, html);
@@ -63,6 +78,6 @@ function build(locale) {
 }
 
 // The English page declares its own locale so the switcher can mark it active.
-writeFileSync('index.html', source.replace(/<html lang="en"(?! data-locale)/, '<html lang="en" data-locale="en"'));
+writeFileSync('index.html', stamp(source.replace(/<html lang="en"(?! data-locale)/, '<html lang="en" data-locale="en"')));
 LOCALES.forEach(build);
 console.log('done');

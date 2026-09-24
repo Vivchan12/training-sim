@@ -374,5 +374,6 @@
     "msg.thankBody": "你的讯息已经送达。每一封询问我们都会亲自阅读，并会回覆你留下的邮箱，通常在两个工作天内。",
     "msg.sending": "传送中……",
     "msg.error": "出了点问题，你的讯息没有送出。请直接寄到 hello@labdelight.co，我们会从那里接手。"
-  }
+  },
+  "top.insights": "洞察"
 }

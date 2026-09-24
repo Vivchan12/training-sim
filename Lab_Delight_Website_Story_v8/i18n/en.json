@@ -374,5 +374,6 @@
     "msg.thankBody": "Your message has reached us. We read every enquiry ourselves and will reply to the email address you gave, usually within a couple of working days.",
     "msg.sending": "Sending...",
     "msg.error": "Something went wrong and your message was not sent. Please email us at hello@labdelight.co and we will pick it up from there."
-  }
+  },
+  "top.insights": "Insights"
 }

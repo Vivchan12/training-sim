@@ -45,13 +45,12 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 // Hero rotating outcome line
 const heroOutcome = document.getElementById('heroOutcome');
-const heroOutcomePhrases = [
+const heroOutcomePhrases = (window.__I18N__ && window.__I18N__.heroOutcomePhrases) || [
   'real business impact.',
   'meaningful progress.',
   'better ways of working.',
   'decisions backed by evidence.'
 ];
-
 if(heroOutcome && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
   let heroOutcomeIndex = 0;
 
@@ -70,7 +69,7 @@ if(heroOutcome && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
 // Interactive questions before the build
-const questionData = {
+const questionData = (window.__I18N__ && window.__I18N__.questionData) || {
   build: {
     kicker: 'TECHNOLOGY',
     main: '“Can we build it?”',
@@ -120,7 +119,6 @@ const questionData = {
     body: 'Success might mean less friction, faster decisions, improved quality, stronger adoption, better experiences, or another meaningful business signal. Evidence gives the organisation a basis for what to do next.'
   }
 };
-
 const questionButtons = Array.from(document.querySelectorAll('.q[data-question]'));
 const questionMain = document.getElementById('questionMain');
 const questionKicker = document.getElementById('questionKicker');
@@ -154,7 +152,7 @@ questionButtons.forEach(button => {
 });
 
 // Four perspectives
-const lensData = {
+const lensData = (window.__I18N__ && window.__I18N__.lensData) || {
   business:{kicker:'BUSINESS',title:'What are we actually trying to make better?',body:'Start with the outcome, friction or opportunity that matters to the organisation. AI is useful when it improves something worth improving.'},
   people:{kicker:'PEOPLE',title:'Who will use, trust or be affected by the change?',body:'A technically possible idea still has to make sense to the people doing the work, making the decisions, serving customers or carrying accountability.'},
   workflow:{kicker:'WORKFLOW',title:'How does the work happen today, and what should change?',body:'AI often creates more value when the surrounding work, handoffs and decisions are redesigned rather than simply adding another tool to the existing process.'},
@@ -172,7 +170,7 @@ lensButtons.forEach(btn=>btn.addEventListener('click',()=>{
 }));
 
 // Situation based offers
-const offers = {
+const offers = (window.__I18N__ && window.__I18N__.offers) || {
   clarity:{number:'01',duration:'5 business days',label:'AI CLARITY REVIEW',title:'Understand what is worth exploring before investing further.',body:'We look at the business situation, current work, stakeholder perspectives and important assumptions to create a clearer starting point.',outputs:['A clearer problem definition','Important assumptions and risks','Initial opportunity areas','A recommendation on what deserves further investigation']},
   opportunity:{number:'02',duration:'2 weeks',label:'AI OPPORTUNITY SPRINT',title:'Turn a field of possibilities into a clearer set of priorities.',body:'We bring business, users and technology together to understand the current workflow, identify where AI may genuinely help, and prioritise the opportunities worth deeper exploration.',outputs:['Prioritised opportunity areas','Workflow and user insights','AI use-case concepts','Value hypotheses and success measures']},
   blueprint:{number:'03',duration:'3 to 4 weeks',label:'SOLUTION BLUEPRINT',title:'Make the future way of working tangible enough to understand and test.',body:'We shape the workflow, human and AI responsibilities, experience and key assumptions before full development makes changing direction more difficult.',outputs:['Future workflow','Human and AI role definition','Prototype or experience concept','Validation findings and success criteria']},
@@ -224,7 +222,7 @@ if(strategyMap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
 // Adoption learning interaction
-const adoptionData = {
+const adoptionData = (window.__I18N__ && window.__I18N__.adoptionData) || {
   understanding:{kicker:'UNDERSTANDING',title:'People need to understand why the new way of working matters.',body:'Adoption becomes easier when the reason for the change is clear and connected to the work people already care about.'},
   workflow:{kicker:'USEFUL WORKFLOW',title:'The new capability has to fit the way work actually happens.',body:'If using AI creates more steps, unclear handoffs or extra friction, training alone will not make the behaviour stick.'},
   confidence:{kicker:'CONFIDENCE',title:'People need enough confidence to use judgement around the technology.',body:'Confidence comes from practice, clear boundaries, feedback, and knowing when to trust, verify or escalate.'},
@@ -243,7 +241,7 @@ adoptionButtons.forEach(btn=>btn.addEventListener('click',()=>{
 }));
 
 // Decision Base interaction
-const baseData={evidence:'What did we actually observe?',insights:'What might the evidence mean?',decisions:'What have we agreed to do?',assumptions:'What are we still testing?',requirements:'What needs to be true?',questions:'What still needs resolving?'};
+const baseData = (window.__I18N__ && window.__I18N__.baseData) || {evidence:'What did we actually observe?',insights:'What might the evidence mean?',decisions:'What have we agreed to do?',assumptions:'What are we still testing?',requirements:'What needs to be true?',questions:'What still needs resolving?'};
 const baseNodes=document.querySelectorAll('.base-row');
 baseNodes.forEach(n=>n.addEventListener('click',()=>{
   baseNodes.forEach(x=>x.classList.remove('is-active'));
@@ -293,3 +291,36 @@ document.getElementById('interestForm')?.addEventListener('submit',async e=>{
 });
 
 document.getElementById('year').textContent=new Date().getFullYear();
+
+// Language switcher. Marks the active locale, remembers the choice, and keeps
+// the current section when moving between languages.
+(function(){
+  const wrap = document.querySelector('.lang-switch');
+  const toggle = document.getElementById('langToggle');
+  const menu = document.getElementById('langMenu');
+  if(!wrap || !toggle || !menu) return;
+
+  const current = (document.documentElement.getAttribute('data-locale') || 'en');
+  menu.querySelectorAll('a').forEach(a => {
+    const loc = a.getAttribute('href') === '/' ? 'en' : a.getAttribute('href').replace(/\//g,'');
+    if(loc === current){
+      a.setAttribute('aria-current','true');
+      const label = wrap.querySelector('.lang-current');
+      if(label) label.textContent = a.textContent;
+    }
+    // carry the reader's place across to the same section in the other language
+    a.addEventListener('click', () => {
+      try { localStorage.setItem('ld-lang', loc); } catch(e){}
+      if(location.hash) a.href = a.getAttribute('href') + location.hash;
+    });
+  });
+
+  const close = () => { wrap.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); };
+  toggle.addEventListener('click', e => {
+    e.stopPropagation();
+    const open = wrap.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+  document.addEventListener('click', close);
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') close(); });
+})();

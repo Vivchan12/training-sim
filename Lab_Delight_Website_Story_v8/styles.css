@@ -74,3 +74,49 @@ a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}b
 .form-success p{font-size:14px;color:var(--muted);margin:0;max-width:46ch}
 .site-footer a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 .site-footer a:hover{color:var(--ink)}
+
+/* Language switcher */
+.lang-switch{position:relative;margin-left:18px}
+.lang-toggle{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:rgba(255,253,249,.7);border-radius:999px;padding:8px 13px;font:inherit;font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--ink);cursor:pointer;transition:border-color .2s,background .2s}
+.lang-toggle:hover{border-color:var(--ink);background:var(--white)}
+.lang-toggle svg{width:9px;height:6px;transition:transform .2s}
+.lang-switch.open .lang-toggle svg{transform:rotate(180deg)}
+.lang-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:148px;list-style:none;margin:0;padding:6px;background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 30px rgba(23,23,22,.10);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .18s,transform .18s,visibility .18s;z-index:120}
+.lang-switch.open .lang-menu{opacity:1;visibility:visible;transform:none}
+.lang-menu a{display:block;padding:9px 12px;border-radius:11px;font-size:12px;font-weight:600;color:var(--muted);text-decoration:none;white-space:nowrap}
+.lang-menu a:hover{background:var(--paper);color:var(--ink)}
+.lang-menu a[aria-current="true"]{color:var(--ink);background:var(--paper)}
+@media(max-width:780px){
+  .lang-switch{margin-left:auto;margin-right:12px;order:2}
+  .lang-toggle{padding:7px 11px}
+}
+
+/* ---- Chinese typography -------------------------------------------------
+   Poppins carries no CJK glyphs, so Chinese falls back to whatever the OS
+   provides. Naming the stack keeps it consistent, and several English-tuned
+   measurements (ch widths, letter-spacing) do not translate to characters. */
+html[lang^="zh"] body,
+html[lang^="zh"] .hero-title,
+html[lang^="zh"] .question-main{
+  font-family:"PingFang SC","PingFang HK","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC","Source Han Sans SC",system-ui,sans-serif;
+}
+html[lang^="zh-Hant"] body,
+html[lang^="zh-Hant"] .hero-title,
+html[lang^="zh-Hant"] .question-main{
+  font-family:"PingFang HK","PingFang TC","Hiragino Sans CNS","Microsoft JhengHei","Noto Sans CJK TC","Source Han Sans TC",system-ui,sans-serif;
+}
+/* ch units assume Latin character widths */
+html[lang^="zh"] .hero-outcome{max-width:none}
+html[lang^="zh"] .eyebrow,
+html[lang^="zh"] .eyebrow-light{letter-spacing:.14em}
+html[lang^="zh"] .hero-title,
+html[lang^="zh"] .question-main{letter-spacing:0;line-height:1.18}
+html[lang^="zh"] .hero-lead,
+html[lang^="zh"] p{line-height:1.75}
+/* keep punctuation off the start of a line */
+html[lang^="zh"] p,
+html[lang^="zh"] li,
+html[lang^="zh"] .hero-title{line-break:strict;overflow-wrap:break-word}
+@media(max-width:520px){
+  html[lang^="zh"] .hero-title{font-size:40px}
+}

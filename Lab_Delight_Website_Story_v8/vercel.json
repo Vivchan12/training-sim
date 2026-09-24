@@ -3,5 +3,13 @@
   "framework": null,
   "buildCommand": "",
   "installCommand": "",
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/zh", "destination": "/zh-CN", "permanent": false },
+    { "source": "/cn", "destination": "/zh-CN", "permanent": false },
+    { "source": "/hk", "destination": "/zh-HK", "permanent": false },
+    { "source": "/zh-TW", "destination": "/zh-HK", "permanent": false }
+  ]
 }

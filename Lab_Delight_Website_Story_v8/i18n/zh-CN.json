@@ -351,5 +351,28 @@
     "ogTitle": "Lab Delight｜数字化与 AI 转型，创造有意义的进展",
     "ogDescription": "弄清楚数字化与 AI 能在你的机构里带来什么实质改变，以及围绕它们还需要改变什么，才能让这份改变持续下去。",
     "ogImageAlt": "Lab Delight — 运用数字化与 AI，创造实质的业务成效。"
+  },
+  "__attrs": {
+    "attr.placeholder.challenge": "一个流程、一段客户体验、一个决策，或一个需要更清晰方向的项目……",
+    "attr.placeholder.name": "你的姓名",
+    "attr.placeholder.email": "you@company.com",
+    "attr.placeholder.org": "公司 / 机构",
+    "attr.aria.home": "Lab Delight 首页",
+    "attr.aria.opennav": "打开导航",
+    "attr.aria.mainnav": "主导航",
+    "attr.aria.environment": "AI 环境",
+    "attr.aria.lenses": "评估 AI 机会的四种视角",
+    "attr.aria.questions": "投入之前该回答的问题",
+    "attr.aria.situations": "客户处境",
+    "attr.aria.journey": "从想法到落地规划的历程",
+    "attr.aria.strategy": "转型策略阶段",
+    "attr.aria.adoption": "支持采用的因素",
+    "attr.aria.base": "决策基础内容"
+  },
+  "__msgs": {
+    "msg.thankTitle": "谢谢你。",
+    "msg.thankBody": "你的讯息已经送达。每一封询问我们都会亲自阅读，并会回覆你留下的邮箱，通常在两个工作天内。",
+    "msg.sending": "传送中……",
+    "msg.error": "出了点问题，你的讯息没有送出。请直接寄到 hello@labdelight.co，我们会从那里接手。"
   }
 }

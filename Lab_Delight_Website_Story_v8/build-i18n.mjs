@@ -20,8 +20,12 @@ import { createHash } from 'crypto';
 // different URL.
 const rev = f => createHash('sha1').update(readFileSync(f)).digest('hex').slice(0, 8);
 const ASSET_REV = { 'styles.css': rev('styles.css'), 'script.js': rev('script.js') };
+// Matches an existing ?v= too: this generator writes the stamped index.html
+// back to disk, so on the next run its own output is the input. Without the
+// optional query the second run silently stopped stamping, the script tag kept
+// a stale hash, and the locale payload was never injected.
 const stamp = html => html
-  .replace(/(href|src)="((?:\.\.\/)?)(styles\.css|script\.js)"/g,
+  .replace(/(href|src)="((?:\.\.\/)?)(styles\.css|script\.js)(\?v=[a-f0-9]+)?"/g,
            (m, attr, up, file) => `${attr}="${up}${file}?v=${ASSET_REV[file]}"`);
 
 const SITE = 'https://www.labdelight.co';
@@ -49,6 +53,16 @@ function build(locale) {
     }
   );
 
+  // Attributes — placeholders and aria-labels are not element text, so they
+  // carry their own marker naming the attribute and the key.
+  html = html.replace(/data-i18n-attr="([a-z-]+):([^"]+)"\s+(placeholder|aria-label)="[^"]*"/g,
+    (full, attr, key) => {
+      const value = (dict.__attrs || {})[key];
+      if (value === undefined) { fellBack++; return full; }
+      translated++;
+      return `data-i18n-attr="${attr}:${key}" ${attr}="${escapeAttr(value)}"`;
+    });
+
   // Document language and per-locale meta.
   html = html.replace(/<html lang="[^"]*"/, `<html lang="${meta.lang}" data-locale="${locale}"`);
   html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${meta.title}</title>`);
@@ -66,7 +80,7 @@ function build(locale) {
   html = html.replace(/(href|src|poster)="(assets\/|styles\.css|script\.js)/g, '$1="../$2');
 
   // The strings script.js renders at runtime, inlined before it loads.
-  const payload = JSON.stringify(dict.__js).replace(/</g, '\\u003c');
+  const payload = JSON.stringify({ ...dict.__js, __msgs: dict.__msgs }).replace(/</g, '\\u003c');
   html = stamp(html);
   html = html.replace(`<script src="../script.js?v=${ASSET_REV['script.js']}"></script>`,
     `<script>window.__I18N__=${payload};</script>\n  <script src="../script.js?v=${ASSET_REV['script.js']}"></script>`);

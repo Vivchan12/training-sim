@@ -260,6 +260,9 @@ continueForm?.addEventListener('click',()=>{
   continueForm.style.display='none';
 });
 const FORM_ENDPOINT='https://formspree.io/f/mljrovra';
+// Form status copy comes from the page's locale bundle; English is the fallback.
+const MSG = (k, en) => ((window.__I18N__ && window.__I18N__.__msgs && window.__I18N__.__msgs[k]) || en);
+
 function formMessage(form,text){
   const existing=form.querySelector('.form-message');if(existing) existing.remove();
   const p=document.createElement('p');p.className='form-message';p.textContent=text;formDetails.appendChild(p);
@@ -269,8 +272,8 @@ function formThankYou(form){
   box.className='form-success';
   box.setAttribute('role','status');
   box.innerHTML='<span class="tick" aria-hidden="true">\u2713</span>'
-    +'<h3>Thank you.</h3>'
-    +'<p>Your message has reached us. We read every enquiry ourselves and will reply to the email address you gave, usually within a couple of working days.</p>';
+    +'<h3>'+MSG('msg.thankTitle','Thank you.')+'</h3>'
+    +'<p>'+MSG('msg.thankBody','Your message has reached us. We read every enquiry ourselves and will reply to the email address you gave, usually within a couple of working days.')+'</p>';
   form.replaceChildren(box);
   box.scrollIntoView({behavior:'smooth',block:'center'});
 }
@@ -279,13 +282,13 @@ document.getElementById('interestForm')?.addEventListener('submit',async e=>{
   const form=e.currentTarget;
   if(FORM_ENDPOINT.startsWith('REPLACE_')){formMessage(form,'The prototype is ready for a live form connection. Your message has not been sent yet.');return;}
   const submit=form.querySelector('button[type="submit"]');
-  submit.disabled=true;formMessage(form,'Sending...');
+  submit.disabled=true;formMessage(form,MSG('msg.sending','Sending...'));
   try{
     const res=await fetch(FORM_ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)});
     if(!res.ok) throw new Error(res.status);
     formThankYou(form);
   }catch(err){
-    formMessage(form,'Something went wrong and your message was not sent. Please email us at hello@labdelight.co and we will pick it up from there.');
+    formMessage(form,MSG('msg.error','Something went wrong and your message was not sent. Please email us at hello@labdelight.co and we will pick it up from there.'));
     submit.disabled=false;
   }
 });

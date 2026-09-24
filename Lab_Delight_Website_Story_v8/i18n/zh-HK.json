@@ -351,5 +351,28 @@
     "ogTitle": "Lab Delight｜數碼與 AI 轉型，創造有意義的進展",
     "ogDescription": "弄清楚數碼與 AI 能在你的機構裡帶來什麼實質改變，以及圍繞它們還需要改變什麼，才能讓這份改變持續下去。",
     "ogImageAlt": "Lab Delight — 運用數碼與 AI，創造實質的業務成效。"
+  },
+  "__attrs": {
+    "attr.placeholder.challenge": "一個流程、一段客戶體驗、一個決策，或一個需要更清晰方向的項目……",
+    "attr.placeholder.name": "你的姓名",
+    "attr.placeholder.email": "you@company.com",
+    "attr.placeholder.org": "公司 / 機構",
+    "attr.aria.home": "Lab Delight 首頁",
+    "attr.aria.opennav": "開啟導覽",
+    "attr.aria.mainnav": "主導覽",
+    "attr.aria.environment": "AI 環境",
+    "attr.aria.lenses": "評估 AI 機會的四種視角",
+    "attr.aria.questions": "投入之前該回答的問題",
+    "attr.aria.situations": "客戶處境",
+    "attr.aria.journey": "從想法到落地規劃的歷程",
+    "attr.aria.strategy": "轉型策略階段",
+    "attr.aria.adoption": "支持採用的因素",
+    "attr.aria.base": "決策基礎內容"
+  },
+  "__msgs": {
+    "msg.thankTitle": "多謝你。",
+    "msg.thankBody": "你的訊息已經送達。每一封查詢我們都會親自閱讀，並會回覆你留下的電郵，通常在兩個工作天內。",
+    "msg.sending": "傳送中……",
+    "msg.error": "出了點問題，你的訊息沒有送出。請直接電郵至 hello@labdelight.co，我們會從那裡接手。"
   }
 }

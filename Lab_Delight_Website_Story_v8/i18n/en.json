@@ -351,5 +351,28 @@
   "year.privacy": "Privacy",
   "perspective.everyone-is-moving-fast-on": "Everyone is moving fast on AI.",
   "how-we-help.talk-about-this-situation": "Talk about this situation",
-  "adoption.adoption-word": "Adoption"
+  "adoption.adoption-word": "Adoption",
+  "__attrs": {
+    "attr.placeholder.challenge": "A workflow, a customer experience, a decision, a project that needs clearer direction...",
+    "attr.placeholder.name": "Your name",
+    "attr.placeholder.email": "you@company.com",
+    "attr.placeholder.org": "Company / organisation",
+    "attr.aria.home": "Lab Delight home",
+    "attr.aria.opennav": "Open navigation",
+    "attr.aria.mainnav": "Main navigation",
+    "attr.aria.environment": "AI environment",
+    "attr.aria.lenses": "Four perspectives for evaluating an AI opportunity",
+    "attr.aria.questions": "Questions to answer before investing",
+    "attr.aria.situations": "Client situations",
+    "attr.aria.journey": "Idea to implementation planning journey",
+    "attr.aria.strategy": "Transformation strategy stages",
+    "attr.aria.adoption": "Factors that support adoption",
+    "attr.aria.base": "Decision Base contents"
+  },
+  "__msgs": {
+    "msg.thankTitle": "Thank you.",
+    "msg.thankBody": "Your message has reached us. We read every enquiry ourselves and will reply to the email address you gave, usually within a couple of working days.",
+    "msg.sending": "Sending...",
+    "msg.error": "Something went wrong and your message was not sent. Please email us at hello@labdelight.co and we will pick it up from there."
+  }
 }

@@ -64,7 +64,9 @@ function build(locale) {
     });
 
   // Document language and per-locale meta.
-  html = html.replace(/<html lang="[^"]*"/, `<html lang="${meta.lang}" data-locale="${locale}"`);
+  // Consume any data-locale already on the source tag — index.html is written
+  // back with data-locale="en", so matching only lang left two of them behind.
+  html = html.replace(/<html lang="[^"]*"(\s+data-locale="[^"]*")?/, `<html lang="${meta.lang}" data-locale="${locale}"`);
   html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${meta.title}</title>`);
   html = html.replace(/(<meta name="description" content=")[^"]*(")/, `$1${escapeAttr(meta.description)}$2`);
   html = html.replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${escapeAttr(meta.ogTitle)}$2`);

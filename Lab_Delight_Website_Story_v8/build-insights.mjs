@@ -51,6 +51,7 @@ function chrome({ title, description, canonical, body, isPost }) {
   <link rel="stylesheet" href="/styles.css?v=${ASSETS.css}" />
 </head>
 <body class="insights-body">
+  <a class="skip-link" href="#content">Skip to content</a>
   <div class="progress" aria-hidden="true"><span id="scrollProgress"></span></div>
   <header class="site-header is-solid" id="siteHeader">
     <a href="/" class="brand" aria-label="Lab Delight home">
@@ -78,7 +79,7 @@ function chrome({ title, description, canonical, body, isPost }) {
       </ul>
     </div>
   </header>
-  <main class="insights-main">
+  <main class="insights-main" id="content" tabindex="-1">
 ${body}
   </main>
   <footer class="site-footer">

@@ -51,10 +51,13 @@ const heroOutcomePhrases = (window.__I18N__ && window.__I18N__.heroOutcomePhrase
   'better ways of working.',
   'decisions backed by evidence.'
 ];
-if(heroOutcome && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-  let heroOutcomeIndex = 0;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let heroOutcomeTimer = null;
+let heroOutcomeIndex = 0;
 
-  window.setInterval(() => {
+function startHeroRotator(){
+  if(!heroOutcome || heroOutcomeTimer) return;
+  heroOutcomeTimer = window.setInterval(() => {
     heroOutcome.classList.add('is-changing');
 
     window.setTimeout(() => {
@@ -67,6 +70,37 @@ if(heroOutcome && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
     }, 340);
   }, 3000);
 }
+function stopHeroRotator(){
+  window.clearInterval(heroOutcomeTimer);
+  heroOutcomeTimer = null;
+  heroOutcome?.classList.remove('is-changing');
+}
+
+// The hero's two moving pieces — the background video and the rotating word —
+// run on a timer with no natural end, so WCAG 2.2.2 wants a way to stop them.
+// One control pauses both. A reduced-motion preference starts them stopped;
+// CSS alone cannot do that, because `animation:none` does not pause a <video>.
+const MOTION = (k, en) => ((window.__I18N__ && window.__I18N__.__msgs && window.__I18N__.__msgs[k]) || en);
+const heroVideo = document.querySelector('.hero-video');
+const motionToggle = document.getElementById('motionToggle');
+
+function setMotion(playing){
+  if(playing){ startHeroRotator(); heroVideo?.play().catch(()=>{}); }
+  else { stopHeroRotator(); heroVideo?.pause(); }
+  if(motionToggle){
+    motionToggle.setAttribute('aria-pressed', String(!playing));
+    const label = motionToggle.querySelector('span');
+    const play = MOTION('a11y.play','Play'), pause = MOTION('a11y.pause','Pause');
+    if(label) label.textContent = playing ? pause : play;
+    motionToggle.setAttribute('aria-label', (playing ? pause : play) + ' background motion');
+    motionToggle.querySelector('svg').innerHTML = playing
+      ? '<rect x="0" y="0" width="2.6" height="10" rx="1"/><rect x="5.4" y="0" width="2.6" height="10" rx="1"/>'
+      : '<path d="M0 0l8 5-8 5z"/>';
+  }
+}
+setMotion(!prefersReducedMotion.matches);
+motionToggle?.addEventListener('click', () => setMotion(!heroOutcomeTimer));
+prefersReducedMotion.addEventListener?.('change', e => setMotion(!e.matches));
 
 // Interactive questions before the build
 const questionData = (window.__I18N__ && window.__I18N__.questionData) || {
@@ -205,15 +239,34 @@ let strategyTimer;
 let strategyIndex = 0;
 function setStrategyStep(idx){
   strategyIndex = idx;
-  strategySteps.forEach((s,i)=>s.classList.toggle('is-active', i===idx));
+  strategySteps.forEach((s,i)=>{
+    s.classList.toggle('is-active', i===idx);
+    if(i===idx) s.setAttribute('aria-current','step'); else s.removeAttribute('aria-current');
+  });
   if(strategyRail) strategyRail.style.width = `${idx/(strategySteps.length-1)*100}%`;
 }
-strategySteps.forEach((step,idx)=>step.addEventListener('mouseenter',()=>setStrategyStep(idx)));
+// Once someone picks a step — by pointer, click or keyboard — the auto-advance
+// stops. Without this the timer moved the highlight off whatever a keyboard
+// user had just tabbed to, about a second after they got there.
+let strategyUserPicked = false;
+function chooseStrategyStep(idx){
+  strategyUserPicked = true;
+  clearInterval(strategyTimer);
+  strategyTimer = null;
+  setStrategyStep(idx);
+}
+strategySteps.forEach((step,idx)=>{
+  step.addEventListener('mouseenter',()=>chooseStrategyStep(idx));
+  step.addEventListener('click',()=>chooseStrategyStep(idx));
+  step.addEventListener('focus',()=>chooseStrategyStep(idx));
+});
 if(strategyMap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
   const strategyObserver = new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
       clearInterval(strategyTimer);
-      if(entry.isIntersecting){
+      // Scrolling back to the section must not restart the carousel over a
+      // choice someone already made.
+      if(entry.isIntersecting && !strategyUserPicked){
         strategyTimer=setInterval(()=>setStrategyStep((strategyIndex+1)%strategySteps.length),1500);
       }
     });
@@ -252,20 +305,39 @@ baseNodes.forEach(n=>n.addEventListener('click',()=>{
 // Progressive form
 const continueForm=document.getElementById('continueForm');
 const formDetails=document.getElementById('formDetails');
+const challengeError=document.getElementById('challengeError');
 continueForm?.addEventListener('click',()=>{
   const challenge=document.getElementById('challenge');
-  if(!challenge.value.trim()){challenge.focus();challenge.style.borderColor='var(--orange)';return;}
+  if(!challenge.value.trim()){
+    // Colour alone said "this is wrong", and said it silently. Now there is
+    // text, the field is marked invalid, and role="alert" announces it.
+    challenge.setAttribute('aria-invalid','true');
+    challenge.setAttribute('aria-describedby','challengeError');
+    if(challengeError) challengeError.textContent=MSG('msg.challengeRequired','Please tell us what you are trying to improve before continuing.');
+    challenge.focus();
+    return;
+  }
+  challenge.removeAttribute('aria-invalid');
+  challenge.removeAttribute('aria-describedby');
+  if(challengeError) challengeError.textContent='';
   formDetails.classList.add('is-open');
   formDetails.setAttribute('aria-hidden','false');
   continueForm.style.display='none';
 });
+document.getElementById('challenge')?.addEventListener('input',e=>{
+  if(e.target.getAttribute('aria-invalid')==='true'){
+    e.target.removeAttribute('aria-invalid');e.target.removeAttribute('aria-describedby');
+    if(challengeError) challengeError.textContent='';
+  }
+});
+
 const FORM_ENDPOINT='https://formspree.io/f/mljrovra';
 // Form status copy comes from the page's locale bundle; English is the fallback.
 const MSG = (k, en) => ((window.__I18N__ && window.__I18N__.__msgs && window.__I18N__.__msgs[k]) || en);
 
 function formMessage(form,text){
   const existing=form.querySelector('.form-message');if(existing) existing.remove();
-  const p=document.createElement('p');p.className='form-message';p.textContent=text;formDetails.appendChild(p);
+  const p=document.createElement('p');p.className='form-message';p.setAttribute('role','status');p.textContent=text;formDetails.appendChild(p);
 }
 function formThankYou(form){
   const box=document.createElement('div');
@@ -327,3 +399,30 @@ const yearEl=document.getElementById('year'); if(yearEl) yearEl.textContent=new 
   document.addEventListener('click', close);
   document.addEventListener('keydown', e => { if(e.key === 'Escape') close(); });
 })();
+
+// Declaring role="tab" promises the tab pattern: arrow keys move between tabs,
+// Home/End jump to the ends, and only the selected tab is in the tab order, so
+// Tab moves past the whole set rather than through every option.
+document.querySelectorAll('[role="tablist"]').forEach(list => {
+  const tabs = Array.from(list.querySelectorAll('[role="tab"]'));
+  if(!tabs.length) return;
+
+  const roving = () => tabs.forEach(t =>
+    t.setAttribute('tabindex', t.getAttribute('aria-selected') === 'true' ? '0' : '-1'));
+  roving();
+  tabs.forEach(t => t.addEventListener('click', () => window.setTimeout(roving, 0)));
+
+  list.addEventListener('keydown', e => {
+    const i = tabs.indexOf(document.activeElement);
+    if(i < 0) return;
+    let next = null;
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % tabs.length;
+    else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + tabs.length) % tabs.length;
+    else if(e.key === 'Home') next = 0;
+    else if(e.key === 'End') next = tabs.length - 1;
+    if(next === null) return;
+    e.preventDefault();
+    tabs[next].focus();
+    tabs[next].click();
+  });
+});

@@ -32,9 +32,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=eaf1fe0d" />
+  <link rel="stylesheet" href="styles.css?v=3e11138e" />
 </head>
 <body>
+  <a class="skip-link" href="#top" data-i18n="a11y.skip">Skip to content</a>
   <div class="progress" aria-hidden="true"><span id="scrollProgress"></span></div>
 
   <header class="site-header" id="siteHeader">
@@ -56,20 +57,21 @@
         <span class="lang-current" data-i18n="top.english">English</span>
         <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </button>
-      <ul class="lang-menu" id="langMenu" role="listbox">
-        <li role="option"><a href="/" hreflang="en" lang="en" data-i18n="top.english-3">English</a></li>
-        <li role="option"><a href="/zh-HK/" hreflang="zh-Hant-HK" lang="zh-Hant-HK">繁體中文</a></li>
-        <li role="option"><a href="/zh-CN/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a></li>
+      <ul class="lang-menu" id="langMenu" aria-label="Language">
+        <li><a href="/" hreflang="en" lang="en" data-i18n="top.english-3">English</a></li>
+        <li><a href="/zh-HK/" hreflang="zh-Hant-HK" lang="zh-Hant-HK">繁體中文</a></li>
+        <li><a href="/zh-CN/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a></li>
       </ul>
     </div>
   </header>
 
-  <main id="top">
+  <main id="top" tabindex="-1">
     <section class="hero section-pad" aria-labelledby="heroTitle">
       <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/hero-poster.jpg" aria-hidden="true">
         <source src="assets/hero-transformation-loop.mp4" type="video/mp4" />
       </video>
       <div class="hero-wash" aria-hidden="true"></div>
+      <button type="button" class="motion-toggle" id="motionToggle" aria-pressed="false"><svg viewBox="0 0 8 10" aria-hidden="true"><rect x="0" y="0" width="2.6" height="10" rx="1"/><rect x="5.4" y="0" width="2.6" height="10" rx="1"/></svg><span data-i18n="a11y.pause">Pause</span></button>
       <div class="hero-copy reveal">
         <p class="eyebrow" data-i18n="top.ai-transformation-design-strategy">DIGITAL & AI TRANSFORMATION • DESIGN STRATEGY</p>
         <h1 id="heroTitle" class="hero-title">
@@ -85,10 +87,10 @@
       <div class="hero-caption" aria-hidden="true"><span data-i18n="top.possibility">Possibility</span><i></i><span data-i18n="top.clarity">Clarity</span><i></i><span data-i18n="top.progress">Progress</span></div>
     </section>
 
-    <section class="context-section" id="perspective">
+    <section class="context-section" id="perspective" aria-labelledby="perspectiveTitle">
       <div class="context-sticky">
         <p class="eyebrow eyebrow-light" data-i18n="perspective.where-are-you-right-now">WHERE ARE YOU RIGHT NOW?</p>
-        <h2><span data-i18n="perspective.everyone-is-moving-fast-on">Everyone is moving fast on AI.</span><br><span data-i18n="perspective.do-you-know-where-it">Do you know where it really matters?</span></h2>
+        <h2 id="perspectiveTitle"><span data-i18n="perspective.everyone-is-moving-fast-on">Everyone is moving fast on AI.</span><br><span data-i18n="perspective.do-you-know-where-it">Do you know where it really matters?</span></h2>
         <div class="context-steps" data-i18n-attr="aria-label:attr.aria.environment" aria-label="AI environment">
           <div class="context-step is-active" data-step="0"><strong data-i18n="perspective.more-tools">More tools.</strong><span data-i18n="perspective.capabilities-are-becoming-easier-to">Capabilities are becoming easier to access.</span></div>
           <div class="context-step" data-step="1"><strong data-i18n="perspective.more-experiments">More experiments.</strong><span data-i18n="perspective.it-has-never-been-easier">It has never been easier to make something that looks promising.</span></div>
@@ -98,10 +100,10 @@
       </div>
     </section>
 
-    <section class="work-first section-pad" id="understanding">
+    <section class="work-first section-pad" id="understanding" aria-labelledby="understandingTitle">
       <div class="section-heading reveal">
         <p class="eyebrow" data-i18n="understanding.a-useful-place-to-start">A USEFUL PLACE TO START</p>
-        <h2 data-i18n="understanding.transformation-starts-with-understanding-not">Transformation starts with understanding,<br>not technology.</h2>
+        <h2 id="understandingTitle" data-i18n="understanding.transformation-starts-with-understanding-not">Transformation starts with understanding,<br>not technology.</h2>
         <p data-i18n="understanding.before-deciding-what-technology-should">Before deciding what technology should do, we first understand what needs to improve, who is affected, how the work happens today, and what the technology can realistically contribute.</p>
       </div>
 
@@ -132,7 +134,7 @@
       </div>
     </section>
 
-    <section class="questions-section" id="before-build">
+    <section class="questions-section" id="before-build" aria-labelledby="questionMain">
       <div class="question-stage reveal">
         <div class="question-heading">
           <p class="eyebrow" data-i18n="before-build.before-the-build">BEFORE THE BUILD</p>
@@ -142,17 +144,17 @@
 
         <div class="question-explorer">
           <div class="question-menu" role="tablist" data-i18n-attr="aria-label:attr.aria.questions" aria-label="Questions to answer before investing">
-            <button class="q is-active" role="tab" aria-selected="true" data-question="build" data-i18n="before-build.can-we-build-it-2">Can we build it?</button>
-            <button class="q" role="tab" aria-selected="false" data-question="should" data-i18n="before-build.should-we">Should we?</button>
-            <button class="q" role="tab" aria-selected="false" data-question="problem" data-i18n="before-build.what-problem-matters">What problem matters?</button>
-            <button class="q" role="tab" aria-selected="false" data-question="people" data-i18n="before-build.who-is-it-for">Who is it for?</button>
-            <button class="q" role="tab" aria-selected="false" data-question="workflow" data-i18n="before-build.how-should-the-work-change">How should the work change?</button>
-            <button class="q" role="tab" aria-selected="false" data-question="human" data-i18n="before-build.what-remains-human">What remains human?</button>
-            <button class="q" role="tab" aria-selected="false" data-question="adoption" data-i18n="before-build.will-people-use-it">Will people use it?</button>
-            <button class="q" role="tab" aria-selected="false" data-question="success" data-i18n="before-build.what-would-success-look-like">What would success look like?</button>
+            <button class="q is-active" role="tab" aria-controls="questionPanel" aria-selected="true" data-question="build" data-i18n="before-build.can-we-build-it-2">Can we build it?</button>
+            <button class="q" role="tab" aria-controls="questionPanel" aria-selected="false" data-question="should" data-i18n="before-build.should-we">Should we?</button>
+            <button class="q" role="tab" aria-controls="questionPanel" aria-selected="false" data-question="problem" data-i18n="before-build.what-problem-matters">What problem matters?</button>
+            <button class="q" role="tab" aria-controls="questionPanel" aria-selected="false" data-question="people" data-i18n="before-build.who-is-it-for">Who is it for?</button>
+            <button class="q" role="tab" aria-controls="questionPanel" aria-selected="false" data-question="workflow" data-i18n="before-build.how-should-the-work-change">How should the work change?</button>
+            <button class="q" role="tab" aria-controls="questionPanel" aria-selected="false" data-question="human" data-i18n="before-build.what-remains-human">What remains human?</button>
+            <button class="q" role="tab" aria-controls="questionPanel" aria-selected="false" data-question="adoption" data-i18n="before-build.will-people-use-it">Will people use it?</button>
+            <button class="q" role="tab" aria-controls="questionPanel" aria-selected="false" data-question="success" data-i18n="before-build.what-would-success-look-like">What would success look like?</button>
           </div>
 
-          <div class="question-answer" role="tabpanel" aria-live="polite">
+          <div class="question-answer" role="tabpanel" id="questionPanel" tabindex="0" aria-live="polite">
             <span class="question-answer-kicker" id="questionKicker" data-i18n="before-build.technology">TECHNOLOGY</span>
             <h3 id="questionTitle" data-i18n="before-build.technical-feasibility-matters-but-it">Technical feasibility matters, but it is not the whole decision.</h3>
             <p id="questionBody" data-i18n="before-build.a-solution-can-be-technically">A solution can be technically possible and still be the wrong investment, the wrong workflow, or the wrong experience for the organisation.</p>
@@ -166,21 +168,21 @@
       </div>
     </section>
 
-    <section class="situations section-pad" id="how-we-help">
+    <section class="situations section-pad" id="how-we-help" aria-labelledby="how-we-helpTitle">
       <div class="section-heading reveal">
         <p class="eyebrow" data-i18n="how-we-help.how-lab-delight-helps">HOW LAB DELIGHT HELPS</p>
-        <h2 data-i18n="how-we-help.what-do-you-need-to">What do you need to move forward?</h2>
+        <h2 id="how-we-helpTitle" data-i18n="how-we-help.what-do-you-need-to">What do you need to move forward?</h2>
         <p data-i18n="how-we-help.you-do-not-need-to">You do not need to know which service you need. Start with the situation you are working through.</p>
       </div>
 
       <div class="situation-layout reveal">
         <div class="situation-nav" role="tablist" data-i18n-attr="aria-label:attr.aria.situations" aria-label="Client situations">
-          <button role="tab" aria-selected="true" data-offer="clarity" class="situation-tab is-active"><span>01</span><strong data-i18n="how-we-help.we-know-ai-matters-but">We know this matters, but we do not know where to focus.</strong></button>
-          <button role="tab" aria-selected="false" data-offer="opportunity" class="situation-tab"><span>02</span><strong data-i18n="how-we-help.we-can-see-many-possibilities">We can see many possibilities. Which ones are worth pursuing?</strong></button>
-          <button role="tab" aria-selected="false" data-offer="blueprint" class="situation-tab"><span>03</span><strong data-i18n="how-we-help.we-know-the-opportunity-how">We know the opportunity. How should it actually work?</strong></button>
-          <button role="tab" aria-selected="false" data-offer="adoption" class="situation-tab"><span>04</span><strong data-i18n="how-we-help.it-is-deployed-is-it">It is deployed. Is it actually helping?</strong></button>
+          <button role="tab" aria-controls="offerPanel" aria-selected="true" data-offer="clarity" class="situation-tab is-active"><span>01</span><strong data-i18n="how-we-help.we-know-ai-matters-but">We know this matters, but we do not know where to focus.</strong></button>
+          <button role="tab" aria-controls="offerPanel" aria-selected="false" data-offer="opportunity" class="situation-tab"><span>02</span><strong data-i18n="how-we-help.we-can-see-many-possibilities">We can see many possibilities. Which ones are worth pursuing?</strong></button>
+          <button role="tab" aria-controls="offerPanel" aria-selected="false" data-offer="blueprint" class="situation-tab"><span>03</span><strong data-i18n="how-we-help.we-know-the-opportunity-how">We know the opportunity. How should it actually work?</strong></button>
+          <button role="tab" aria-controls="offerPanel" aria-selected="false" data-offer="adoption" class="situation-tab"><span>04</span><strong data-i18n="how-we-help.it-is-deployed-is-it">It is deployed. Is it actually helping?</strong></button>
         </div>
-        <div class="offer-panel" role="tabpanel" aria-live="polite">
+        <div class="offer-panel" role="tabpanel" id="offerPanel" tabindex="0" aria-live="polite">
           <div class="offer-topline"><span id="offerNumber">01</span><span id="offerDuration" data-i18n="how-we-help.5-business-days">5 business days</span></div>
           <p class="offer-label" id="offerLabel" data-i18n="how-we-help.ai-clarity-review">CLARITY REVIEW</p>
           <h3 id="offerTitle" data-i18n="how-we-help.understand-what-is-worth-exploring">Understand what is worth exploring before investing further.</h3>
@@ -191,43 +193,43 @@
       </div>
     </section>
 
-    <section class="prototype-section section-pad" id="prototype">
+    <section class="prototype-section section-pad" id="prototype" aria-labelledby="prototypeTitle">
       <div class="split-heading reveal">
-        <div><p class="eyebrow" data-i18n="prototype.from-testing-to-implementation">FROM TESTING TO IMPLEMENTATION</p><h2 data-i18n="prototype.a-prototype-helps-you-test">A prototype helps you test an idea in real situations.</h2></div>
+        <div><p class="eyebrow" data-i18n="prototype.from-testing-to-implementation">FROM TESTING TO IMPLEMENTATION</p><h2 id="prototypeTitle" data-i18n="prototype.a-prototype-helps-you-test">A prototype helps you test an idea in real situations.</h2></div>
         <p data-i18n="prototype.what-you-learn-from-the">What you learn from the prototype helps shape the implementation plan: how the solution fits the workflow, what needs to change, who needs to be involved, and what the organisation must support.</p>
       </div>
       <div class="prototype-track reveal" id="prototypeTrack" data-i18n-attr="aria-label:attr.aria.journey" aria-label="Idea to implementation planning journey">
         <div class="prototype-line" aria-hidden="true"><span class="prototype-signal"></span></div>
-        <article class="prototype-stage"><span>01</span><strong data-i18n="prototype.idea">Idea</strong><small data-i18n="prototype.what-might-help">What might help?</small></article>
-        <article class="prototype-stage"><span>02</span><strong data-i18n="prototype.prototype">Prototype</strong><small data-i18n="prototype.make-it-tangible">Make it tangible.</small></article>
-        <article class="prototype-stage"><span>03</span><strong data-i18n="prototype.real-world-test">Real-world test</strong><small data-i18n="prototype.use-it-in-context">Use it in context.</small></article>
-        <article class="prototype-stage"><span>04</span><strong data-i18n="prototype.learning">Learning</strong><small data-i18n="prototype.what-did-we-discover">What did we discover?</small></article>
-        <article class="prototype-stage"><span>05</span><strong data-i18n="prototype.implementation-plan">Implementation plan</strong><small data-i18n="prototype.what-needs-to-happen-next">What needs to happen next?</small></article>
+        <article class="prototype-stage"><span>01</span><strong data-i18n="prototype.idea">Idea</strong><small data-i18n="prototype.what-might-help">What might help?</small></button>
+        <article class="prototype-stage"><span>02</span><strong data-i18n="prototype.prototype">Prototype</strong><small data-i18n="prototype.make-it-tangible">Make it tangible.</small></button>
+        <article class="prototype-stage"><span>03</span><strong data-i18n="prototype.real-world-test">Real-world test</strong><small data-i18n="prototype.use-it-in-context">Use it in context.</small></button>
+        <article class="prototype-stage"><span>04</span><strong data-i18n="prototype.learning">Learning</strong><small data-i18n="prototype.what-did-we-discover">What did we discover?</small></button>
+        <article class="prototype-stage"><span>05</span><strong data-i18n="prototype.implementation-plan">Implementation plan</strong><small data-i18n="prototype.what-needs-to-happen-next">What needs to happen next?</small></button>
       </div>
       <div class="prototype-note reveal"><strong data-i18n="prototype.the-purpose-of-prototyping-is">The purpose of prototyping is learning.</strong><span data-i18n="prototype.it-gives-the-organisation-better">It gives the organisation better information before implementation becomes harder to change.</span></div>
     </section>
 
-    <section class="strategy-section section-pad" id="strategy">
+    <section class="strategy-section section-pad" id="strategy" aria-labelledby="strategyTitle">
       <div class="split-heading reveal">
-        <div><p class="eyebrow" data-i18n="strategy.transformation-strategy">TRANSFORMATION STRATEGY</p><h2 data-i18n="strategy.connect-the-decision-to-the">Connect the decision to the way the organisation actually changes.</h2></div>
+        <div><p class="eyebrow" data-i18n="strategy.transformation-strategy">TRANSFORMATION STRATEGY</p><h2 id="strategyTitle" data-i18n="strategy.connect-the-decision-to-the">Connect the decision to the way the organisation actually changes.</h2></div>
         <p data-i18n="strategy.lab-delight-focuses-on-the">Lab Delight focuses on the strategy of transformation, helping teams understand what should change, why it matters, and how the organisation can move forward with a clearer foundation.</p>
       </div>
 
       <div class="strategy-map reveal" id="strategyMap" data-i18n-attr="aria-label:attr.aria.strategy" aria-label="Transformation strategy stages">
         <div class="strategy-rail" aria-hidden="true"><span></span></div>
-        <article class="strategy-step is-active" data-strategy-step="0"><span>01</span><strong data-i18n="strategy.direction">Direction</strong><small data-i18n="strategy.opportunity-outcome-and-priorities">Opportunity, outcome and priorities</small></article>
-        <article class="strategy-step" data-strategy-step="1"><span>02</span><strong data-i18n="strategy.workflow">Workflow</strong><small data-i18n="strategy.how-the-work-needs-to">How the work needs to change</small></article>
-        <article class="strategy-step" data-strategy-step="2"><span>03</span><strong data-i18n="strategy.experience">Experience</strong><small data-i18n="strategy.how-people-and-ai-work">How people and AI work together</small></article>
-        <article class="strategy-step" data-strategy-step="3"><span>04</span><strong data-i18n="strategy.implementation">Implementation</strong><small data-i18n="strategy.plan-requirements-and-handoff">Plan, requirements and handoff</small></article>
-        <article class="strategy-step" data-strategy-step="4"><span>05</span><strong data-i18n="strategy.adoption">Adoption</strong><small data-i18n="strategy.learn-measure-and-improve">Learn, measure and improve</small></article>
+        <button type="button" class="strategy-step is-active" data-strategy-step="0" aria-expanded="true"><span>01</span><strong data-i18n="strategy.direction">Direction</strong><small data-i18n="strategy.opportunity-outcome-and-priorities">Opportunity, outcome and priorities</small></button>
+        <button type="button" class="strategy-step" data-strategy-step="1" aria-expanded="false"><span>02</span><strong data-i18n="strategy.workflow">Workflow</strong><small data-i18n="strategy.how-the-work-needs-to">How the work needs to change</small></button>
+        <button type="button" class="strategy-step" data-strategy-step="2" aria-expanded="false"><span>03</span><strong data-i18n="strategy.experience">Experience</strong><small data-i18n="strategy.how-people-and-ai-work">How people and AI work together</small></button>
+        <button type="button" class="strategy-step" data-strategy-step="3" aria-expanded="false"><span>04</span><strong data-i18n="strategy.implementation">Implementation</strong><small data-i18n="strategy.plan-requirements-and-handoff">Plan, requirements and handoff</small></button>
+        <button type="button" class="strategy-step" data-strategy-step="4" aria-expanded="false"><span>05</span><strong data-i18n="strategy.adoption">Adoption</strong><small data-i18n="strategy.learn-measure-and-improve">Learn, measure and improve</small></button>
       </div>
       <div class="strategy-band reveal"><span data-i18n="strategy.lab-delight-transformation-layer">LAB DELIGHT TRANSFORMATION LAYER</span><strong data-i18n="strategy.understand-align-design-validate-learn">Understand → Align → Design → Validate → Learn</strong></div>
       <p class="strategy-partner-note reveal" data-i18n="strategy.we-work-alongside-your-internal">We work alongside your internal technology teams and implementation partners, giving everyone a clearer view of the transformation they are working toward.</p>
     </section>
 
-    <section class="adoption-section section-pad" id="adoption">
+    <section class="adoption-section section-pad" id="adoption" aria-labelledby="adoptionTitle">
       <div class="split-heading reveal">
-        <div><p class="eyebrow" data-i18n="adoption.adoption-in-practice">ADOPTION IN PRACTICE</p><h2 data-i18n="adoption.adoption-requires-more-than-training">Adoption requires more than training.</h2></div>
+        <div><p class="eyebrow" data-i18n="adoption.adoption-in-practice">ADOPTION IN PRACTICE</p><h2 id="adoptionTitle" data-i18n="adoption.adoption-requires-more-than-training">Adoption requires more than training.</h2></div>
         <p data-i18n="adoption.training-helps-people-understand-a">Training helps people understand a tool. Lasting adoption also depends on whether the new way of working makes sense in the job, the workflow, the leadership environment, and the everyday decisions people need to make.</p>
       </div>
 
@@ -247,10 +249,10 @@
       <div class="adoption-detail reveal" aria-live="polite"><span id="adoptionKicker" data-i18n="adoption.understanding">UNDERSTANDING</span><strong id="adoptionTitle" data-i18n="adoption.people-need-to-understand-why">People need to understand why the new way of working matters.</strong><p id="adoptionBody" data-i18n="adoption.adoption-becomes-easier-when-the">Adoption becomes easier when the reason for the change is clear and connected to the work people already care about.</p></div>
     </section>
 
-    <section class="decision-base section-pad" id="decision-base">
+    <section class="decision-base section-pad" id="decision-base" aria-labelledby="decision-baseTitle">
       <div class="decision-base-copy reveal">
         <p class="eyebrow" data-i18n="decision-base.a-shared-decision-base">A SHARED DECISION BASE</p>
-        <h2 data-i18n="decision-base.good-decisions-need-somewhere-to">Good decisions need somewhere to live.</h2>
+        <h2 id="decision-baseTitle" data-i18n="decision-base.good-decisions-need-somewhere-to">Good decisions need somewhere to live.</h2>
         <p data-i18n="decision-base.important-project-knowledge-quickly-becomes">Important project knowledge quickly becomes scattered across research, interviews, workshops, prototypes, emails and technical discussions. We bring the important pieces together so the organisation can see what it knows, what it has decided, and what still needs resolving.</p>
       </div>
       <div class="decision-base-board reveal" data-i18n-attr="aria-label:attr.aria.base" aria-label="Decision Base contents">
@@ -267,10 +269,10 @@
       </div>
     </section>
 
-    <section class="contact section-pad" id="contact">
-      <div class="contact-copy reveal"><p class="eyebrow" data-i18n="contact.start-with-the-problem">START WITH THE PROBLEM</p><h2 data-i18n="contact.where-could-ai-make-a">Where could digital or AI make a meaningful difference in your organisation?</h2><p data-i18n="contact.you-do-not-need-a">You do not need a perfectly defined use case. Tell us what you are trying to improve. We can start there.</p></div>
+    <section class="contact section-pad" id="contact" aria-labelledby="contactTitle">
+      <div class="contact-copy reveal"><p class="eyebrow" data-i18n="contact.start-with-the-problem">START WITH THE PROBLEM</p><h2 id="contactTitle" data-i18n="contact.where-could-ai-make-a">Where could digital or AI make a meaningful difference in your organisation?</h2><p data-i18n="contact.you-do-not-need-a">You do not need a perfectly defined use case. Tell us what you are trying to improve. We can start there.</p></div>
       <form class="progressive-form reveal" id="interestForm" novalidate>
-        <div class="form-step form-step-primary"><label for="challenge" data-i18n="contact.what-are-you-trying-to">What are you trying to improve?</label><textarea id="challenge" name="challenge" rows="5" data-i18n-attr="placeholder:attr.placeholder.challenge" placeholder="A workflow, a customer experience, a decision, a project that needs clearer direction..." required></textarea><button type="button" class="button button-dark" id="continueForm" data-i18n="challenge.continue">Continue</button></div>
+        <div class="form-step form-step-primary"><label for="challenge" data-i18n="contact.what-are-you-trying-to">What are you trying to improve?</label><textarea id="challenge" name="challenge" rows="5" data-i18n-attr="placeholder:attr.placeholder.challenge" placeholder="A workflow, a customer experience, a decision, a project that needs clearer direction..." required></textarea><span class="form-error" id="challengeError" role="alert"></span><button type="button" class="button button-dark" id="continueForm" data-i18n="challenge.continue">Continue</button></div>
         <div class="form-step form-step-details" id="formDetails" aria-hidden="true">
           <div class="form-grid"><label data-i18n="challenge.name">Name<input type="text" name="name" data-i18n-attr="placeholder:attr.placeholder.name" placeholder="Your name" /></label><label data-i18n="challenge.work-email">Work email<input type="email" name="email" data-i18n-attr="placeholder:attr.placeholder.email" placeholder="you@company.com" /></label><label data-i18n="challenge.organisation">Organisation<input type="text" name="organisation" data-i18n-attr="placeholder:attr.placeholder.org" placeholder="Company / organisation" /></label><label><span data-i18n="challenge.where-are-you-right-now">Where are you right now?</span><select name="stage"><option data-i18n="challenge.exploring-where-ai-could-help">Exploring where digital or AI could help</option><option data-i18n="challenge.prioritising-use-cases">Prioritising use cases</option><option data-i18n="challenge.validating-an-idea">Validating an idea</option><option data-i18n="challenge.preparing-for-implementation">Preparing for implementation</option><option data-i18n="challenge.improving-adoption-and-value">Improving adoption and value</option></select></label></div>
           <button type="submit" class="button button-dark" data-i18n="challenge.start-a-conversation">Start a conversation</button><p class="form-note" data-i18n="challenge.your-message-goes-straight-to">Your message goes straight to our inbox. We read every one.</p>
@@ -280,6 +282,6 @@
   </main>
 
   <footer class="site-footer"><div class="footer-brand"><img src="assets/logo.png" alt="" /><div><strong data-i18n="challenge.lab-delight">LAB DELIGHT</strong><span data-i18n="challenge.leverage-ai-for-meaningful-progress">Leverage digital and AI for meaningful progress.</span></div></div><p>© <span id="year"></span> Lab Delight · <a href="/privacy.html" data-i18n="year.privacy">Privacy</a></p></footer>
-  <script src="script.js?v=fe2da938"></script>
+  <script src="script.js?v=7eeb2e0e"></script>
 </body>
 </html>

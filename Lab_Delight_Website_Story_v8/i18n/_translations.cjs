@@ -179,5 +179,10 @@ module.exports = {
 "how-we-help.talk-about-this-situation": ["聊聊这个处境", "談談這個處境"],
 "adoption.adoption": ["采用", "採用"]
 ,
-"adoption.adoption-word": ["采用", "採用"]
+"adoption.adoption-word": ["采用", "採用"],
+"a11y.skip": ["跳至主要内容", "跳至主要內容"],
+"a11y.pause": ["暂停", "暫停"],
+"a11y.pause": ["暂停", "暫停"],
+"a11y.play": ["播放", "播放"],
+"msg.challengeRequired": ["请先告诉我们你想改善什么，再继续。", "請先告訴我們你想改善什麼，再繼續。"]
 };

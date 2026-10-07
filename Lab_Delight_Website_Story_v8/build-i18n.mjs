@@ -76,6 +76,9 @@ function build(locale) {
   html = html.replace(/(<meta property="og:image:alt" content=")[^"]*(")/, `$1${escapeAttr(meta.ogImageAlt)}$2`);
   html = html.replace(/(<meta property="og:locale" content=")[^"]*(")/, `$1${meta.ogLocale}$2`);
   html = html.replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${SITE}/${locale}/$2`);
+  // Section links are absolute in the English source, so point them at this
+  // locale's copy — otherwise the nav drops a Chinese reader into English.
+  html = html.replace(/href="\/insights"/g, `href="/${locale}/insights"`);
   html = html.replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${SITE}/${locale}/$2`);
 
   // Assets and internal links resolve from the locale directory.

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel>
+  <title>Lab Delight 洞察</title>
+  <link>https://www.labdelight.co/zh-CN/insights</link>
+  <description>关于数字化与 AI 转型的笔记。</description>
+  <language>zh-Hans</language>
+  <item>
+    <title>在你导入技术或 AI 之前，先问团队三个问题</title>
+    <link>https://www.labdelight.co/zh-CN/insights/three-questions-before-you-implement-technology-or-ai</link>
+    <guid>https://www.labdelight.co/zh-CN/insights/three-questions-before-you-implement-technology-or-ai</guid>
+    <pubDate>Wed, 07 Oct 2026 00:00:00 GMT</pubDate>
+    <description>大多数卡住的项目，都是在同样三个问题上答得不清楚——谁为成果负责、团队是否准备好换一种方式工作、什么才值得做。</description>
+  </item>
+  <item>
+    <title>当「做」变得免费，纪律就成了唯一的成本</title>
+    <link>https://www.labdelight.co/zh-CN/insights/when-building-is-free-discipline-is-the-only-cost-left</link>
+    <guid>https://www.labdelight.co/zh-CN/insights/when-building-is-free-discipline-is-the-only-cost-left</guid>
+    <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+    <description>过去是预算逼着团队取舍。现在任何人一个下午就能做出一个功能，再也没有东西拦着你——更快地做错东西。</description>
+  </item>
+  <item>
+    <title>数字化转型与 AI 转型，不是同一件工作</title>
+    <link>https://www.labdelight.co/zh-CN/insights/digital-and-ai-transformation-are-not-the-same-job</link>
+    <guid>https://www.labdelight.co/zh-CN/insights/digital-and-ai-transformation-are-not-the-same-job</guid>
+    <pubDate>Thu, 24 Sep 2026 00:00:00 GMT</pubDate>
+    <description>把 AI 项目当成系统上线来规划，你会漏掉那个真正要紧的风险——直到东西已经做好，而且安静地出错。</description>
+  </item>
+</channel></rss>

@@ -380,5 +380,25 @@
  },
  "top.insights": "洞察",
  "a11y.skip": "跳至主要内容",
- "a11y.pause": "暂停"
+ "a11y.pause": "暂停",
+ "__insights": {
+  "alsoIn": "其他语言",
+  "back": "← 返回全部洞察",
+  "ctaBody": "你不需要已经想清楚具体的应用场景。告诉我们你想改善什么就可以。",
+  "ctaBtn": "开始对话",
+  "ctaEyebrow": "从问题开始",
+  "ctaTitle": "数字化与 AI 可以在你的机构里，哪个环节带来真正的改变？",
+  "dateLocale": "zh-CN",
+  "footerTag": "运用数字化与 AI，创造有意义的进展。",
+  "home": "Lab Delight 首页",
+  "indexDesc": "关于数字化与 AI 转型的笔记——什么会真正改变，什么通常会出错，以及动手之前该先确认什么。",
+  "indexTitle": "洞察 | Lab Delight",
+  "label": "洞察",
+  "mainNav": "主导航",
+  "openNav": "打开导航",
+  "privacy": "隐私政策",
+  "rssDesc": "关于数字化与 AI 转型的笔记。",
+  "rssTitle": "Lab Delight 洞察",
+  "skip": "跳至主要内容"
+ }
 }

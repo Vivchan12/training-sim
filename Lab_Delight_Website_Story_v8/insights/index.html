@@ -6,11 +6,15 @@
   <meta name="description" content="Notes on digital and AI transformation — what actually changes, what usually goes wrong, and what to check before you build." />
   <title>Insights | Lab Delight</title>
   <link rel="canonical" href="https://www.labdelight.co/insights" />
+  <link rel="alternate" hreflang="en" href="https://www.labdelight.co/insights" />
+  <link rel="alternate" hreflang="zh-Hans" href="https://www.labdelight.co/zh-CN/insights" />
+  <link rel="alternate" hreflang="zh-Hant-HK" href="https://www.labdelight.co/zh-HK/insights" />
   <link rel="alternate" type="application/rss+xml" title="Lab Delight Insights" href="https://www.labdelight.co/insights/rss.xml" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Lab Delight" />
   <meta property="og:url" content="https://www.labdelight.co/insights" />
+  <meta property="og:locale" content="en" />
   <meta property="og:title" content="Insights | Lab Delight" />
   <meta property="og:description" content="Notes on digital and AI transformation — what actually changes, what usually goes wrong, and what to check before you build." />
   <meta property="og:image" content="https://www.labdelight.co/assets/og-image.png" />
@@ -23,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=b50aa2c2" />
+  <link rel="stylesheet" href="/styles.css?v=a81118f5" />
 </head>
 <body class="insights-body">
   <a class="skip-link" href="#content">Skip to content</a>
@@ -43,14 +47,14 @@
     </nav>
 
     <div class="lang-switch">
-      <button type="button" class="lang-toggle" id="langToggle" aria-haspopup="listbox" aria-expanded="false" aria-label="Choose language / 选择语言">
+      <button type="button" class="lang-toggle" id="langToggle" aria-haspopup="true" aria-expanded="false" aria-label="Choose language / 选择语言">
         <span class="lang-current">English</span>
         <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </button>
-      <ul class="lang-menu" id="langMenu" role="listbox">
-        <li role="option"><a href="/" hreflang="en" lang="en">English</a></li>
-        <li role="option"><a href="/zh-HK/" hreflang="zh-Hant-HK" lang="zh-Hant-HK">繁體中文</a></li>
-        <li role="option"><a href="/zh-CN/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a></li>
+      <ul class="lang-menu" id="langMenu" aria-label="Language">
+        <li><a href="/" hreflang="en" lang="en">English</a></li>
+        <li><a href="/zh-HK/" hreflang="zh-Hant-HK" lang="zh-Hant-HK">繁體中文</a></li>
+        <li><a href="/zh-CN/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a></li>
       </ul>
     </div>
   </header>

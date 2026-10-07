@@ -380,5 +380,25 @@
  },
  "top.insights": "洞察",
  "a11y.skip": "跳至主要內容",
- "a11y.pause": "暫停"
+ "a11y.pause": "暫停",
+ "__insights": {
+  "alsoIn": "其他語言",
+  "back": "← 返回全部洞察",
+  "ctaBody": "你不需要已經想清楚具體的應用場景。告訴我們你想改善什麼就可以。",
+  "ctaBtn": "展開對話",
+  "ctaEyebrow": "由問題開始",
+  "ctaTitle": "數碼與 AI 可以在你的機構裡，哪個環節帶來真正的改變？",
+  "dateLocale": "zh-HK",
+  "footerTag": "運用數碼與 AI，帶來有意義的進展。",
+  "home": "Lab Delight 首頁",
+  "indexDesc": "關於數碼與 AI 轉型的筆記——什麼會真正改變，什麼通常會出錯，以及動手之前該先確認什麼。",
+  "indexTitle": "洞察 | Lab Delight",
+  "label": "洞察",
+  "mainNav": "主導覽",
+  "openNav": "開啟導覽",
+  "privacy": "私隱政策",
+  "rssDesc": "關於數碼與 AI 轉型的筆記。",
+  "rssTitle": "Lab Delight 洞察",
+  "skip": "跳至主要內容"
+ }
 }

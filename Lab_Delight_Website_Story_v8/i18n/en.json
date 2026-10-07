@@ -380,5 +380,25 @@
  },
  "top.insights": "Insights",
  "a11y.skip": "Skip to content",
- "a11y.pause": "Pause"
+ "a11y.pause": "Pause",
+ "__insights": {
+  "alsoIn": "Also in",
+  "back": "← All insights",
+  "ctaBody": "You do not need a perfectly defined use case. Tell us what you are trying to improve.",
+  "ctaBtn": "Start a conversation",
+  "ctaEyebrow": "Start with the problem",
+  "ctaTitle": "Where could digital or AI make a meaningful difference in your organisation?",
+  "dateLocale": "en-GB",
+  "footerTag": "Leverage digital and AI for meaningful progress.",
+  "home": "Lab Delight home",
+  "indexDesc": "Notes on digital and AI transformation — what actually changes, what usually goes wrong, and what to check before you build.",
+  "indexTitle": "Insights | Lab Delight",
+  "label": "Insights",
+  "mainNav": "Main navigation",
+  "openNav": "Open navigation",
+  "privacy": "Privacy",
+  "rssDesc": "Notes on digital and AI transformation.",
+  "rssTitle": "Lab Delight Insights",
+  "skip": "Skip to content"
+ }
 }

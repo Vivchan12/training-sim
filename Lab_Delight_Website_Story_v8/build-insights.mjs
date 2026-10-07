@@ -1,14 +1,16 @@
-// Builds the Insights section from content/insights/*.md
+// Builds the Insights section from content/insights/*.md, in every locale.
 //
 //   node build-insights.mjs
 //
-// Produces /insights (index), /insights/<slug> (each post) and /insights/rss.xml,
-// reusing the site's existing stylesheet and header so posts look like the rest
-// of the site rather than a bolted-on blog.
+// English posts live at content/insights/<slug>.md and publish to /insights.
+// A translation lives at content/insights/<locale>/<slug>.md and publishes to
+// /<locale>/insights. A post appears in a locale only when that file exists —
+// there is no machine fallback, because silently serving English prose under a
+// Chinese heading is worse than not listing the post at all. The hreflang set
+// and the "also in" links are built from whatever actually exists.
 //
-// Posts are English for now. The nav link is added to the English page only —
-// sending a Chinese reader into an English article without warning is worse
-// than not linking it yet.
+// Chrome copy comes from i18n/<locale>.json, the same bundles the homepage
+// uses, so the nav and footer cannot drift between the two sections.
 
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 'fs';
 import { createHash } from 'crypto';
@@ -16,26 +18,47 @@ import { renderMarkdown, parseFrontMatter } from './lib/md.mjs';
 
 const SITE = 'https://www.labdelight.co';
 const DIR = 'content/insights';
+const LOCALES = ['en', 'zh-CN', 'zh-HK'];
+
+// Locale -> URL prefix, html lang, and the hreflang the alternates use.
+const META = {
+  'en':    { prefix: '',        lang: 'en',          hreflang: 'en' },
+  'zh-CN': { prefix: '/zh-CN',  lang: 'zh-Hans',     hreflang: 'zh-Hans' },
+  'zh-HK': { prefix: '/zh-HK',  lang: 'zh-Hant-HK',  hreflang: 'zh-Hant-HK' },
+};
+const NAMES = { 'en': 'English', 'zh-CN': '简体中文', 'zh-HK': '繁體中文' };
 
 const rev = f => createHash('sha1').update(readFileSync(f)).digest('hex').slice(0, 8);
 const ASSETS = { css: rev('styles.css'), js: rev('script.js') };
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const fmtDate = d => new Date(d + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
-function chrome({ title, description, canonical, body, isPost }) {
+const DICT = Object.fromEntries(LOCALES.map(l => [l, JSON.parse(readFileSync(`i18n/${l}.json`, 'utf8'))]));
+const T = (loc, key) => DICT[loc].__insights[key];
+const NAV = (loc, key) => DICT[loc][key] || DICT.en[key];
+
+const fmtDate = (d, loc) =>
+  new Date(d + 'T00:00:00Z').toLocaleDateString(T(loc, 'dateLocale'),
+    { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+function chrome({ loc, title, description, canonical, body, isPost, alternates }) {
+  const m = META[loc], p = m.prefix;
+  const alts = alternates.map(a =>
+    `  <link rel="alternate" hreflang="${META[a.loc].hreflang}" href="${a.url}" />`).join('\n');
   return `<!doctype html>
-<html lang="en" data-locale="en">
+<html lang="${m.lang}" data-locale="${loc}">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="${esc(description)}" />
   <title>${esc(title)}</title>
   <link rel="canonical" href="${canonical}" />
-  <link rel="alternate" type="application/rss+xml" title="Lab Delight Insights" href="${SITE}/insights/rss.xml" />
+${alts}
+  <link rel="alternate" type="application/rss+xml" title="${esc(T(loc, 'rssTitle'))}" href="${SITE}${p}/insights/rss.xml" />
 
   <meta property="og:type" content="${isPost ? 'article' : 'website'}" />
   <meta property="og:site_name" content="Lab Delight" />
   <meta property="og:url" content="${canonical}" />
+  <meta property="og:locale" content="${loc.replace('-', '_')}" />
   <meta property="og:title" content="${esc(title)}" />
   <meta property="og:description" content="${esc(description)}" />
   <meta property="og:image" content="${SITE}/assets/og-image.png" />
@@ -51,31 +74,31 @@ function chrome({ title, description, canonical, body, isPost }) {
   <link rel="stylesheet" href="/styles.css?v=${ASSETS.css}" />
 </head>
 <body class="insights-body">
-  <a class="skip-link" href="#content">Skip to content</a>
+  <a class="skip-link" href="#content">${esc(T(loc, 'skip'))}</a>
   <div class="progress" aria-hidden="true"><span id="scrollProgress"></span></div>
   <header class="site-header is-solid" id="siteHeader">
-    <a href="/" class="brand" aria-label="Lab Delight home">
+    <a href="${p}/" class="brand" aria-label="${esc(T(loc, 'home'))}">
       <img src="/assets/logo.png" alt="" />
       <span>LAB DELIGHT</span>
     </a>
-    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
-    <nav class="site-nav" aria-label="Main navigation">
-      <a href="/#perspective">Perspective</a>
-      <a href="/#how-we-help">How we help</a>
-      <a href="/#strategy">Transformation</a>
-      <a href="/insights" aria-current="page">Insights</a>
-      <a href="/#contact" class="nav-cta">Start a conversation</a>
+    <button class="menu-toggle" aria-label="${esc(T(loc, 'openNav'))}" aria-expanded="false"><span></span><span></span></button>
+    <nav class="site-nav" aria-label="${esc(T(loc, 'mainNav'))}">
+      <a href="${p}/#perspective">${esc(NAV(loc, 'top.perspective'))}</a>
+      <a href="${p}/#how-we-help">${esc(NAV(loc, 'top.how-we-help'))}</a>
+      <a href="${p}/#strategy">${esc(NAV(loc, 'top.transformation'))}</a>
+      <a href="${p}/insights"${isPost ? '' : ' aria-current="page"'}>${esc(NAV(loc, 'top.insights'))}</a>
+      <a href="${p}/#contact" class="nav-cta">${esc(NAV(loc, 'top.start-a-conversation'))}</a>
     </nav>
 
     <div class="lang-switch">
-      <button type="button" class="lang-toggle" id="langToggle" aria-haspopup="listbox" aria-expanded="false" aria-label="Choose language / \u9009\u62e9\u8bed\u8a00">
-        <span class="lang-current">English</span>
+      <button type="button" class="lang-toggle" id="langToggle" aria-haspopup="true" aria-expanded="false" aria-label="Choose language / 选择语言">
+        <span class="lang-current">${NAMES[loc]}</span>
         <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </button>
-      <ul class="lang-menu" id="langMenu" role="listbox">
-        <li role="option"><a href="/" hreflang="en" lang="en">English</a></li>
-        <li role="option"><a href="/zh-HK/" hreflang="zh-Hant-HK" lang="zh-Hant-HK">\u7e41\u9ad4\u4e2d\u6587</a></li>
-        <li role="option"><a href="/zh-CN/" hreflang="zh-Hans" lang="zh-Hans">\u7b80\u4f53\u4e2d\u6587</a></li>
+      <ul class="lang-menu" id="langMenu" aria-label="Language">
+        <li><a href="/" hreflang="en" lang="en">English</a></li>
+        <li><a href="/zh-HK/" hreflang="zh-Hant-HK" lang="zh-Hant-HK">繁體中文</a></li>
+        <li><a href="/zh-CN/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a></li>
       </ul>
     </div>
   </header>
@@ -83,118 +106,147 @@ function chrome({ title, description, canonical, body, isPost }) {
 ${body}
   </main>
   <footer class="site-footer">
-    <div class="footer-brand"><img src="/assets/logo.png" alt="" /><div><strong>LAB DELIGHT</strong><span>Leverage digital and AI for meaningful progress.</span></div></div>
-    <p>© <span id="year"></span> Lab Delight · <a href="/privacy">Privacy</a></p>
+    <div class="footer-brand"><img src="/assets/logo.png" alt="" /><div><strong>LAB DELIGHT</strong><span>${esc(T(loc, 'footerTag'))}</span></div></div>
+    <p>© <span id="year"></span> Lab Delight · <a href="${p}/privacy">${esc(T(loc, 'privacy'))}</a></p>
   </footer>
   <script src="/script.js?v=${ASSETS.js}"></script>
 </body>
 </html>`;
 }
 
-// A line of its own reading {{figure:name}} splices in
-// content/insights/figures/name.html verbatim. The figure is hand-authored
-// HTML rather than Markdown because a carousel is structure, not prose — and
-// keeping it out of the renderer means the renderer still escapes everything
-// it is given.
-function renderBody(md) {
+// A line of its own reading {{figure:name}} splices in a hand-authored figure.
+// A locale gets its own copy at figures/<locale>/name.html when one exists; a
+// carousel is mostly text, so an English one on a Chinese page is a miss worth
+// failing loudly about rather than falling back.
+function renderBody(md, loc) {
   return md.split(/^\{\{figure:([a-z0-9-]+)\}\}\s*$/m).map((part, i) => {
     if (i % 2 === 0) return renderMarkdown(part);
-    const file = `${DIR}/figures/${part}.html`;
-    if (!existsSync(file)) throw new Error(`post references {{figure:${part}}} but ${file} is missing`);
+    const file = loc === 'en' ? `${DIR}/figures/${part}.html` : `${DIR}/figures/${loc}/${part}.html`;
+    if (!existsSync(file)) throw new Error(`${loc}: post references {{figure:${part}}} but ${file} is missing`);
     return readFileSync(file, 'utf8');
   }).join('\n');
 }
 
-const posts = readdirSync(DIR).filter(f => f.endsWith('.md')).map(f => {
-  const { meta, body } = parseFrontMatter(readFileSync(`${DIR}/${f}`, 'utf8'));
-  for (const k of ['title', 'description', 'date', 'slug']) {
-    if (!meta[k]) throw new Error(`${f}: front matter is missing "${k}"`);
-  }
-  return { ...meta, html: renderBody(body), file: f };
-}).sort((a, b) => b.date.localeCompare(a.date) || (b.kicker || '').localeCompare(a.kicker || ''));
+function load(loc) {
+  const dir = loc === 'en' ? DIR : `${DIR}/${loc}`;
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir).filter(f => f.endsWith('.md')).map(f => {
+    const { meta, body } = parseFrontMatter(readFileSync(`${dir}/${f}`, 'utf8'));
+    for (const k of ['title', 'description', 'date', 'slug']) {
+      if (!meta[k]) throw new Error(`${dir}/${f}: front matter is missing "${k}"`);
+    }
+    return { ...meta, html: renderBody(body, loc), file: f, loc };
+  }).sort((a, b) => b.date.localeCompare(a.date) || (b.kicker || '').localeCompare(a.kicker || ''));
+}
 
-// Individual posts
-for (const p of posts) {
-  const url = `${SITE}/insights/${p.slug}`;
-  const schema = {
-    '@context': 'https://schema.org', '@type': 'Article',
-    headline: p.title, description: p.description, datePublished: p.date,
-    author: { '@type': 'Organization', name: 'Lab Delight' },
-    publisher: { '@type': 'Organization', name: 'Lab Delight' },
-    mainEntityOfPage: url, image: `${SITE}/assets/og-image.png`,
-  };
-  const body = `    <article class="post">
-      <a href="/insights" class="post-back">← All insights</a>
+const BY_LOCALE = Object.fromEntries(LOCALES.map(l => [l, load(l)]));
+// English is the source of truth for which slugs exist at all.
+const SLUGS = new Set(BY_LOCALE.en.map(p => p.slug));
+for (const l of LOCALES.filter(l => l !== 'en')) {
+  for (const p of BY_LOCALE[l]) {
+    if (!SLUGS.has(p.slug)) throw new Error(`${l}/${p.file}: slug "${p.slug}" has no English original`);
+  }
+}
+const url = (loc, slug) => `${SITE}${META[loc].prefix}/insights${slug ? '/' + slug : ''}`;
+const localesWith = slug => LOCALES.filter(l => BY_LOCALE[l].some(p => p.slug === slug));
+
+const allPaths = [];
+
+for (const loc of LOCALES) {
+  const posts = BY_LOCALE[loc];
+  if (!posts.length) continue;
+  const prefix = META[loc].prefix.replace(/^\//, '');
+  const dirOf = s => (prefix ? `${prefix}/insights/${s}` : `insights/${s}`);
+
+  for (const p of posts) {
+    const canonical = url(loc, p.slug);
+    const others = localesWith(p.slug).filter(l => l !== loc);
+    const schema = {
+      '@context': 'https://schema.org', '@type': 'Article',
+      headline: p.title, description: p.description, datePublished: p.date,
+      inLanguage: META[loc].lang,
+      author: { '@type': 'Organization', name: 'Lab Delight' },
+      publisher: { '@type': 'Organization', name: 'Lab Delight' },
+      mainEntityOfPage: canonical, image: `${SITE}/assets/og-image.png`,
+    };
+    const alsoIn = others.length ? `
+      <p class="post-alt">${esc(T(loc, 'alsoIn'))}: ${others.map(l =>
+        `<a href="${META[l].prefix}/insights/${p.slug}" hreflang="${META[l].hreflang}" lang="${META[l].lang}">${NAMES[l]}</a>`).join(' · ')}</p>` : '';
+    const body = `    <article class="post">
+      <a href="${META[loc].prefix}/insights" class="post-back">${esc(T(loc, 'back'))}</a>
       ${p.kicker ? `<p class="post-kicker">${esc(p.kicker)}</p>` : ''}
       <h1 class="post-title">${esc(p.title)}</h1>
       <p class="post-dek">${esc(p.description)}</p>
-      <p class="post-date"><time datetime="${p.date}">${fmtDate(p.date)}</time></p>
+      <p class="post-date"><time datetime="${p.date}">${fmtDate(p.date, loc)}</time></p>${alsoIn}
       <div class="post-body">
 ${p.html}
       </div>
       <aside class="post-cta">
-        <p class="eyebrow">Start with the problem</p>
-        <h2>Where could digital or AI make a meaningful difference in your organisation?</h2>
-        <p>You do not need a perfectly defined use case. Tell us what you are trying to improve.</p>
-        <a href="/#contact" class="button button-dark">Start a conversation</a>
+        <p class="eyebrow">${esc(T(loc, 'ctaEyebrow'))}</p>
+        <h2>${esc(T(loc, 'ctaTitle'))}</h2>
+        <p>${esc(T(loc, 'ctaBody'))}</p>
+        <a href="${META[loc].prefix}/#contact" class="button button-dark">${esc(T(loc, 'ctaBtn'))}</a>
       </aside>
     </article>
     <script type="application/ld+json">${JSON.stringify(schema)}</script>`;
-  mkdirSync(`insights/${p.slug}`, { recursive: true });
-  writeFileSync(`insights/${p.slug}/index.html`, chrome({
-    title: `${p.title} | Lab Delight`, description: p.description, canonical: url, body, isPost: true,
-  }));
-  console.log(`  /insights/${p.slug}`);
-}
+    mkdirSync(dirOf(p.slug), { recursive: true });
+    writeFileSync(`${dirOf(p.slug)}/index.html`, chrome({
+      loc, title: `${p.title} | Lab Delight`, description: p.description, canonical, body, isPost: true,
+      alternates: localesWith(p.slug).map(l => ({ loc: l, url: url(l, p.slug) })),
+    }));
+    allPaths.push(canonical);
+    console.log(`  ${META[loc].prefix}/insights/${p.slug}`);
+  }
 
-// Index
-const list = posts.map(p => `        <li class="insight-card">
-          <a href="/insights/${p.slug}">
+  const list = posts.map(p => `        <li class="insight-card">
+          <a href="${META[loc].prefix}/insights/${p.slug}">
             ${p.kicker ? `<span class="post-kicker">${esc(p.kicker)}</span>` : ''}
             <h2>${esc(p.title)}</h2>
             <p>${esc(p.description)}</p>
-            <time datetime="${p.date}">${fmtDate(p.date)}</time>
+            <time datetime="${p.date}">${fmtDate(p.date, loc)}</time>
           </a>
         </li>`).join('\n');
 
-mkdirSync('insights', { recursive: true });
-writeFileSync('insights/index.html', chrome({
-  title: 'Insights | Lab Delight',
-  description: 'Notes on digital and AI transformation — what actually changes, what usually goes wrong, and what to check before you build.',
-  canonical: `${SITE}/insights`,
-  body: `    <div class="insights-head">
-      <h1 class="insights-label">Insights</h1>
+  const indexDir = prefix ? `${prefix}/insights` : 'insights';
+  mkdirSync(indexDir, { recursive: true });
+  writeFileSync(`${indexDir}/index.html`, chrome({
+    loc, title: T(loc, 'indexTitle'), description: T(loc, 'indexDesc'), canonical: url(loc),
+    alternates: LOCALES.filter(l => BY_LOCALE[l].length).map(l => ({ loc: l, url: url(l) })),
+    body: `    <div class="insights-head">
+      <h1 class="insights-label">${esc(T(loc, 'label'))}</h1>
     </div>
     <ul class="insight-list">
 ${list}
     </ul>`,
-}));
-console.log(`  /insights (${posts.length} post${posts.length === 1 ? '' : 's'})`);
+  }));
+  allPaths.push(url(loc));
+  console.log(`  ${META[loc].prefix}/insights (${posts.length} post${posts.length === 1 ? '' : 's'})`);
 
-// RSS
-const rss = `<?xml version="1.0" encoding="UTF-8"?>
+  const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
-  <title>Lab Delight Insights</title>
-  <link>${SITE}/insights</link>
-  <description>Notes on digital and AI transformation.</description>
-  <language>en</language>
+  <title>${esc(T(loc, 'rssTitle'))}</title>
+  <link>${url(loc)}</link>
+  <description>${esc(T(loc, 'rssDesc'))}</description>
+  <language>${META[loc].hreflang}</language>
 ${posts.map(p => `  <item>
     <title>${esc(p.title)}</title>
-    <link>${SITE}/insights/${p.slug}</link>
-    <guid>${SITE}/insights/${p.slug}</guid>
+    <link>${url(loc, p.slug)}</link>
+    <guid>${url(loc, p.slug)}</guid>
     <pubDate>${new Date(p.date + 'T00:00:00Z').toUTCString()}</pubDate>
     <description>${esc(p.description)}</description>
   </item>`).join('\n')}
 </channel></rss>`;
-writeFileSync('insights/rss.xml', rss);
-console.log('  /insights/rss.xml');
+  writeFileSync(`${indexDir}/rss.xml`, rss);
+  console.log(`  ${META[loc].prefix}/insights/rss.xml`);
+}
 
 // Sitemap entries for the section, merged into the existing sitemap
 if (existsSync('sitemap.xml')) {
   let sm = readFileSync('sitemap.xml', 'utf8').replace(/\s*<!-- insights -->[\s\S]*?<!-- \/insights -->/, '');
-  const entries = [`${SITE}/insights`, ...posts.map(p => `${SITE}/insights/${p.slug}`)]
-    .map(u => `  <url><loc>${u}</loc><lastmod>${posts[0].date}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>`).join('\n');
+  const lastmod = BY_LOCALE.en[0].date;
+  const entries = allPaths.map(u =>
+    `  <url><loc>${u}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>`).join('\n');
   sm = sm.replace('</urlset>', `  <!-- insights -->\n${entries}\n  <!-- /insights -->\n</urlset>`);
   writeFileSync('sitemap.xml', sm);
-  console.log('  sitemap updated');
+  console.log(`  sitemap updated (${allPaths.length} entries)`);
 }

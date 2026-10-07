@@ -82,7 +82,16 @@ export function renderMarkdown(src) {
            !(lines[i].includes('|') && (lines[i + 1] || '').match(/^\s*\|?[\s:-]+\|/))) {
       buf.push(lines[i]); i++;
     }
-    if (buf.length) out.push(`<p>${inline(buf.join(' '))}</p>`);
+    if (buf.length) {
+      // A line ending in two or more spaces is a hard break, as in standard
+      // Markdown — without it, a stanza of short lines (a list of questions,
+      // say) collapses into one run-on paragraph. The sentinel survives
+      // inline(), which only escapes &, < and >.
+      const joined = buf
+        .map((l, n) => (n < buf.length - 1 && /\s{2,}$/.test(l) ? l.trimEnd() + '\u0000' : l.trim()))
+        .join(' ');
+      out.push(`<p>${inline(joined).replace(/\u0000\s*/g, '<br />')}</p>`);
+    }
     else i++;
   }
   return out.join('\n');

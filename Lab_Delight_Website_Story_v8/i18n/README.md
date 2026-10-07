@@ -52,7 +52,25 @@ generates `/insights`, each `/insights/<slug>`, `/insights/rss.xml`, and the
 sitemap entries. It throws if front matter is incomplete rather than publishing
 a post with a missing title.
 
-Posts are English only for now, and the nav link appears on the English page
-alone — sending a Chinese reader into an English article unannounced is worse
-than not linking it yet. When a post is worth translating, add it as a locale
-variant and link it from the Chinese nav.
+## Translating a post
+
+Put the translation at `content/insights/<locale>/<slug>.md`, keeping the same
+`slug` and `date` as the English original. Translate `title`, `description` and
+`kicker`; leave `slug` alone, since it is what ties the three versions together
+for hreflang and the "also in" links.
+
+A post appears in a locale **only when that file exists**. There is no machine
+fallback: serving English prose under a Chinese heading reads worse than simply
+not listing the post. The same rule applies to a `{{figure:name}}` — a locale
+needs its own `content/insights/figures/<locale>/name.html`, and the build fails
+loudly rather than dropping English cards into a Chinese page.
+
+Section chrome (nav, back link, CTA, footer, RSS titles) lives under
+`__insights` in each `i18n/<locale>.json`, so it cannot drift from the homepage.
+Dates format from `__insights.dateLocale`.
+
+Terminology, matching the homepage: **数字化** for zh-CN, **數碼** for zh-HK, and
+Hong Kong vocabulary in the Traditional set (軟件, 數據, 質素, 持份者).
+
+Translations to date were drafted by Claude and have not had a native-speaker
+review. Editing the `.md` and re-running the build is all that is needed.

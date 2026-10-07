@@ -426,3 +426,58 @@ document.querySelectorAll('[role="tablist"]').forEach(list => {
     tabs[next].click();
   });
 });
+
+// Insight carousel. The cards are real HTML, so with JS off or broken the rail
+// is still a scrollable, readable list — the buttons only add a nicer way to
+// move through it. No autoplay, so there is nothing for a reader to outrun.
+document.querySelectorAll('.carousel').forEach(carousel => {
+  const track = carousel.querySelector('.carousel-track');
+  const slides = Array.from(carousel.querySelectorAll('.slide'));
+  const prev = carousel.querySelector('[data-carousel="prev"]');
+  const next = carousel.querySelector('[data-carousel="next"]');
+  const current = carousel.querySelector('[data-carousel="current"]');
+  const total = carousel.querySelector('[data-carousel="total"]');
+  if(!track || !slides.length) return;
+
+  if(total) total.textContent = String(slides.length);
+  const smooth = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+
+  // Whichever slide's centre is nearest the rail's centre is the one showing.
+  const indexOf = () => {
+    const mid = track.scrollLeft + track.clientWidth / 2;
+    let best = 0, bestGap = Infinity;
+    slides.forEach((s, i) => {
+      const gap = Math.abs(s.offsetLeft + s.offsetWidth / 2 - mid);
+      if(gap < bestGap){ bestGap = gap; best = i; }
+    });
+    return best;
+  };
+
+  const sync = () => {
+    const i = indexOf();
+    if(current) current.textContent = String(i + 1);
+    const atStart = track.scrollLeft <= 2;
+    const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+    if(prev) prev.disabled = atStart;
+    if(next) next.disabled = atEnd;
+  };
+
+  const go = i => {
+    const slide = slides[Math.max(0, Math.min(slides.length - 1, i))];
+    if(slide) track.scrollTo({ left: slide.offsetLeft - (track.clientWidth - slide.offsetWidth) / 2, behavior: smooth() });
+  };
+
+  prev?.addEventListener('click', () => go(indexOf() - 1));
+  next?.addEventListener('click', () => go(indexOf() + 1));
+  track.addEventListener('keydown', e => {
+    if(e.key === 'ArrowRight'){ e.preventDefault(); go(indexOf() + 1); }
+    else if(e.key === 'ArrowLeft'){ e.preventDefault(); go(indexOf() - 1); }
+    else if(e.key === 'Home'){ e.preventDefault(); go(0); }
+    else if(e.key === 'End'){ e.preventDefault(); go(slides.length - 1); }
+  });
+
+  let raf;
+  track.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(sync); }, {passive:true});
+  window.addEventListener('resize', sync, {passive:true});
+  sync();
+});

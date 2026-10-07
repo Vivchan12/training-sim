@@ -85,6 +85,8 @@ Transformation is one journey seen from three sides: who is accountable, who doe
 
 AI makes building cheaper. It does not make deciding easier.
 
+{{figure:three-questions}}
+
 So before your next project, try the three questions with your team.
 
 **Who owns the outcome?**  

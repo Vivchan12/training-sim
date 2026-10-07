@@ -91,12 +91,26 @@ ${body}
 </html>`;
 }
 
+// A line of its own reading {{figure:name}} splices in
+// content/insights/figures/name.html verbatim. The figure is hand-authored
+// HTML rather than Markdown because a carousel is structure, not prose — and
+// keeping it out of the renderer means the renderer still escapes everything
+// it is given.
+function renderBody(md) {
+  return md.split(/^\{\{figure:([a-z0-9-]+)\}\}\s*$/m).map((part, i) => {
+    if (i % 2 === 0) return renderMarkdown(part);
+    const file = `${DIR}/figures/${part}.html`;
+    if (!existsSync(file)) throw new Error(`post references {{figure:${part}}} but ${file} is missing`);
+    return readFileSync(file, 'utf8');
+  }).join('\n');
+}
+
 const posts = readdirSync(DIR).filter(f => f.endsWith('.md')).map(f => {
   const { meta, body } = parseFrontMatter(readFileSync(`${DIR}/${f}`, 'utf8'));
   for (const k of ['title', 'description', 'date', 'slug']) {
     if (!meta[k]) throw new Error(`${f}: front matter is missing "${k}"`);
   }
-  return { ...meta, html: renderMarkdown(body), file: f };
+  return { ...meta, html: renderBody(body), file: f };
 }).sort((a, b) => b.date.localeCompare(a.date) || (b.kicker || '').localeCompare(a.kicker || ''));
 
 // Individual posts

@@ -1,5 +1,5 @@
 :root{
-  --ink:#171716;--paper:#f4efe6;--white:#fffdf9;--orange:#ef642a;--orange-text:#983c15;--orange-dark:#cf4c1f;--teal:#536f70;--teal-soft:#98aaa4;--gold:#c99b54;--beige:#ded5c8;--muted:#5a544d;--line:rgba(23,23,22,.14);--field-line:rgba(23,23,22,.5);--soft-line:rgba(23,23,22,.08);--radius:28px;
+  --ink:#171716;--paper:#f4efe6;--white:#fffdf9;--orange:#ef642a;--orange-text:#983c15;--orange-on-dark:#f08a5c;--orange-dark:#cf4c1f;--teal:#536f70;--teal-soft:#98aaa4;--gold:#c99b54;--beige:#ded5c8;--muted:#5a544d;--line:rgba(23,23,22,.14);--field-line:rgba(23,23,22,.5);--soft-line:rgba(23,23,22,.08);--radius:28px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -198,3 +198,52 @@ html[lang^="zh"] .hero-title{line-break:strict;overflow-wrap:break-word}
 
 /* The strategy steps are buttons now; keep them looking like the cards they were. */
 .strategy-step{font:inherit;text-align:left;color:inherit;appearance:none;cursor:pointer}
+
+/* ---- Insight carousel ----
+   Two lines a card on a scroll-snap rail, over the homepage's own hero still
+   with the same left-to-right wash. Real HTML text rather than a flat image,
+   so it stays selectable, searchable and readable by a screen reader. The
+   cards are 4:5 — the ratio LinkedIn wants, if these are ever exported as a
+   carousel PDF. No autoplay, so there is nothing for a reader to outrun. */
+.carousel{margin:46px 0 44px;padding:0}
+.carousel-cap{margin:0 0 16px}
+.carousel-eyebrow{font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin:0 0 6px}
+.carousel-hint{font-size:12.5px;color:var(--muted);margin:0}
+
+.carousel-track{display:flex;align-items:stretch;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 0 16px;scrollbar-width:thin}
+.carousel-track:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
+
+.slide{position:relative;isolation:isolate;flex:0 0 min(336px,78vw);aspect-ratio:4/5;scroll-snap-align:center;display:flex;flex-direction:column;background:var(--white) url('/assets/hero-poster.jpg') center right/cover no-repeat;border:1px solid var(--line);border-radius:var(--radius);padding:30px 28px;overflow:hidden}
+/* The wash is what makes text on the photograph readable — the same gradient
+   the hero uses, turned up because a card is far narrower than the hero is. */
+.slide:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(118deg,rgba(248,244,237,.975) 0%,rgba(248,244,237,.95) 55%,rgba(248,244,237,.845) 100%)}
+.slide-dark{background:var(--ink) url('/assets/hero-poster.jpg') center right/cover no-repeat;border-color:var(--ink);color:var(--white)}
+.slide-dark:before{background:linear-gradient(118deg,rgba(23,23,22,.97) 0%,rgba(23,23,22,.94) 55%,rgba(23,23,22,.86) 100%)}
+
+.carousel .slide-mid{margin:auto 0}
+.carousel .slide-num{font-size:40px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--orange-text);margin:0}
+.carousel .slide-kicker{font-size:9.5px;font-weight:800;letter-spacing:.2em;line-height:1.3;text-transform:uppercase;color:var(--orange-text);margin:0}
+.carousel .slide-dark .slide-kicker{color:var(--orange-on-dark)}
+.carousel .slide-lede{font-size:12.5px;font-weight:700;letter-spacing:.02em;line-height:1.45;color:rgba(255,253,249,.78);margin:0 0 12px}
+.carousel .slide-big{font-size:26px;font-weight:800;line-height:1.14;letter-spacing:-.025em;color:var(--white);margin:0}
+.carousel .slide-h{font-size:25px;font-weight:800;line-height:1.14;letter-spacing:-.025em;color:var(--ink);margin:0 0 13px}
+.carousel .slide-body{font-size:14.5px;line-height:1.55;color:var(--muted);margin:0}
+.carousel .slide-foot{font-size:9.5px;font-weight:800;letter-spacing:.2em;line-height:1.3;text-transform:uppercase;color:var(--muted);margin:0}
+.carousel .slide-dark .slide-foot{color:rgba(255,253,249,.78);letter-spacing:.04em;text-transform:none;font-size:12px;font-weight:600}
+
+.carousel-controls{display:flex;align-items:center;gap:14px;margin-top:4px}
+.carousel-btn{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;flex:none;border:1px solid var(--line);border-radius:999px;background:var(--white);color:var(--ink);cursor:pointer}
+.carousel-btn:hover:not(:disabled){border-color:var(--ink)}
+.carousel-btn:disabled{opacity:.34;cursor:default}
+.carousel-btn svg{width:9px;height:14px}
+.carousel-count{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);margin:0}
+
+@media(min-width:900px){
+  /* Let the rail use the space either side of the 760px reading column. */
+  .carousel{margin-left:calc(-1 * clamp(0px,(100vw - 760px)/2 - 24px,150px));margin-right:calc(-1 * clamp(0px,(100vw - 760px)/2 - 24px,150px))}
+  .slide{flex:0 0 344px}
+}
+@media(max-width:600px){
+  .slide{padding:26px 22px}
+  .carousel .slide-h,.carousel .slide-big{font-size:22px}
+}

@@ -13,3 +13,6 @@ form-c-credit-card-authorisation-form.pdf
 /*.png
 Visual AL Flow/
 langflow-local/
+
+# generated carousel PDFs — rebuild with build-carousel-pdf.mjs
+Lab_Delight_Website_Story_v8/dist/

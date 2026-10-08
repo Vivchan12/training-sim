@@ -10,6 +10,7 @@
 
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { createHash } from 'crypto';
+import { checkHtml } from './lib/checkHtml.mjs';
 
 // Content hash for styles.css and script.js.
 //
@@ -91,12 +92,14 @@ function build(locale) {
     `<script>window.__I18N__=${payload};</script>\n  <script src="../script.js?v=${ASSET_REV['script.js']}"></script>`);
 
   mkdirSync(locale, { recursive: true });
+  checkHtml(html, `${locale}/index.html`);
   writeFileSync(`${locale}/index.html`, html);
   console.log(`${locale}/index.html — ${translated} blocks translated${fellBack ? `, ${fellBack} fell back to English` : ''}`);
   if (fellBack) process.exitCode = 1;
 }
 
 // The English page declares its own locale so the switcher can mark it active.
+checkHtml(source, 'index.html');
 writeFileSync('index.html', stamp(source.replace(/<html lang="en"(?! data-locale)/, '<html lang="en" data-locale="en"')));
 LOCALES.forEach(build);
 console.log('done');

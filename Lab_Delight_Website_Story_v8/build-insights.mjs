@@ -15,6 +15,7 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 'fs';
 import { createHash } from 'crypto';
 import { renderMarkdown, parseFrontMatter } from './lib/md.mjs';
+import { checkHtml } from './lib/checkHtml.mjs';
 
 const SITE = 'https://www.labdelight.co';
 const DIR = 'content/insights';
@@ -40,7 +41,8 @@ const fmtDate = (d, loc) =>
   new Date(d + 'T00:00:00Z').toLocaleDateString(T(loc, 'dateLocale'),
     { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
-function chrome({ loc, title, description, canonical, body, isPost, alternates }) {
+function chrome(opts) { const out = page(opts); checkHtml(out, opts.canonical); return out; }
+function page({ loc, title, description, canonical, body, isPost, alternates }) {
   const m = META[loc], p = m.prefix;
   const alts = alternates.map(a =>
     `  <link rel="alternate" hreflang="${META[a.loc].hreflang}" href="${a.url}" />`).join('\n');

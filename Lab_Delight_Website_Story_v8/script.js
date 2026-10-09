@@ -467,7 +467,7 @@ document.querySelectorAll('.carousel').forEach(carousel => {
   // a native smooth scroll on a descendant when that happens — the buttons
   // silently stopped working. Driving scrollLeft ourselves is independent of
   // both Lenis and the browser's smooth-scroll support.
-  let tween = null;
+  let tween = null, settle = null;
   const go = i => {
     const slide = slides[Math.max(0, Math.min(slides.length - 1, i))];
     if(!slide) return;
@@ -477,12 +477,20 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     if(smooth() === 'auto'){ track.scrollLeft = to; return; }
     const from = track.scrollLeft, dist = to - from, t0 = performance.now(), ms = 420;
     if(tween) cancelAnimationFrame(tween);
+    clearTimeout(settle);
     const step = now => {
       const p = Math.min((now - t0) / ms, 1);
       track.scrollLeft = from + dist * (1 - Math.pow(1 - p, 3));   // ease-out cubic
       if(p < 1) tween = requestAnimationFrame(step); else tween = null;
     };
     tween = requestAnimationFrame(step);
+    // Frames stop being delivered in a background tab, which would otherwise
+    // leave the rail parked mid-slide when someone tabs away and back. This
+    // lands it on the target card regardless of whether the tween ever ran.
+    settle = setTimeout(() => {
+      if(tween){ cancelAnimationFrame(tween); tween = null; }
+      track.scrollLeft = to;
+    }, ms + 90);
   };
 
   prev?.addEventListener('click', () => go(indexOf() - 1));

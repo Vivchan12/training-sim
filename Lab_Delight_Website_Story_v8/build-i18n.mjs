@@ -8,7 +8,7 @@
 //
 //   node build-i18n.mjs
 
-import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { createHash } from 'crypto';
 import { checkHtml } from './lib/checkHtml.mjs';
 
@@ -26,7 +26,7 @@ const ASSET_REV = { 'styles.css': rev('styles.css'), 'script.js': rev('script.js
 // optional query the second run silently stopped stamping, the script tag kept
 // a stale hash, and the locale payload was never injected.
 const stamp = html => html
-  .replace(/(href|src)="((?:\.\.\/)?)(styles\.css|script\.js)(\?v=[a-f0-9]+)?"/g,
+  .replace(/(href|src)="((?:\.\.\/|\/)?)(styles\.css|script\.js)(\?v=[a-f0-9]+)?"/g,
            (m, attr, up, file) => `${attr}="${up}${file}?v=${ASSET_REV[file]}"`);
 
 const SITE = 'https://www.labdelight.co';
@@ -99,6 +99,16 @@ function build(locale) {
 }
 
 // The English page declares its own locale so the switcher can mark it active.
+// The standalone pages are not generated, but they load the shared stylesheet
+// and depend on its tokens, so they need the same cache-busting.
+for (const f of ['audit.html', 'privacy.html', '404.html']) {
+  if (!existsSync(f)) continue;
+  const stamped = stamp(readFileSync(f, 'utf8'));
+  checkHtml(stamped, f);
+  writeFileSync(f, stamped);
+  console.log(`${f} — assets stamped`);
+}
+
 checkHtml(source, 'index.html');
 writeFileSync('index.html', stamp(source.replace(/<html lang="en"(?! data-locale)/, '<html lang="en" data-locale="en"')));
 LOCALES.forEach(build);

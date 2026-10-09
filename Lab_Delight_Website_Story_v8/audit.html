@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/styles.css?v=a81118f5" />
   <!-- Everything specific to this page lives in this file, so the shared stylesheet and script are untouched. -->
   <style>
     .audit-nav{display:flex;align-items:center;gap:20px;font-size:12px;font-weight:600}
@@ -105,7 +105,7 @@
   <main class="audit-main" id="content" tabindex="-1">
 
     <!-- ============ The questions ============ -->
-    <form id="auditForm" novalidate>
+    <form id="auditForm" novalidate autocomplete="off">
       <p class="eyebrow">FREE SELF-CHECK · 3 MINUTES</p>
       <h1>AI Preparation Audit</h1>
       <p class="audit-lead">AI makes building instant. It does not make deciding easier. Answer nine statements to see which of three questions your organisation should work on first.</p>
@@ -302,11 +302,25 @@
       try{fetch(ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:data}).catch(function(){});}catch(err){}
     });
 
-    document.getElementById('auditAgain').addEventListener('click',function(){
+    function reset(alsoEmail){
       [].slice.call(form.querySelectorAll('input[type="radio"]')).forEach(function(i){i.checked=false;});
+      items.forEach(function(i){i.classList.remove('is-missing');});
       progress.textContent='0 of 9 answered';
-      result.hidden=true;form.hidden=false;window.scrollTo(0,0);
+      error.textContent='';
+      if(alsoEmail){email.value='';email.removeAttribute('aria-invalid');}
+      result.hidden=true;form.hidden=false;
+    }
+
+    document.getElementById('auditAgain').addEventListener('click',function(){
+      reset(false);              // keep their email — they only just typed it
+      window.scrollTo(0,0);
     });
+
+    // Browsers restore radio state when you navigate back to a page, which
+    // leaves a half-finished audit looking like it came with answers already
+    // chosen. pageshow fires on a normal load and on a back/forward restore,
+    // so the audit always opens blank.
+    window.addEventListener('pageshow',function(){reset(true);});
   })();
   </script>
 </body>

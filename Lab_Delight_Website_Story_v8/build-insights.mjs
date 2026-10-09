@@ -107,9 +107,11 @@ ${alts}
   <main class="insights-main" id="content" tabindex="-1">
 ${body}
   </main>
+  <!-- The privacy statement is English-only and lives at the root, so every
+       locale links to /privacy. Localising this path 404s. -->
   <footer class="site-footer">
     <div class="footer-brand"><img src="/assets/logo.png" alt="" /><div><strong>LAB DELIGHT</strong><span>${esc(T(loc, 'footerTag'))}</span></div></div>
-    <p>© <span id="year"></span> Lab Delight · <a href="${p}/privacy">${esc(T(loc, 'privacy'))}</a></p>
+    <p>© <span id="year"></span> Lab Delight · <a href="/privacy">${esc(T(loc, 'privacy'))}</a></p>
   </footer>
   <script src="/script.js?v=${ASSETS.js}"></script>
 </body>

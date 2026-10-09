@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A free three-minute self-check. Nine statements show which of three questions your organisation needs to answer before it builds with AI." />
+  <title>AI Preparation Audit | Lab Delight</title>
+  <link rel="canonical" href="https://www.labdelight.co/audit" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Lab Delight" />
+  <meta property="og:url" content="https://www.labdelight.co/audit" />
+  <meta property="og:title" content="AI Preparation Audit | Lab Delight" />
+  <meta property="og:description" content="A free three-minute self-check. Nine statements show which of three questions your organisation needs to answer before it builds with AI." />
+  <meta property="og:image" content="https://www.labdelight.co/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Preparation Audit | Lab Delight" />
+  <meta name="twitter:description" content="A free three-minute self-check. Nine statements show which of three questions your organisation needs to answer before it builds with AI." />
+  <meta name="twitter:image" content="https://www.labdelight.co/assets/og-image.png" />
+
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="apple-touch-icon" href="/assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css" />
+  <!-- Everything specific to this page lives in this file, so the shared stylesheet and script are untouched. -->
+  <style>
+    .audit-nav{display:flex;align-items:center;gap:20px;font-size:12px;font-weight:600}
+    .audit-nav a:not(.nav-cta){opacity:.78}
+    .audit-nav a:hover{opacity:1}
+    .audit-main{max-width:760px;margin:0 auto;padding:clamp(44px,7vw,80px) clamp(20px,5vw,32px) clamp(60px,8vw,100px)}
+    .audit-main h1{font-size:clamp(40px,7vw,68px);line-height:1.02;letter-spacing:-.03em;margin:0 0 20px}
+    .audit-lead{font-size:18px;line-height:1.6;margin:0 0 14px;max-width:56ch}
+    .audit-sub{font-size:15px;color:var(--muted);margin:0 0 8px;max-width:60ch}
+    .audit-area{margin-top:44px;padding:0;border:0;min-width:0}
+    .audit-area-head{display:block;padding:0;margin:0 0 6px}
+    .audit-area-head span{display:block;font-size:10px;font-weight:800;letter-spacing:.2em;color:var(--orange-text);margin-bottom:8px}
+    .audit-area-head strong{display:block;font-size:clamp(23px,3.4vw,30px);line-height:1.2;letter-spacing:-.02em}
+    .audit-item{margin:16px 0 0;padding:22px;background:var(--white);border:1px solid var(--line);border-radius:22px;min-width:0}
+    .audit-item legend{float:left;width:100%;padding:0;margin:0 0 16px;font-size:16px;font-weight:500;line-height:1.5}
+    .audit-item.is-missing{border-color:var(--orange-text);border-width:2px}
+    .audit-choices{clear:both;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .audit-choices label{position:relative;display:block;cursor:pointer}
+    .audit-choices input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+    .audit-choices span{display:block;text-align:center;border:1px solid var(--field-line);border-radius:999px;padding:12px 8px;font-size:13px;font-weight:600;background:#fff;transition:background .15s ease,color .15s ease,border-color .15s ease}
+    .audit-choices label:hover span{border-color:var(--ink)}
+    .audit-choices input:checked+span{background:var(--ink);border-color:var(--ink);color:#fff}
+    .audit-choices input:focus-visible+span{outline:3px solid var(--ink);outline-offset:3px}
+    .audit-submit{margin-top:40px;padding:28px;background:#faf6ef;border:1px solid var(--line);border-radius:var(--radius)}
+    .audit-submit h2{font-size:clamp(21px,2.8vw,27px);line-height:1.25;letter-spacing:-.01em;margin:0 0 8px}
+    .audit-submit p{font-size:15px;color:var(--muted);margin:0 0 18px}
+    .audit-fields{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px}
+    .audit-fields label{font-size:12px;font-weight:700}
+    .audit-fields input{display:block;width:100%;border:1px solid var(--field-line);border-radius:13px;background:#fff;padding:13px 14px;margin-top:7px;color:var(--ink);font-size:16px}
+    .audit-fields input[aria-invalid="true"]{border-color:var(--orange-text);border-width:2px}
+    .audit-note{font-size:12px!important;margin:14px 0 0!important}
+    .audit-note a,.audit-result a:not(.button){text-decoration:underline;text-underline-offset:3px}
+    .audit-progress{font-size:12px;font-weight:700;color:var(--muted);margin:0 0 14px}
+    .audit-submit .button{cursor:pointer}
+    .audit-submit .button[disabled]{opacity:.6;cursor:default}
+    .audit-result h1{font-size:clamp(34px,6vw,56px)}
+    .audit-verdict{font-size:clamp(20px,3vw,26px);line-height:1.35;font-weight:600;margin:0 0 16px;max-width:30ch}
+    .audit-scores{list-style:none;margin:34px 0 0;padding:0;display:grid;gap:12px}
+    .audit-scores li{padding:20px 22px;background:var(--white);border:1px solid var(--line);border-radius:20px}
+    .audit-scores li.is-weakest{border-color:var(--orange-text);border-width:2px}
+    .audit-score-top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;font-size:15px;font-weight:600}
+    .audit-score-top em{font-style:normal;font-size:13px;color:var(--muted);white-space:nowrap}
+    .audit-bar{height:8px;border-radius:999px;background:var(--beige);margin-top:12px;overflow:hidden}
+    .audit-bar i{display:block;height:100%;border-radius:999px;background:var(--teal)}
+    .is-weakest .audit-bar i{background:var(--orange)}
+    .audit-flag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.16em;color:var(--orange-text);margin-bottom:8px}
+    .audit-next{margin-top:40px;padding:34px;background:var(--ink);color:#fff;border-radius:var(--radius)}
+    .audit-next h2{font-size:clamp(22px,3vw,28px);line-height:1.25;margin:0 0 12px}
+    .audit-next p{font-size:15px;color:#c9c5be;margin:0 0 14px;max-width:58ch}
+    .audit-next ul{margin:0 0 22px;padding-left:20px;color:#c9c5be;font-size:15px}
+    .audit-next li{margin-bottom:8px}
+    .audit-next .button{background:var(--orange);border-color:var(--orange);color:var(--ink)}
+    .audit-next .button:focus-visible{outline-color:#fff}
+    .audit-again{margin-top:26px;font-size:13px;color:var(--muted)}
+    .audit-again button{border:0;background:none;padding:0;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+    [hidden]{display:none!important}
+    @media(max-width:600px){
+      .audit-fields{grid-template-columns:1fr}
+      .audit-item{padding:18px}
+      .audit-choices span{font-size:12.5px;padding:12px 4px}
+      .audit-next{padding:26px}
+      .audit-nav a:not(.nav-cta){display:none}
+    }
+  </style>
+</head>
+<body class="insights-body">
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header is-solid">
+    <a href="/" class="brand" aria-label="Lab Delight home">
+      <img src="/assets/logo.png" alt="" />
+      <span>LAB DELIGHT</span>
+    </a>
+    <nav class="audit-nav" aria-label="Main navigation">
+      <a href="/insights">Insights</a>
+      <a href="/#contact" class="nav-cta">Start a conversation</a>
+    </nav>
+  </header>
+
+  <main class="audit-main" id="content" tabindex="-1">
+
+    <!-- ============ The questions ============ -->
+    <form id="auditForm" novalidate>
+      <p class="eyebrow">FREE SELF-CHECK · 3 MINUTES</p>
+      <h1>AI Preparation Audit</h1>
+      <p class="audit-lead">AI makes building instant. It does not make deciding easier. Answer nine statements to see which of three questions your organisation should work on first.</p>
+      <p class="audit-sub">Pick one AI or technology project you are planning or running. Answer for that project as it is today.</p>
+
+      <fieldset class="audit-area" data-area="owner">
+        <legend class="audit-area-head"><span>01 · THE LEADER</span><strong>Who owns the outcome?</strong></legend>
+        <fieldset class="audit-item" data-q="q1"><legend>One named person is responsible for the result of this project.</legend></fieldset>
+        <fieldset class="audit-item" data-q="q2"><legend>That person can get people from different departments to work together.</legend></fieldset>
+        <fieldset class="audit-item" data-q="q3"><legend>When teams disagree on priorities, that person can decide.</legend></fieldset>
+      </fieldset>
+
+      <fieldset class="audit-area" data-area="team">
+        <legend class="audit-area-head"><span>02 · THE TEAM</span><strong>Is the team prepared to work differently?</strong></legend>
+        <fieldset class="audit-item" data-q="q4"><legend>The team understands the problem first, then looks at tools or other possible solutions.</legend></fieldset>
+        <fieldset class="audit-item" data-q="q5"><legend>The team is able to learn from experimentation and iterate when things don't go well.</legend></fieldset>
+        <fieldset class="audit-item" data-q="q6"><legend>The team knows when to trust what AI gives them and when to question it.</legend></fieldset>
+      </fieldset>
+
+      <fieldset class="audit-area" data-area="build">
+        <legend class="audit-area-head"><span>03 · THE PEOPLE SERVED</span><strong>What is worth building?</strong></legend>
+        <fieldset class="audit-item" data-q="q7"><legend>We know what the people we serve are trying to get done, and where they get stuck today.</legend></fieldset>
+        <fieldset class="audit-item" data-q="q8"><legend>We have mapped the work that happens behind the screen, such as approvals, records and data.</legend></fieldset>
+        <fieldset class="audit-item" data-q="q9"><legend>We have looked at fixes that need no new software, such as changing a process or a role.</legend></fieldset>
+      </fieldset>
+
+      <div class="audit-submit">
+        <h2>One last step</h2>
+        <p>Your result shows on this page right away. We also get a copy of your answers, so we know your situation if you want to talk.</p>
+        <div class="audit-fields">
+          <label>Name<input type="text" name="name" autocomplete="name" placeholder="Your name" /></label>
+          <label>Work email<input type="email" name="email" id="auditEmail" autocomplete="email" placeholder="you@company.com" required /></label>
+        </div>
+        <p class="audit-progress" id="auditProgress" aria-live="polite">0 of 9 answered</p>
+        <button type="submit" class="button button-dark" id="auditSubmit">Show my result</button>
+        <span class="form-error" id="auditError" role="alert"></span>
+        <p class="audit-note">We only use your email to reply about this audit. We will not add you to a mailing list. <a href="/privacy">Privacy</a></p>
+      </div>
+    </form>
+
+    <!-- ============ The result ============ -->
+    <section class="audit-result" id="auditResult" tabindex="-1" hidden>
+      <p class="eyebrow">YOUR RESULT</p>
+      <h1 id="resultTitle"></h1>
+      <p class="audit-verdict" id="resultVerdict"></p>
+      <p class="audit-sub" id="resultWhy"></p>
+
+      <ul class="audit-scores" id="resultScores"></ul>
+
+      <div class="audit-next">
+        <h2 id="nextTitle"></h2>
+        <ul id="nextSteps"></ul>
+        <p>Want a second opinion? Tell us about the project. A Clarity Review takes about five business days and gives you a clearer place to start.</p>
+        <a href="/#contact" class="button">Start a conversation</a>
+      </div>
+
+      <p class="audit-again">Want to know the thinking behind this audit? Read <a href="/insights/three-questions-before-you-implement-technology-or-ai">Three questions for your teams</a>. Or <button type="button" id="auditAgain">answer again for another project</button>.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand"><img src="/assets/logo.png" alt="" /><div><strong>LAB DELIGHT</strong><span>Leverage digital and AI for meaningful progress.</span></div></div>
+    <p>© <span id="year"></span> Lab Delight · <a href="/privacy">Privacy</a></p>
+  </footer>
+
+  <script>
+  (function(){
+    // Same enquiry inbox as the homepage form.
+    var ENDPOINT='https://formspree.io/f/mljrovra';
+    var CHOICES=[['yes','Yes',2],['partly','Partly',1],['notyet','Not yet',0]];
+    var LABEL={yes:'Yes',partly:'Partly',notyet:'Not yet'};
+    var POINTS={yes:2,partly:1,notyet:0};
+
+    // Order matters: when two areas tie, the earlier one comes first.
+    var AREAS=[
+      {key:'owner',name:'Who owns the outcome?',
+       title:'Start with who owns the outcome.',
+       verdict:'Good ideas with no authority behind them.',
+       why:'Ownership is your weakest area. When no one person owns the result, good work stops each time teams disagree on priorities.',
+       next:'Three things to do first',
+       steps:['Name one person who is responsible for the result.','Give that person the power to bring different departments together.','Agree now who decides when priorities clash.']},
+      {key:'team',name:'Is the team prepared to work differently?',
+       title:'Start with preparing the team.',
+       verdict:'A mandate nobody can deliver.',
+       why:'The team is your weakest area. The goal may be clear, but the people doing the work are not yet ready to work in a new way.',
+       next:'Three things to do first',
+       steps:['On the next piece of work, understand the problem before looking at tools.','Run one small experiment where it is safe to get things wrong. Share what you learned.','Agree when the team can trust what AI gives them and when someone must check it.']},
+      {key:'build',name:'What is worth building?',
+       title:'Start with what is worth building.',
+       verdict:'Speed in the wrong direction.',
+       why:'Deciding what to build is your weakest area. You can build fast, so it matters more that you build the right thing.',
+       next:'Three things to do before you build more',
+       steps:['Agree what people are trying to get done and where they get stuck.','Map the work that happens behind the screen, such as approvals, records and data.','Ask which problems you could fix by changing a process or a role.']}
+    ];
+    var ALL_GOOD={title:'All three are in place.',verdict:'You have an owner, a prepared team and a clear view of what to build.',
+      why:'You answered yes to every statement. That is rare. Projects change, so answer the nine statements again when yours does.',
+      next:'Three ways to keep it that way',
+      steps:['Ask the people doing the work to take this audit too, then compare answers.','Take it again before each big decision.','Check that the result you are working towards is still the one that matters most.']};
+
+    var form=document.getElementById('auditForm'),result=document.getElementById('auditResult');
+    var progress=document.getElementById('auditProgress'),error=document.getElementById('auditError');
+    var email=document.getElementById('auditEmail'),submit=document.getElementById('auditSubmit');
+    var items=[].slice.call(form.querySelectorAll('.audit-item'));
+    document.getElementById('year').textContent=new Date().getFullYear();
+
+    // Build the three answer buttons for each statement.
+    items.forEach(function(item){
+      var q=item.getAttribute('data-q'),box=document.createElement('div');
+      box.className='audit-choices';
+      CHOICES.forEach(function(c){
+        var label=document.createElement('label'),input=document.createElement('input'),span=document.createElement('span');
+        input.type='radio';input.name=q;input.value=c[0];span.textContent=c[1];
+        label.appendChild(input);label.appendChild(span);box.appendChild(label);
+      });
+      item.appendChild(box);
+    });
+
+    function answer(q){var el=form.querySelector('input[name="'+q+'"]:checked');return el?el.value:null;}
+    function answered(){return items.filter(function(i){return answer(i.getAttribute('data-q'));}).length;}
+
+    form.addEventListener('change',function(e){
+      if(e.target.type!=='radio') return;
+      var item=e.target.closest('.audit-item');if(item) item.classList.remove('is-missing');
+      progress.textContent=answered()+' of 9 answered';
+      if(answered()===9&&error.textContent.indexOf('statement')>-1) error.textContent='';
+    });
+    email.addEventListener('input',function(){email.removeAttribute('aria-invalid');});
+
+    function scores(){
+      return AREAS.map(function(a){
+        var qs=[].slice.call(form.querySelectorAll('[data-area="'+a.key+'"] .audit-item'));
+        var total=qs.reduce(function(sum,i){return sum+POINTS[answer(i.getAttribute('data-q'))];},0);
+        return {area:a,score:total};
+      });
+    }
+
+    function show(list){
+      var weakest=list.reduce(function(low,s){return s.score<low.score?s:low;},list[0]);
+      var perfect=list.every(function(s){return s.score===6;});
+      var copy=perfect?ALL_GOOD:weakest.area;
+      document.getElementById('resultTitle').textContent=copy.title;
+      document.getElementById('resultVerdict').textContent=copy.verdict;
+      document.getElementById('resultWhy').textContent=copy.why;
+      document.getElementById('nextTitle').textContent=copy.next;
+      var steps=document.getElementById('nextSteps');steps.replaceChildren();
+      copy.steps.forEach(function(t){var li=document.createElement('li');li.textContent=t;steps.appendChild(li);});
+      var ul=document.getElementById('resultScores');ul.replaceChildren();
+      list.forEach(function(s){
+        var li=document.createElement('li'),isWeak=!perfect&&s===weakest;
+        if(isWeak){li.className='is-weakest';var flag=document.createElement('span');flag.className='audit-flag';flag.textContent='START HERE';li.appendChild(flag);}
+        var top=document.createElement('div');top.className='audit-score-top';
+        var name=document.createElement('span');name.textContent=s.area.name;
+        var num=document.createElement('em');num.textContent=s.score+' of 6';
+        top.appendChild(name);top.appendChild(num);
+        var bar=document.createElement('div');bar.className='audit-bar';bar.setAttribute('aria-hidden','true');
+        var fill=document.createElement('i');fill.style.width=Math.max(s.score/6*100,4)+'%';bar.appendChild(fill);
+        li.appendChild(top);li.appendChild(bar);ul.appendChild(li);
+      });
+      form.hidden=true;result.hidden=false;
+      window.scrollTo(0,0);result.focus({preventScroll:true});
+      return perfect?'All three in place':weakest.area.name;
+    }
+
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      error.textContent='';
+      var missing=items.filter(function(i){return !answer(i.getAttribute('data-q'));});
+      items.forEach(function(i){i.classList.toggle('is-missing',missing.indexOf(i)>-1);});
+      if(missing.length){
+        error.textContent=missing.length===1?'One statement still needs an answer.':missing.length+' statements still need an answer.';
+        missing[0].scrollIntoView({behavior:'smooth',block:'center'});
+        var first=missing[0].querySelector('input');if(first) first.focus({preventScroll:true});
+        return;
+      }
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){
+        email.setAttribute('aria-invalid','true');
+        error.textContent='Please enter your work email to see your result.';
+        email.focus();return;
+      }
+      var list=scores();
+      var data=new FormData();
+      data.append('_subject','AI Preparation Audit result');
+      data.append('name',form.elements.name.value.trim());
+      data.append('email',email.value.trim());
+      data.append('source','AI Preparation Audit (labdelight.co/audit)');
+      list.forEach(function(s){data.append(s.area.name,s.score+' of 6');});
+      items.forEach(function(i,n){
+        var q=i.getAttribute('data-q');
+        data.append((n+1)+'. '+i.querySelector('legend').textContent,LABEL[answer(q)]);
+      });
+      var start=show(list);
+      data.append('Start here',start);
+      // The result never waits on the network: if this fails the visitor still has their answer.
+      try{fetch(ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:data}).catch(function(){});}catch(err){}
+    });
+
+    document.getElementById('auditAgain').addEventListener('click',function(){
+      [].slice.call(form.querySelectorAll('input[type="radio"]')).forEach(function(i){i.checked=false;});
+      progress.textContent='0 of 9 answered';
+      result.hidden=true;form.hidden=false;window.scrollTo(0,0);
+    });
+  })();
+  </script>
+</body>
+</html>

@@ -462,9 +462,27 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     if(next) next.disabled = atEnd;
   };
 
+  // The rail is tweened by hand rather than with scrollTo({behavior:'smooth'}).
+  // Lenis writes to the window scroll on every frame, and the browser cancels
+  // a native smooth scroll on a descendant when that happens — the buttons
+  // silently stopped working. Driving scrollLeft ourselves is independent of
+  // both Lenis and the browser's smooth-scroll support.
+  let tween = null;
   const go = i => {
     const slide = slides[Math.max(0, Math.min(slides.length - 1, i))];
-    if(slide) track.scrollTo({ left: slide.offsetLeft - (track.clientWidth - slide.offsetWidth) / 2, behavior: smooth() });
+    if(!slide) return;
+    const to = Math.max(0, Math.min(
+      slide.offsetLeft - (track.clientWidth - slide.offsetWidth) / 2,
+      track.scrollWidth - track.clientWidth));
+    if(smooth() === 'auto'){ track.scrollLeft = to; return; }
+    const from = track.scrollLeft, dist = to - from, t0 = performance.now(), ms = 420;
+    if(tween) cancelAnimationFrame(tween);
+    const step = now => {
+      const p = Math.min((now - t0) / ms, 1);
+      track.scrollLeft = from + dist * (1 - Math.pow(1 - p, 3));   // ease-out cubic
+      if(p < 1) tween = requestAnimationFrame(step); else tween = null;
+    };
+    tween = requestAnimationFrame(step);
   };
 
   prev?.addEventListener('click', () => go(indexOf() - 1));
@@ -481,3 +499,81 @@ document.querySelectorAll('.carousel').forEach(carousel => {
   window.addEventListener('resize', sync, {passive:true});
   sync();
 });
+
+// Smooth scroll (Lenis, vendored under /vendor). It wraps the native scroll
+// rather than replacing it, so window.scrollY, the scroll event, sticky
+// positioning and the IntersectionObservers above all keep working unchanged.
+//
+// Three things it must not do:
+//   - run at all for someone who asked for reduced motion;
+//   - fight the CSS smooth-scroll, so that is turned off once Lenis is live
+//     and left in place as the fallback when Lenis is absent;
+//   - capture the wheel over the horizontal carousel, which is why the rail
+//     carries data-lenis-prevent.
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let lenis = null;
+
+  function start(){
+    if(lenis || typeof window.Lenis !== 'function' || reduce.matches) return;
+    document.documentElement.style.scrollBehavior = 'auto';
+    lenis = new window.Lenis({
+      duration: 1.05,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      // Touch devices already have momentum scrolling the OS tunes better.
+      syncTouch: false,
+      anchors: { offset: -72 },   // clear the fixed header on in-page links
+    });
+    const raf = time => { lenis.raf(time); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+
+    parallax(lenis);
+  }
+
+  // Scroll-linked depth in the hero. Driven off Lenis's own scroll event, so
+  // it updates on the same frame as the scroll instead of fighting it, and
+  // only ever writes transform/opacity — no layout, no reflow per frame.
+  //
+  // The video is hidden below 780px, so on a phone this is just the copy
+  // drifting, which is the right amount of movement for a small screen.
+  function parallax(instance){
+    const hero = document.querySelector('.hero');
+    if(!hero) return;
+    const media = hero.querySelector('.hero-video');
+    const copy = hero.querySelector('.hero-copy');
+    const wash = hero.querySelector('.hero-wash');
+    [media, copy, wash].forEach(el => el && (el.style.willChange = 'transform, opacity'));
+
+    let height = hero.offsetHeight;
+    const remeasure = () => { height = hero.offsetHeight; };
+    window.addEventListener('resize', remeasure, {passive:true});
+
+    instance.on('scroll', ({ scroll }) => {
+      if(scroll > height) return;                 // past the hero, nothing to do
+      const t = Math.min(scroll / height, 1);     // 0 at the top, 1 one screen down
+      if(media) media.style.transform = `translate3d(0, ${scroll * 0.18}px, 0) scale(${1 + t * 0.04})`;
+      if(wash)  wash.style.transform  = `translate3d(0, ${scroll * 0.08}px, 0)`;
+      if(copy){
+        copy.style.transform = `translate3d(0, ${scroll * -0.06}px, 0)`;
+        // Hold full opacity for the first third, then fade out by the time the
+        // hero has left. Fading from the very first pixel made the headline
+        // look washed out while it was still the thing being read.
+        const fade = Math.min(Math.max((t - 0.34) / 0.52, 0), 1);
+        copy.style.opacity = String(1 - fade);
+      }
+    });
+  }
+
+  function stop(){
+    if(!lenis) return;
+    lenis.destroy();
+    lenis = null;
+    document.documentElement.style.scrollBehavior = '';
+    document.querySelectorAll('.hero-video,.hero-copy,.hero-wash')
+      .forEach(el => { el.style.transform = ''; el.style.opacity = ''; el.style.willChange = ''; });
+  }
+
+  if(!reduce.matches) start();
+  reduce.addEventListener?.('change', e => e.matches ? stop() : start());
+})();

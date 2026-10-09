@@ -73,6 +73,7 @@ ${alts}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/vendor/lenis-1.3.26.css" />
   <link rel="stylesheet" href="/styles.css?v=${ASSETS.css}" />
 </head>
 <body class="insights-body">
@@ -113,6 +114,7 @@ ${body}
     <div class="footer-brand"><img src="/assets/logo.png" alt="" /><div><strong>LAB DELIGHT</strong><span>${esc(T(loc, 'footerTag'))}</span></div></div>
     <p>© <span id="year"></span> Lab Delight · <a href="/privacy">${esc(T(loc, 'privacy'))}</a></p>
   </footer>
+  <script src="/vendor/lenis-1.3.26.min.js"></script>
   <script src="/script.js?v=${ASSETS.js}"></script>
 </body>
 </html>`;

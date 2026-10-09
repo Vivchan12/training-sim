@@ -250,3 +250,21 @@ html[lang^="zh"] .hero-title{line-break:strict;overflow-wrap:break-word}
   .slide{padding:26px 22px}
   .carousel .slide-h,.carousel .slide-big{font-size:22px}
 }
+
+/* ---- Scroll choreography ----
+   Children of a .stagger row cascade in rather than arriving together. The
+   index comes from JS as --i; the delay is pure CSS, so it costs nothing per
+   frame and the reduced-motion block above already neutralises it. */
+.stagger > *{opacity:0;transform:translateY(22px);transition:opacity .62s ease,transform .62s cubic-bezier(.22,.75,.2,1);transition-delay:calc(var(--i,0) * 80ms)}
+.stagger.visible > *{opacity:1;transform:none}
+/* The parent of a staggered row must not fade too — the children do that. */
+.reveal.stagger{opacity:1;transform:none}
+
+/* Elements that drift sideways as their section passes. The transform is
+   written by JS off the Lenis scroll event; this only declares the hint. */
+[data-drift]{will-change:transform}
+
+@media(prefers-reduced-motion:reduce){
+  .stagger > *{opacity:1;transform:none;transition:none;transition-delay:0s}
+  [data-drift]{transform:none!important}
+}

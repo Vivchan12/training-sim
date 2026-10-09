@@ -43,6 +43,14 @@ const io = new IntersectionObserver(entries=>{
 },{threshold:.14});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+// Cascade the children of a few rows instead of fading the whole block at
+// once. The index drives a transition-delay in CSS, so the stagger costs no
+// JavaScript per frame and disappears with the reduced-motion block.
+document.querySelectorAll('.stagger').forEach(group => {
+  Array.from(group.children).forEach((child, i) => child.style.setProperty('--i', i));
+  io.observe(group);
+});
+
 // Hero rotating outcome line
 const heroOutcome = document.getElementById('heroOutcome');
 const heroOutcomePhrases = (window.__I18N__ && window.__I18N__.heroOutcomePhrases) || [
@@ -537,6 +545,36 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     requestAnimationFrame(raf);
 
     parallax(lenis);
+    drift(lenis);
+  }
+
+  // Sideways travel as a section crosses the viewport. One subscriber walks a
+  // pre-measured list, so there is no layout read per frame — only transform
+  // writes. Measurements refresh on resize and when fonts settle.
+  function drift(instance){
+    const items = [...document.querySelectorAll('[data-drift]')].map(el => ({
+      el, amount: parseFloat(el.dataset.drift) || 0, top: 0, height: 0,
+    }));
+    if(!items.length) return;
+
+    const measure = () => items.forEach(it => {
+      const r = it.el.getBoundingClientRect();
+      it.top = r.top + window.scrollY;
+      it.height = r.height;
+    });
+    measure();
+    document.fonts?.ready.then(measure);
+    window.addEventListener('resize', measure, {passive:true});
+
+    instance.on('scroll', ({ scroll }) => {
+      const vh = window.innerHeight;
+      for(const it of items){
+        // -1 just below the fold, 0 centred, +1 just above the top
+        const p = (scroll + vh - it.top) / (vh + it.height) * 2 - 1;
+        if(p < -1.2 || p > 1.2) continue;
+        it.el.style.transform = `translate3d(${(-p * it.amount).toFixed(2)}px, 0, 0)`;
+      }
+    });
   }
 
   // Scroll-linked depth in the hero. Driven off Lenis's own scroll event, so
@@ -578,6 +616,7 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     lenis.destroy();
     lenis = null;
     document.documentElement.style.scrollBehavior = '';
+    document.querySelectorAll('[data-drift]').forEach(el => { el.style.transform=''; });
     document.querySelectorAll('.hero-video,.hero-copy,.hero-wash')
       .forEach(el => { el.style.transform = ''; el.style.opacity = ''; el.style.willChange = ''; });
   }

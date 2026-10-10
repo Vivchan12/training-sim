@@ -544,6 +544,13 @@ document.querySelectorAll('.carousel').forEach(carousel => {
   const raf = time => { lenis.raf(time); requestAnimationFrame(raf); };
   requestAnimationFrame(raf);
 
+  // Lenis moves the page without the browser emitting a native scroll event,
+  // so everything that listened for one stopped running the moment smooth
+  // scroll went live: the reading-progress bar, the header's scrolled state
+  // and the context steps. Re-point the same handler at Lenis's own event.
+  lenis.on('scroll', onScroll);
+  onScroll();
+
   // Our own scroll-linked motion is decoration, so it stays off entirely when
   // reduced motion is asked for — checked per frame, because Lenis tracks the
   // setting live and someone can change it mid-visit.

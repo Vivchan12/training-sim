@@ -1,3 +1,4 @@
+let lenisInstance = null;   // set once Lenis is live; null means native scroll
 const header = document.getElementById('siteHeader');
 const progress = document.getElementById('scrollProgress');
 const menu = document.querySelector('.menu-toggle');
@@ -168,30 +169,107 @@ const questionTitle = document.getElementById('questionTitle');
 const questionBody = document.getElementById('questionBody');
 const questionAnswer = document.querySelector('.question-answer');
 
-questionButtons.forEach(button => {
+function showQuestion(button){
+  const data = button && questionData[button.dataset.question];
+  if(!data) return;
+
+  questionButtons.forEach(btn => {
+    const active = btn === button;
+    btn.classList.toggle('is-active', active);
+    btn.setAttribute('aria-selected', String(active));
+    btn.setAttribute('tabindex', active ? '0' : '-1');
+  });
+
+  if(questionMain) questionMain.textContent = data.main;
+  if(questionKicker) questionKicker.textContent = data.kicker;
+  if(questionTitle) questionTitle.textContent = data.title;
+  if(questionBody) questionBody.textContent = data.body;
+
+  if(questionAnswer){
+    questionAnswer.classList.remove('is-changing');
+    void questionAnswer.offsetWidth;
+    questionAnswer.classList.add('is-changing');
+  }
+}
+
+// "Before the build" as a scroll sequence. On a screen with room for it, the
+// section becomes a long runway with the stage pinned, and the eight questions
+// drop in one at a time as you scroll — each one bringing its own headline and
+// answer with it. Half a screen of scrolling per question, on purpose: it is
+// meant to be read, not watched.
+//
+// Scroll position is the only source of truth. Clicking a chip, or arrowing to
+// it, moves the page to that question's place on the runway rather than
+// changing the panel behind the scroll's back, so the two can never disagree.
+// On a small screen, a short one, or with reduced motion, none of this engages
+// and the section is the plain tab list it always was.
+const seqSection = document.getElementById('before-build');
+const seqStage = seqSection?.querySelector('.question-stage');
+const seqWide = window.matchMedia('(min-width: 900px) and (min-height: 700px)');
+const seqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+const SEQ_VH_PER_STEP = 50;
+let seqOn = false, seqIdx = -2, seqLock = 0;
+
+function seqLayout(){
+  if(!seqSection || !seqStage || !questionButtons.length) return;
+  const headerH = header ? header.offsetHeight : 0;
+  seqSection.style.setProperty('--seq-runway', `${questionButtons.length * SEQ_VH_PER_STEP}vh`);
+  seqSection.style.setProperty('--seq-header', `${headerH}px`);
+  // Try the pinned layout on, and keep it only if the whole stage fits the
+  // screen. The stage is at least a screen tall when pinned, so anything more
+  // than that is content that would be cut off.
+  seqSection.classList.add('is-sequenced');
+  const fits = seqStage.scrollHeight <= window.innerHeight + 1;
+  seqOn = seqWide.matches && !seqReduce.matches && fits;
+  seqSection.classList.toggle('is-sequenced', seqOn);
+  questionButtons.forEach((b, i) => b.style.setProperty('--tilt', `${i % 2 ? 7 : -7}deg`));
+  seqIdx = -2;
+  if(!seqOn) questionButtons.forEach(b => b.classList.remove('has-landed'));
+  seqUpdate();
+}
+
+function seqUpdate(){
+  if(!seqOn || performance.now() < seqLock) return;
+  const rect = seqSection.getBoundingClientRect();
+  const total = seqSection.offsetHeight - window.innerHeight;
+  let idx = -1;                                   // nothing has fallen yet
+  if(rect.top <= window.innerHeight * 0.35){
+    const passed = Math.min(Math.max(-rect.top, 0), total);
+    idx = Math.min(questionButtons.length - 1, Math.floor(passed / total * questionButtons.length));
+  }
+  if(idx === seqIdx) return;
+  seqIdx = idx;
+  questionButtons.forEach((b, i) => b.classList.toggle('has-landed', i <= idx));
+  if(idx >= 0) showQuestion(questionButtons[idx]);
+}
+
+questionButtons.forEach((button, i) => {
   button.addEventListener('click', () => {
-    const key = button.dataset.question;
-    const data = questionData[key];
-    if(!data) return;
-
-    questionButtons.forEach(btn => {
-      const active = btn === button;
-      btn.classList.toggle('is-active', active);
-      btn.setAttribute('aria-selected', String(active));
-    });
-
-    if(questionMain) questionMain.textContent = data.main;
-    if(questionKicker) questionKicker.textContent = data.kicker;
-    if(questionTitle) questionTitle.textContent = data.title;
-    if(questionBody) questionBody.textContent = data.body;
-
-    if(questionAnswer){
-      questionAnswer.classList.remove('is-changing');
-      void questionAnswer.offsetWidth;
-      questionAnswer.classList.add('is-changing');
-    }
+    if(!seqOn){ showQuestion(button); return; }
+    // Land everything up to this chip now, then take the page there. The lock
+    // stops the panel flickering through every question the scroll passes.
+    seqIdx = i;
+    questionButtons.forEach((b, n) => b.classList.toggle('has-landed', n <= i));
+    showQuestion(button);
+    // Arrowing to a chip that had not fallen yet tries to focus it while it is
+    // still hidden, which fails silently and strands focus on the previous
+    // one. It is visible now, so take focus here.
+    button.focus({ preventScroll: true });
+    const total = seqSection.offsetHeight - window.innerHeight;
+    const top = seqSection.getBoundingClientRect().top + window.scrollY;
+    const y = Math.round(top + (i + 0.5) / questionButtons.length * total);
+    seqLock = performance.now() + 1500;
+    if(lenisInstance) lenisInstance.scrollTo(y, { onComplete: () => { seqLock = 0; } });
+    else { window.scrollTo(0, y); seqLock = 0; }
   });
 });
+
+window.addEventListener('scroll', seqUpdate, {passive:true});
+window.addEventListener('resize', seqLayout, {passive:true});
+seqWide.addEventListener?.('change', seqLayout);
+seqReduce.addEventListener?.('change', seqLayout);
+document.fonts?.ready.then(seqLayout);
+seqLayout();
 
 // Four perspectives
 const lensData = (window.__I18N__ && window.__I18N__.lensData) || {
@@ -548,7 +626,9 @@ document.querySelectorAll('.carousel').forEach(carousel => {
   // so everything that listened for one stopped running the moment smooth
   // scroll went live: the reading-progress bar, the header's scrolled state
   // and the context steps. Re-point the same handler at Lenis's own event.
+  lenisInstance = lenis;
   lenis.on('scroll', onScroll);
+  lenis.on('scroll', seqUpdate);
   onScroll();
 
   // Our own scroll-linked motion is decoration, so it stays off entirely when

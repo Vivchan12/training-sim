@@ -292,7 +292,14 @@ html[lang^="zh"] .hero-title{line-break:strict;overflow-wrap:break-word}
 /* The headline changes with every question and runs to one or two lines, and
    the answers vary too. Both get a fixed allowance here so the pinned stage is
    the same height for all eight — otherwise it jumps as you scroll and the
-   longest one runs off the bottom of the screen. */
-.is-sequenced .question-main{font-size:clamp(46px,5.6vw,76px);line-height:1;min-height:2em;display:flex;align-items:flex-end}
-.is-sequenced .question-answer{min-height:264px}
-.is-sequenced .question-explorer{margin-top:44px}
+   longest one runs off the bottom of the screen. Sizes follow the height of
+   the screen as well as its width: the first version needed 762px, more than
+   a laptop browser window has, so it never switched on outside a tall test
+   viewport. The answer's height is set from JS to the tallest of the eight. */
+.is-sequenced .question-main{font-size:clamp(32px,min(5.6vw,8.2vh),76px);line-height:1;min-height:2em;display:flex;align-items:flex-end}
+.is-sequenced .question-intro{font-size:clamp(14px,2.4vh,20px);margin-top:clamp(8px,1.8vh,18px)}
+.is-sequenced .question-explorer{margin-top:clamp(16px,4vh,44px)}
+.is-sequenced .question-answer{padding-top:clamp(14px,2.6vh,28px)}
+.is-sequenced .question-answer h3{font-size:clamp(20px,min(2.5vw,4vh),38px);margin-bottom:clamp(8px,1.6vh,15px)}
+.is-sequenced .question-conclusion{margin-top:clamp(14px,3vh,58px);padding-top:clamp(12px,2.2vh,24px)}
+.is-sequenced .question-conclusion strong{font-size:clamp(17px,2.8vh,24px)}

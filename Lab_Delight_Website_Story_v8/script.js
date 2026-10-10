@@ -205,7 +205,7 @@ function showQuestion(button){
 // and the section is the plain tab list it always was.
 const seqSection = document.getElementById('before-build');
 const seqStage = seqSection?.querySelector('.question-stage');
-const seqWide = window.matchMedia('(min-width: 900px) and (min-height: 700px)');
+const seqWide = window.matchMedia('(min-width: 900px) and (min-height: 540px)');
 const seqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 const SEQ_VH_PER_STEP = 50;
 let seqOn = false, seqIdx = -2, seqLock = 0;
@@ -219,9 +219,33 @@ function seqLayout(){
   // screen. The stage is at least a screen tall when pinned, so anything more
   // than that is content that would be cut off.
   seqSection.classList.add('is-sequenced');
+  // Measure against the longest of the eight, not whichever happens to be
+  // showing: write each question in, take the tallest answer and the tallest
+  // stage, then put the current one back. The answer panel is then held at
+  // that height so the stage does not move as the questions change.
+  if(questionAnswer) questionAnswer.style.minHeight = '';
+  let answerMax = 0;
+  for(const b of questionButtons){
+    const d = questionData[b.dataset.question]; if(!d) continue;
+    if(questionMain) questionMain.textContent = d.main;
+    if(questionKicker) questionKicker.textContent = d.kicker;
+    if(questionTitle) questionTitle.textContent = d.title;
+    if(questionBody) questionBody.textContent = d.body;
+    if(questionAnswer) answerMax = Math.max(answerMax, questionAnswer.offsetHeight);
+  }
+  if(questionAnswer) questionAnswer.style.minHeight = `${answerMax}px`;
   const fits = seqStage.scrollHeight <= window.innerHeight + 1;
+  const current = questionButtons.find(b => b.getAttribute('aria-selected') === 'true') || questionButtons[0];
+  const cd = questionData[current.dataset.question];
+  if(cd){
+    if(questionMain) questionMain.textContent = cd.main;
+    if(questionKicker) questionKicker.textContent = cd.kicker;
+    if(questionTitle) questionTitle.textContent = cd.title;
+    if(questionBody) questionBody.textContent = cd.body;
+  }
   seqOn = seqWide.matches && !seqReduce.matches && fits;
   seqSection.classList.toggle('is-sequenced', seqOn);
+  if(!seqOn && questionAnswer) questionAnswer.style.minHeight = '';
   questionButtons.forEach((b, i) => b.style.setProperty('--tilt', `${i % 2 ? 7 : -7}deg`));
   seqIdx = -2;
   if(!seqOn) questionButtons.forEach(b => b.classList.remove('has-landed'));

@@ -325,3 +325,22 @@ html[lang^="zh"] .hero-title{line-break:strict;overflow-wrap:break-word}
   .context-sticky h2{font-size:clamp(40px,min(7vw,9.6vh),98px)}
   .context-steps{margin-top:clamp(22px,6vh,70px)}
 }
+
+/* ---- Four perspectives ----
+   Replaces the diagram with four cards at its corners. Each card there held
+   two words at 10-15px and the explanation sat in a separate panel, one
+   perspective at a time behind a click. All four are written out here at a
+   reading size, and they lead into the line they share. */
+.persp-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.persp-item{background:var(--white);border:1px solid var(--line);border-radius:24px;padding:28px 26px 30px}
+.persp-name{display:flex;align-items:baseline;gap:10px;margin:0 0 22px;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-text)}
+.persp-name b{font-weight:800}
+.persp-item h3{font-size:clamp(19px,1.55vw,23px);line-height:1.25;letter-spacing:-.02em;margin:0 0 14px}
+.persp-body{font-size:15px;line-height:1.65;color:var(--muted);margin:0}
+.persp-core{margin:16px 0 0;background:var(--ink);color:var(--white);border-radius:24px;padding:26px 30px;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:6px 14px;text-align:center}
+.persp-core span{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.persp-core strong{font-size:clamp(28px,3vw,40px);letter-spacing:-.04em;line-height:1}
+.persp-core small{font-size:14px;color:#aaa7a1}
+@media(max-width:1100px){.persp-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.persp-grid{grid-template-columns:1fr}.persp-item{padding:24px 22px}}
+html[lang^="zh"] .persp-name{letter-spacing:.08em}

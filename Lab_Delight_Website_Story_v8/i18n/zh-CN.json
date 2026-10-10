@@ -400,5 +400,11 @@
   "rssDesc": "关于数字化与 AI 转型的笔记。",
   "rssTitle": "Lab Delight 洞察",
   "skip": "跳至主要内容"
- }
+ },
+ "understanding.lens-people-title": "谁会使用、信任这项改变，或受它影响？",
+ "understanding.lens-people-body": "一个技术上可行的想法，仍然必须对那些做事、做决定、服务客户或承担责任的人说得通。",
+ "understanding.lens-workflow-title": "今天的工作如何进行，又该改变什么？",
+ "understanding.lens-workflow-body": "当周边的工作、交接与决策一并重新设计，而不只是往既有流程再加一个工具时，AI 往往能创造更多价值。",
+ "understanding.lens-technology-title": "AI 实际上能贡献什么？",
+ "understanding.lens-technology-body": "我们在具体脉络中检视能力、数据、限制与失效模式。目标不是用上最先进的技术，而是为这项工作选对能力。"
 }

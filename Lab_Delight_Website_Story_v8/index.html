@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/vendor/lenis-1.3.26.css" />
-  <link rel="stylesheet" href="styles.css?v=0851345c" />
+  <link rel="stylesheet" href="styles.css?v=2de04534" />
 </head>
 <body>
   <a class="skip-link" href="#top" data-i18n="a11y.skip">Skip to content</a>
@@ -108,30 +108,14 @@
         <p data-i18n="understanding.before-deciding-what-technology-should">Before deciding what technology should do, we first understand what needs to improve, who is affected, how the work happens today, and what the technology can realistically contribute.</p>
       </div>
 
-      <div class="lens-stage reveal" id="lensStage">
-        <div class="lens-graphic" id="lensGraphic" data-i18n-attr="aria-label:attr.aria.lenses" aria-label="Four perspectives for evaluating an AI opportunity">
-          <div class="lens-core" aria-hidden="true">
-            <span data-i18n="understanding.meaningful">Meaningful</span>
-            <strong data-i18n="understanding.change">change</strong>
-            <small data-i18n="understanding.where-the-perspectives-connect">where the perspectives connect</small>
-          </div>
-          <button class="lens-card lens-business is-active" data-lens="business" aria-pressed="true"><span class="lens-index">01</span><strong data-i18n="understanding.business-2">Business</strong><small data-i18n="understanding.what-needs-to-improve">What needs to improve?</small></button>
-          <button class="lens-card lens-people" data-lens="people" aria-pressed="false"><span class="lens-index">02</span><strong data-i18n="understanding.people">People</strong><small data-i18n="understanding.who-is-affected">Who is affected?</small></button>
-          <button class="lens-card lens-workflow" data-lens="workflow" aria-pressed="false"><span class="lens-index">03</span><strong data-i18n="understanding.workflow">Workflow</strong><small data-i18n="understanding.how-does-the-work-change">How does the work change?</small></button>
-          <button class="lens-card lens-technology" data-lens="technology" aria-pressed="false"><span class="lens-index">04</span><strong data-i18n="understanding.technology">Technology</strong><small data-i18n="understanding.what-can-ai-contribute">What can AI contribute?</small></button>
-          <svg class="lens-lines" viewBox="0 0 700 520" role="presentation" aria-hidden="true">
-            <path d="M165 130 C230 160 280 205 350 260" />
-            <path d="M535 130 C470 160 420 205 350 260" />
-            <path d="M165 390 C230 360 280 315 350 260" />
-            <path d="M535 390 C470 360 420 315 350 260" />
-          </svg>
-        </div>
-        <div class="lens-copy" aria-live="polite">
-          <p class="lens-kicker" id="lensKicker" data-i18n="understanding.business">BUSINESS</p>
-          <h3 id="lensTitle" data-i18n="understanding.what-are-we-actually-trying">What are we actually trying to make better?</h3>
-          <p id="lensBody" data-i18n="understanding.start-with-the-outcome-friction">Start with the outcome, friction or opportunity that matters to the organisation. AI is useful when it improves something worth improving.</p>
-          <p class="lens-hint" data-i18n="understanding.select-each-perspective-to-explore">Select each perspective to explore the opportunity.</p>
-        </div>
+      <div class="persp">
+        <ol class="persp-grid stagger" data-i18n-attr="aria-label:attr.aria.lenses" aria-label="Four perspectives for evaluating an AI opportunity">
+          <li class="persp-item"><p class="persp-name"><span>01</span><b data-i18n="understanding.business-2">Business</b></p><h3 data-i18n="understanding.what-are-we-actually-trying">What are we actually trying to make better?</h3><p class="persp-body" data-i18n="understanding.start-with-the-outcome-friction">Start with the outcome, friction or opportunity that matters to the organisation. AI is useful when it improves something worth improving.</p></li>
+          <li class="persp-item"><p class="persp-name"><span>02</span><b data-i18n="understanding.people">People</b></p><h3 data-i18n="understanding.lens-people-title">Who will use, trust or be affected by the change?</h3><p class="persp-body" data-i18n="understanding.lens-people-body">A technically possible idea still has to make sense to the people doing the work, making the decisions, serving customers or carrying accountability.</p></li>
+          <li class="persp-item"><p class="persp-name"><span>03</span><b data-i18n="understanding.workflow">Workflow</b></p><h3 data-i18n="understanding.lens-workflow-title">How does the work happen today, and what should change?</h3><p class="persp-body" data-i18n="understanding.lens-workflow-body">AI often creates more value when the surrounding work, handoffs and decisions are redesigned rather than simply adding another tool to the existing process.</p></li>
+          <li class="persp-item"><p class="persp-name"><span>04</span><b data-i18n="understanding.technology">Technology</b></p><h3 data-i18n="understanding.lens-technology-title">What can AI realistically contribute?</h3><p class="persp-body" data-i18n="understanding.lens-technology-body">We look at capability, data, constraints and failure modes in context. The goal is not to use the most advanced technology. It is to use the right capability for the work.</p></li>
+        </ol>
+        <p class="persp-core reveal"><span data-i18n="understanding.meaningful">Meaningful</span> <strong data-i18n="understanding.change">change</strong> <small data-i18n="understanding.where-the-perspectives-connect">where the perspectives connect</small></p>
       </div>
     </section>
 

@@ -400,5 +400,11 @@
   "rssDesc": "Notes on digital and AI transformation.",
   "rssTitle": "Lab Delight Insights",
   "skip": "Skip to content"
- }
+ },
+ "understanding.lens-people-title": "Who will use, trust or be affected by the change?",
+ "understanding.lens-people-body": "A technically possible idea still has to make sense to the people doing the work, making the decisions, serving customers or carrying accountability.",
+ "understanding.lens-workflow-title": "How does the work happen today, and what should change?",
+ "understanding.lens-workflow-body": "AI often creates more value when the surrounding work, handoffs and decisions are redesigned rather than simply adding another tool to the existing process.",
+ "understanding.lens-technology-title": "What can AI realistically contribute?",
+ "understanding.lens-technology-body": "We look at capability, data, constraints and failure modes in context. The goal is not to use the most advanced technology. It is to use the right capability for the work."
 }

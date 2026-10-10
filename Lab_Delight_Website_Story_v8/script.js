@@ -288,6 +288,44 @@ questionButtons.forEach((button, i) => {
   });
 });
 
+// "Where are you right now?" as a strip. The section's small label becomes an
+// orange band that slots in under the header when the section reaches the top
+// of the screen and slides away when you leave it. It keeps travelling in the
+// direction you are scrolling: in from the left and out to the right going
+// down, the reverse coming back up.
+//
+// The band is built from the label already in the page, so it is in whichever
+// language the page is, and it is hidden from screen readers because the real
+// label is still there for them.
+const stripSection = document.getElementById('perspective');
+const stripLabel = stripSection?.querySelector('.eyebrow');
+let strip = null;
+if(stripSection && stripLabel){
+  strip = document.createElement('div');
+  strip.className = 'section-strip';
+  strip.setAttribute('aria-hidden', 'true');
+  strip.dataset.state = 'before';
+  const text = document.createElement('span');
+  text.textContent = stripLabel.textContent;
+  strip.appendChild(text);
+  document.body.appendChild(strip);
+}
+function stripUpdate(){
+  if(!strip) return;
+  const headerH = header ? header.offsetHeight : 0;
+  strip.style.top = `${headerH}px`;
+  const rect = stripSection.getBoundingClientRect();
+  const line = headerH + strip.offsetHeight;            // just under the strip
+  const state = rect.top > line ? 'before' : (rect.bottom < line ? 'after' : 'in');
+  if(strip.dataset.state !== state){
+    strip.dataset.state = state;
+    stripSection.classList.toggle('has-strip', state === 'in');
+  }
+}
+window.addEventListener('scroll', stripUpdate, {passive:true});
+window.addEventListener('resize', stripUpdate, {passive:true});
+stripUpdate();
+
 window.addEventListener('scroll', seqUpdate, {passive:true});
 window.addEventListener('resize', seqLayout, {passive:true});
 seqWide.addEventListener?.('change', seqLayout);
@@ -653,6 +691,7 @@ document.querySelectorAll('.carousel').forEach(carousel => {
   lenisInstance = lenis;
   lenis.on('scroll', onScroll);
   lenis.on('scroll', seqUpdate);
+  lenis.on('scroll', stripUpdate);
   onScroll();
 
   // Our own scroll-linked motion is decoration, so it stays off entirely when

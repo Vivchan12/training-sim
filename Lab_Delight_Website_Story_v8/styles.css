@@ -303,3 +303,25 @@ html[lang^="zh"] .hero-title{line-break:strict;overflow-wrap:break-word}
 .is-sequenced .question-answer h3{font-size:clamp(20px,min(2.5vw,4vh),38px);margin-bottom:clamp(8px,1.6vh,15px)}
 .is-sequenced .question-conclusion{margin-top:clamp(14px,3vh,58px);padding-top:clamp(12px,2.2vh,24px)}
 .is-sequenced .question-conclusion strong{font-size:clamp(17px,2.8vh,24px)}
+
+/* ---- Section strip ----
+   The dark section's label as a band that slots in under the header. It waits
+   off the left edge, sits in place while the section is on screen, and leaves
+   by the right edge. Ink on the brand orange is 5.6:1. */
+.section-strip{position:fixed;left:0;right:0;z-index:80;background:var(--orange);color:var(--ink);padding:10px clamp(22px,5vw,72px);font-size:10px;font-weight:800;letter-spacing:.22em;line-height:1.2;text-transform:uppercase;pointer-events:none;transform:translate3d(-101%,0,0);transition:transform .8s cubic-bezier(.22,.78,.2,1)}
+.section-strip[data-state="in"]{transform:none}
+.section-strip[data-state="after"]{transform:translate3d(101%,0,0)}
+/* The label in the section steps aside while the strip is carrying it. */
+.context-section .eyebrow{transition:opacity .4s ease}
+.context-section.has-strip .eyebrow{opacity:0}
+
+/* The pinned dark section was sized by width alone: 880px of content held in a
+   700px laptop window, so the four statements sat below the bottom of the
+   screen. Sizes follow the height of the screen too, and the top padding
+   leaves room for the header and the strip beneath it. Only where the section
+   is pinned; below 781px it is an ordinary block. */
+@media(min-width:781px){
+  .context-sticky{padding-top:clamp(116px,17vh,132px);padding-bottom:clamp(26px,6vh,100px)}
+  .context-sticky h2{font-size:clamp(40px,min(7vw,9.6vh),98px)}
+  .context-steps{margin-top:clamp(22px,6vh,70px)}
+}

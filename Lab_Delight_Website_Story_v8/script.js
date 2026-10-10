@@ -520,38 +520,43 @@ document.querySelectorAll('.carousel').forEach(carousel => {
 // rather than replacing it, so window.scrollY, the scroll event, sticky
 // positioning and the IntersectionObservers above all keep working unchanged.
 //
-// Three things it must not do:
-//   - run at all for someone who asked for reduced motion;
-//   - fight the CSS smooth-scroll, so that is turned off once Lenis is live
-//     and left in place as the fallback when Lenis is absent;
-//   - capture the wheel over the horizontal carousel, which is why the rail
-//     carries data-lenis-prevent.
+// Set up the way the library documents it:
+//   - respectReducedMotion is left at its default. Lenis then drops smoothing
+//     to 1:1 and makes programmatic scrolls instant, but keeps running, so
+//     scroll-linked work stays in sync. Our own parallax and drift are gated
+//     on lenis.prefersReducedMotion instead of being torn down by hand, and
+//     the preference is picked up live without a reload.
+//   - nested scrollers use data-lenis-prevent, which the docs prefer over
+//     allowNestedScroll because it does not walk the DOM on every event.
+//   - anchors takes ScrollToOptions; offset behaves like scroll-padding-top,
+//     so a positive-space value of 72 is written as -72 and lands the section
+//     just clear of the 70px header. Verified rather than assumed.
+//   - the CSS smooth-scroll is turned off once Lenis is live and left in the
+//     stylesheet as the fallback for when Lenis is absent.
 (function(){
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let lenis = null;
+  if(typeof window.Lenis !== 'function') return;
 
-  function start(){
-    if(lenis || typeof window.Lenis !== 'function' || reduce.matches) return;
-    document.documentElement.style.scrollBehavior = 'auto';
-    lenis = new window.Lenis({
-      duration: 1.05,
-      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      // Touch devices already have momentum scrolling the OS tunes better.
-      syncTouch: false,
-      anchors: { offset: -72 },   // clear the fixed header on in-page links
-    });
-    const raf = time => { lenis.raf(time); requestAnimationFrame(raf); };
-    requestAnimationFrame(raf);
+  document.documentElement.style.scrollBehavior = 'auto';
+  const lenis = new window.Lenis({
+    duration: 1.05,                 // a little quicker than the 1.2 default
+    anchors: { offset: -72 },
+  });
+  const raf = time => { lenis.raf(time); requestAnimationFrame(raf); };
+  requestAnimationFrame(raf);
 
-    parallax(lenis);
-    drift(lenis);
-  }
+  // Our own scroll-linked motion is decoration, so it stays off entirely when
+  // reduced motion is asked for — checked per frame, because Lenis tracks the
+  // setting live and someone can change it mid-visit.
+  const still = () => lenis.prefersReducedMotion;
+  const clear = els => els.forEach(el => { el.style.transform = ''; el.style.opacity = ''; });
+
+  parallax(lenis, still, clear);
+  drift(lenis, still, clear);
 
   // Sideways travel as a section crosses the viewport. One subscriber walks a
   // pre-measured list, so there is no layout read per frame — only transform
   // writes. Measurements refresh on resize and when fonts settle.
-  function drift(instance){
+  function drift(instance, still, clear){
     const items = [...document.querySelectorAll('[data-drift]')].map(el => ({
       el, amount: parseFloat(el.dataset.drift) || 0, top: 0, height: 0,
     }));
@@ -567,6 +572,7 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     window.addEventListener('resize', measure, {passive:true});
 
     instance.on('scroll', ({ scroll }) => {
+      if(still()) { clear(items.map(i => i.el)); return; }
       const vh = window.innerHeight;
       for(const it of items){
         // -1 just below the fold, 0 centred, +1 just above the top
@@ -583,7 +589,7 @@ document.querySelectorAll('.carousel').forEach(carousel => {
   //
   // The video is hidden below 780px, so on a phone this is just the copy
   // drifting, which is the right amount of movement for a small screen.
-  function parallax(instance){
+  function parallax(instance, still, clear){
     const hero = document.querySelector('.hero');
     if(!hero) return;
     const media = hero.querySelector('.hero-video');
@@ -596,6 +602,7 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     window.addEventListener('resize', remeasure, {passive:true});
 
     instance.on('scroll', ({ scroll }) => {
+      if(still()) { clear([media, wash, copy].filter(Boolean)); return; }
       if(scroll > height) return;                 // past the hero, nothing to do
       const t = Math.min(scroll / height, 1);     // 0 at the top, 1 one screen down
       if(media) media.style.transform = `translate3d(0, ${scroll * 0.18}px, 0) scale(${1 + t * 0.04})`;
@@ -611,16 +618,4 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     });
   }
 
-  function stop(){
-    if(!lenis) return;
-    lenis.destroy();
-    lenis = null;
-    document.documentElement.style.scrollBehavior = '';
-    document.querySelectorAll('[data-drift]').forEach(el => { el.style.transform=''; });
-    document.querySelectorAll('.hero-video,.hero-copy,.hero-wash')
-      .forEach(el => { el.style.transform = ''; el.style.opacity = ''; el.style.willChange = ''; });
-  }
-
-  if(!reduce.matches) start();
-  reduce.addEventListener?.('change', e => e.matches ? stop() : start());
 })();

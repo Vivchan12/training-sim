@@ -391,33 +391,37 @@ lensButtons.forEach(btn=>btn.addEventListener('click',()=>{
   document.getElementById('lensBody').textContent=d.body;
 }));
 
-// Situation based offers
-const offers = (window.__I18N__ && window.__I18N__.offers) || {
-  clarity:{number:'01',duration:'5 business days',label:'AI CLARITY REVIEW',title:'Understand what is worth exploring before investing further.',body:'We look at the business situation, current work, stakeholder perspectives and important assumptions to create a clearer starting point.',outputs:['A clearer problem definition','Important assumptions and risks','Initial opportunity areas','A recommendation on what deserves further investigation']},
-  opportunity:{number:'02',duration:'2 weeks',label:'AI OPPORTUNITY SPRINT',title:'Turn a field of possibilities into a clearer set of priorities.',body:'We bring business, users and technology together to understand the current workflow, identify where AI may genuinely help, and prioritise the opportunities worth deeper exploration.',outputs:['Prioritised opportunity areas','Workflow and user insights','AI use-case concepts','Value hypotheses and success measures']},
-  blueprint:{number:'03',duration:'3 to 4 weeks',label:'SOLUTION BLUEPRINT',title:'Make the future way of working tangible enough to understand and test.',body:'We shape the workflow, human and AI responsibilities, experience and key assumptions before full development makes changing direction more difficult.',outputs:['Future workflow','Human and AI role definition','Prototype or experience concept','Validation findings and success criteria']},
-  adoption:{number:'04',duration:'4 to 8 weeks initially',label:'ADOPTION & VALUE LOOP',title:'Learn what happens when the technology meets the real organisation.',body:'We help teams understand whether people are adopting the new way of working, where friction remains, what value signals are emerging, and what should change next.',outputs:['Adoption insights','Workflow improvements','Value and feedback signals','A prioritised improvement backlog']}
-};
-const panel=document.querySelector('.offer-panel');
-const tabs=document.querySelectorAll('.situation-tab');
-function renderOffer(key){
-  panel.classList.add('is-changing');
-  setTimeout(()=>{
-    const d=offers[key];
-    document.getElementById('offerNumber').textContent=d.number;
-    document.getElementById('offerDuration').textContent=d.duration;
-    document.getElementById('offerLabel').textContent=d.label;
-    document.getElementById('offerTitle').textContent=d.title;
-    document.getElementById('offerBody').textContent=d.body;
-    document.getElementById('offerOutputs').innerHTML=d.outputs.map(x=>`<li>${x}</li>`).join('');
-    panel.classList.remove('is-changing');
-  },150);
+// Situation based offers: four cards that stack. The stacking itself is CSS
+// (position: sticky), so it needs no script. What script adds is a fit check —
+// a card taller than the screen would have its lower half covered before
+// anyone saw it, so the stack falls back to a plain list — and keyboard focus
+// that brings a covered card back to the front.
+const offerStack = document.querySelector('.offer-stack');
+const offerItems = offerStack ? Array.from(offerStack.children) : [];
+const stackWide = window.matchMedia('(min-width: 820px) and (min-height: 600px)');
+const stackActive = () => !!offerStack && stackWide.matches && !offerStack.classList.contains('no-stack');
+function stackLayout(){
+  if(!offerStack) return;
+  offerStack.classList.remove('no-stack');
+  if(!stackWide.matches) return;
+  const spills = offerItems.some(li => {
+    const copy = li.querySelector('.offer-copy');
+    return copy.scrollHeight > copy.clientHeight + 1;
+  });
+  offerStack.classList.toggle('no-stack', spills);
 }
-tabs.forEach(tab=>tab.addEventListener('click',()=>{
-  tabs.forEach(t=>{t.classList.remove('is-active');t.setAttribute('aria-selected','false')});
-  tab.classList.add('is-active');tab.setAttribute('aria-selected','true');
-  renderOffer(tab.dataset.offer);
-}));
+stackLayout();
+document.fonts?.ready.then(stackLayout);
+window.addEventListener('resize', stackLayout, {passive:true});
+offerStack?.addEventListener('focusin', e => {
+  if(!stackActive() || !e.target.matches(':focus-visible')) return;
+  const i = offerItems.indexOf(e.target.closest('.offer-stack > li'));
+  if(i < 0) return;
+  const cs = getComputedStyle(offerItems[i]);
+  const step = offerItems[i].offsetHeight + parseFloat(cs.marginBottom);
+  const y = offerStack.getBoundingClientRect().top + window.scrollY + i * step - parseFloat(cs.top) + 2;
+  if(lenisInstance) lenisInstance.scrollTo(y); else window.scrollTo(0, y);
+});
 
 // Transformation strategy sequencer
 const strategyMap = document.getElementById('strategyMap');
@@ -742,6 +746,29 @@ document.querySelectorAll('.carousel').forEach(carousel => {
 
   parallax(lenis, still, clear);
   drift(lenis, still, clear);
+  stack(lenis, still);
+
+  // A card that is being covered settles back a little, so the pile reads as
+  // a pile. Each later card that has arrived shrinks the ones beneath it.
+  function stack(instance, still){
+    if(!offerItems.length) return;
+    const cards = offerItems.map(li => li.firstElementChild);
+    instance.on('scroll', () => {
+      if(still() || !stackActive()){ cards.forEach(c => { c.style.transform = ''; }); return; }
+      const vh = window.innerHeight;
+      const box = offerStack.getBoundingClientRect();
+      if(box.bottom < 0 || box.top > vh) return;
+      const arrived = offerItems.map(li => {
+        const stick = parseFloat(getComputedStyle(li).top) || 0;
+        return Math.min(1, Math.max(0, 1 - (li.getBoundingClientRect().top - stick) / (vh - stick)));
+      });
+      cards.forEach((card, i) => {
+        let cover = 0;
+        for(let k = i + 1; k < arrived.length; k++) cover += arrived[k];
+        card.style.transform = cover ? `scale(${(1 - cover * 0.035).toFixed(4)})` : '';
+      });
+    });
+  }
 
   // Sideways travel as a section crosses the viewport. One subscriber walks a
   // pre-measured list, so there is no layout read per frame — only transform

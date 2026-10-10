@@ -466,24 +466,51 @@ if(strategyMap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
   strategyObserver.observe(strategyMap);
 }
 
-// Adoption learning interaction
-const adoptionData = (window.__I18N__ && window.__I18N__.adoptionData) || {
-  understanding:{kicker:'UNDERSTANDING',title:'People need to understand why the new way of working matters.',body:'Adoption becomes easier when the reason for the change is clear and connected to the work people already care about.'},
-  workflow:{kicker:'USEFUL WORKFLOW',title:'The new capability has to fit the way work actually happens.',body:'If using AI creates more steps, unclear handoffs or extra friction, training alone will not make the behaviour stick.'},
-  confidence:{kicker:'CONFIDENCE',title:'People need enough confidence to use judgement around the technology.',body:'Confidence comes from practice, clear boundaries, feedback, and knowing when to trust, verify or escalate.'},
-  leadership:{kicker:'LEADERSHIP SUPPORT',title:'Leaders reinforce which behaviours matter.',body:'People watch what leaders prioritise, reward and ask about. Adoption grows when the change is supported in everyday management.'},
-  feedback:{kicker:'FEEDBACK',title:'The organisation needs a way to learn from real use.',body:'Feedback shows where the workflow, experience, guidance or technology needs to change after deployment.'},
-  capability:{kicker:'CAPABILITY',title:'The organisation needs the capability to sustain the change.',body:'Ownership, governance, skills and operating routines help the new way of working remain useful after the initial launch.'}
-};
-const adoptionButtons = document.querySelectorAll('.adoption-factor');
-adoptionButtons.forEach(btn=>btn.addEventListener('click',()=>{
-  adoptionButtons.forEach(b=>b.classList.remove('is-active'));
-  btn.classList.add('is-active');
-  const d=adoptionData[btn.dataset.adoption];
-  document.getElementById('adoptionKicker').textContent=d.kicker;
-  document.getElementById('adoptionTitle').textContent=d.title;
-  document.getElementById('adoptionBody').textContent=d.body;
-}));
+// Adoption rail. The six things adoption depends on travel sideways while the
+// section is pinned, so each one gets the screen in turn with its explanation
+// written out, and the bar above fills from "Training" to "Adoption". The
+// class goes on only when a whole card fits and motion is welcome; otherwise
+// the cards are an ordinary grid.
+const adoptPin = document.querySelector('.adopt-pin');
+const adoptTrack = adoptPin ? adoptPin.querySelector('.adopt-track') : null;
+const adoptCards = adoptTrack ? Array.from(adoptTrack.children) : [];
+const adoptFill = adoptPin ? adoptPin.querySelector('.adopt-line i') : null;
+const adoptCount = adoptPin ? adoptPin.querySelector('.adopt-count b') : null;
+const adoptWide = window.matchMedia('(min-width: 820px) and (min-height: 560px)');
+const ADOPT_PACE = 1.15;   // screen heights of scroll per card width of travel
+let adoptTravel = 0, adoptIndex = -1;
+function adoptLayout(){
+  if(!adoptPin) return;
+  adoptPin.classList.remove('is-rail');
+  adoptPin.style.height = '';
+  adoptTrack.style.transform = '';
+  adoptCards.forEach(c => c.classList.remove('is-current'));
+  adoptIndex = -1;
+  if(!adoptWide.matches || prefersReducedMotion.matches) return;
+  adoptPin.classList.add('is-rail');
+  if(adoptCards.some(c => c.scrollHeight > c.clientHeight + 1)){ adoptPin.classList.remove('is-rail'); return; }
+  adoptTravel = Math.max(0, adoptTrack.scrollWidth - adoptTrack.clientWidth);
+  adoptPin.style.height = (window.innerHeight + adoptTravel * ADOPT_PACE) + 'px';
+  adoptUpdate();
+}
+function adoptUpdate(){
+  if(!adoptPin || !adoptPin.classList.contains('is-rail')) return;
+  const span = adoptPin.offsetHeight - window.innerHeight;
+  const p = span > 0 ? Math.min(1, Math.max(0, -adoptPin.getBoundingClientRect().top / span)) : 0;
+  adoptTrack.style.transform = `translate3d(${(-p * adoptTravel).toFixed(1)}px,0,0)`;
+  adoptFill.style.transform = `scaleX(${p.toFixed(4)})`;
+  const i = Math.round(p * (adoptCards.length - 1));
+  if(i !== adoptIndex){
+    adoptIndex = i;
+    adoptCards.forEach((c, n) => c.classList.toggle('is-current', n === i));
+    adoptCount.textContent = String(i + 1).padStart(2, '0');
+  }
+}
+adoptLayout();
+document.fonts?.ready.then(adoptLayout);
+window.addEventListener('resize', adoptLayout, {passive:true});
+window.addEventListener('scroll', adoptUpdate, {passive:true});
+prefersReducedMotion.addEventListener?.('change', adoptLayout);
 
 // Decision Base interaction
 const baseData = (window.__I18N__ && window.__I18N__.baseData) || {evidence:'What did we actually observe?',insights:'What might the evidence mean?',decisions:'What have we agreed to do?',assumptions:'What are we still testing?',requirements:'What needs to be true?',questions:'What still needs resolving?'};
@@ -736,6 +763,7 @@ document.querySelectorAll('.carousel').forEach(carousel => {
   lenis.on('scroll', onScroll);
   lenis.on('scroll', seqUpdate);
   lenis.on('scroll', stripUpdate);
+  lenis.on('scroll', adoptUpdate);
   onScroll();
 
   // Our own scroll-linked motion is decoration, so it stays off entirely when

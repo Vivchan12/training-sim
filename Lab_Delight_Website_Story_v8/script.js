@@ -52,6 +52,46 @@ document.querySelectorAll('.stagger').forEach(group => {
   io.observe(group);
 });
 
+// The four perspectives are dealt in one at a time and then drop a line into
+// the band beneath. Each card is watched on its own, so in the one- and
+// two-column layouts a card plays as it is reached rather than off screen;
+// cards that arrive together (the four-across row) are spaced half a second
+// apart. The band waits for whatever is still landing. It plays once.
+(() => {
+  const persp = document.querySelector('.persp');
+  if(!persp || !('IntersectionObserver' in window)) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const core = persp.querySelector('.persp-core');
+  const STEP = 500, LAND = 1100;
+  let busyUntil = 0;
+
+  persp.classList.add('is-armed');
+  const watch = new IntersectionObserver(entries => {
+    const now = performance.now();
+    const cards = entries.filter(e => e.isIntersecting && e.target !== core).map(e => e.target);
+    cards.forEach((card, i) => {
+      watch.unobserve(card);
+      card.style.setProperty('--d', (i * STEP / 1000) + 's');
+      card.classList.add('is-in');
+      window.setTimeout(() => card.classList.add('is-settled'), i * STEP + LAND + 700);
+    });
+    if(cards.length){
+      busyUntil = Math.max(busyUntil, now + (cards.length - 1) * STEP + LAND);
+      if(!persp.classList.contains('is-live')){
+        persp.classList.add('is-live');
+        window.setTimeout(() => persp.classList.add('is-settled'), 4 * STEP + 2200);
+      }
+    }
+    if(entries.some(e => e.isIntersecting && e.target === core)){
+      watch.unobserve(core);
+      core.style.setProperty('--d', (Math.max(0, busyUntil - now) / 1000).toFixed(2) + 's');
+      core.classList.add('is-in');
+    }
+  }, {rootMargin: '0px 0px -12% 0px'});
+  persp.querySelectorAll('.persp-item').forEach(el => watch.observe(el));
+  if(core) watch.observe(core);
+})();
+
 // Hero rotating outcome line
 const heroOutcome = document.getElementById('heroOutcome');
 const heroOutcomePhrases = (window.__I18N__ && window.__I18N__.heroOutcomePhrases) || [
